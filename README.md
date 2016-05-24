@@ -1,2 +1,2 @@
 # MagneticScan
-AGV
+AGV物流小车
