@@ -1,0 +1,2 @@
+# MagneticScan
+AVG
