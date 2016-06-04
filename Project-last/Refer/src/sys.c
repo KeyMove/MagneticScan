@@ -174,7 +174,7 @@ void JTAG_Set(u8 mode)
 } 
 //系统时钟初始化函数
 //pll:选择的倍频数，从2开始，最大值为16		 
-void Stm32_Clock_Init(u8 PLL)
+ void Stm32_Clock_Init(u8 PLL)
 {
 	unsigned char temp=0;   
 	MYRCC_DeInit();		  //复位并配置向量表

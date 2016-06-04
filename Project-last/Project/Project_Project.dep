@@ -1,0 +1,163 @@
+Dependencies for Project 'Project', Target 'Project': (DO NOT MODIFY !)
+F (.\main.c)(0x57453FD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Boot -I..\Refer\inc -I..\Refer\eMPL-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I Device\Include-DSTM32F10X_MD -o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\delay.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\sys.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\stm32f10x.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Boot\core_cm3.h)(0x57453FD5)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7B744)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\system_stm32f10x.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\led.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\wave.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\motor.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\mcuhead.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\pid.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\sensor.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\timer.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\Uart.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\UartProtocol.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\mpu6050.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\iic.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\eMPL\inv_mpu_dmp_motion_driver.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\eMPL\inv_mpu.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\DetectionLogic.h)(0x57453FD6)
+F (..\Boot\startup_stm32f10x_md.s)(0x57453FD5)(--cpu Cortex-M3 -g --apcs=interwork --pd "__MICROLIB SETA 1"-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I Device\Include--list .\startup_stm32f10x_md.lst --xref -o ..\obj\startup_stm32f10x_md.o --depend ..\obj\startup_stm32f10x_md.d)
+F (..\Refer\src\led.c)(0x57453FD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Boot -I..\Refer\inc -I..\Refer\eMPL-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I Device\Include-DSTM32F10X_MD -o ..\obj\led.o --omf_browse ..\obj\led.crf --depend ..\obj\led.d)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\led.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\sys.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\stm32f10x.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Boot\core_cm3.h)(0x57453FD5)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7B744)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\system_stm32f10x.h)(0x57453FD6)
+F (..\Refer\src\wave.c)(0x57453FD7)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Boot -I..\Refer\inc -I..\Refer\eMPL-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I Device\Include-DSTM32F10X_MD -o ..\obj\wave.o --omf_browse ..\obj\wave.crf --depend ..\obj\wave.d)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\wave.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\sys.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\stm32f10x.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Boot\core_cm3.h)(0x57453FD5)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7B744)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\system_stm32f10x.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\delay.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\timer.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\mcuhead.h)(0x57453FD6)
+F (..\Refer\src\delay.c)(0x57453FD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Boot -I..\Refer\inc -I..\Refer\eMPL-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I Device\Include-DSTM32F10X_MD -o ..\obj\delay.o --omf_browse ..\obj\delay.crf --depend ..\obj\delay.d)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\delay.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\sys.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\stm32f10x.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Boot\core_cm3.h)(0x57453FD5)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7B744)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\system_stm32f10x.h)(0x57453FD6)
+F (..\Refer\src\sys.c)(0x57455F08)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Boot -I..\Refer\inc -I..\Refer\eMPL-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I Device\Include-DSTM32F10X_MD -o ..\obj\sys.o --omf_browse ..\obj\sys.crf --depend ..\obj\sys.d)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\sys.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\stm32f10x.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Boot\core_cm3.h)(0x57453FD5)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7B744)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\system_stm32f10x.h)(0x57453FD6)
+F (..\Refer\src\motor.c)(0x57453FD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Boot -I..\Refer\inc -I..\Refer\eMPL-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I Device\Include-DSTM32F10X_MD -o ..\obj\motor.o --omf_browse ..\obj\motor.crf --depend ..\obj\motor.d)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\Motor.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\mcuhead.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\stm32f10x.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Boot\core_cm3.h)(0x57453FD5)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7B744)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\system_stm32f10x.h)(0x57453FD6)
+F (..\Refer\src\pid.c)(0x57453FD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Boot -I..\Refer\inc -I..\Refer\eMPL-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I Device\Include-DSTM32F10X_MD -o ..\obj\pid.o --omf_browse ..\obj\pid.crf --depend ..\obj\pid.d)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\PID.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\mcuhead.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\stm32f10x.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Boot\core_cm3.h)(0x57453FD5)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7B744)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\system_stm32f10x.h)(0x57453FD6)
+F (..\Refer\src\sensor.c)(0x57453FD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Boot -I..\Refer\inc -I..\Refer\eMPL-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I Device\Include-DSTM32F10X_MD -o ..\obj\sensor.o --omf_browse ..\obj\sensor.crf --depend ..\obj\sensor.d)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\Sensor.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\mcuhead.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\stm32f10x.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Boot\core_cm3.h)(0x57453FD5)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7B744)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\system_stm32f10x.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\SPI.h)(0x57453FD6)
+F (..\Refer\src\spi.c)(0x57453FD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Boot -I..\Refer\inc -I..\Refer\eMPL-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I Device\Include-DSTM32F10X_MD -o ..\obj\spi.o --omf_browse ..\obj\spi.crf --depend ..\obj\spi.d)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\spi.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\mcuhead.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\stm32f10x.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Boot\core_cm3.h)(0x57453FD5)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7B744)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\system_stm32f10x.h)(0x57453FD6)
+F (..\Refer\src\uart.c)(0x57453FD7)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Boot -I..\Refer\inc -I..\Refer\eMPL-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I Device\Include-DSTM32F10X_MD -o ..\obj\uart.o --omf_browse ..\obj\uart.crf --depend ..\obj\uart.d)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\uart.H)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\mcuhead.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\stm32f10x.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Boot\core_cm3.h)(0x57453FD5)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7B744)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\system_stm32f10x.h)(0x57453FD6)
+F (..\Refer\src\uartprotocol.c)(0x57453FD7)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Boot -I..\Refer\inc -I..\Refer\eMPL-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I Device\Include-DSTM32F10X_MD -o ..\obj\uartprotocol.o --omf_browse ..\obj\uartprotocol.crf --depend ..\obj\uartprotocol.d)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\uartprotocol.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\mcuhead.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\stm32f10x.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Boot\core_cm3.h)(0x57453FD5)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7B744)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\system_stm32f10x.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\uart.h)(0x57453FD6)
+F (..\Refer\src\Timer.c)(0x57453FD7)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Boot -I..\Refer\inc -I..\Refer\eMPL-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I Device\Include-DSTM32F10X_MD -o ..\obj\timer.o --omf_browse ..\obj\timer.crf --depend ..\obj\timer.d)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\Timer.H)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\mcuhead.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\stm32f10x.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Boot\core_cm3.h)(0x57453FD5)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7B744)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\system_stm32f10x.h)(0x57453FD6)
+F (..\Refer\src\iic.c)(0x57453FD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Boot -I..\Refer\inc -I..\Refer\eMPL-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I Device\Include-DSTM32F10X_MD -o ..\obj\iic.o --omf_browse ..\obj\iic.crf --depend ..\obj\iic.d)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\iic.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\stm32f10x.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Boot\core_cm3.h)(0x57453FD5)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7B744)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\system_stm32f10x.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\sys.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\delay.h)(0x57453FD6)
+F (..\Refer\src\mpu6050.c)(0x57453FD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Boot -I..\Refer\inc -I..\Refer\eMPL-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I Device\Include-DSTM32F10X_MD -o ..\obj\mpu6050.o --omf_browse ..\obj\mpu6050.crf --depend ..\obj\mpu6050.d)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\mpu6050.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\stm32f10x.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Boot\core_cm3.h)(0x57453FD5)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7B744)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\system_stm32f10x.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\iic.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\sys.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\delay.h)(0x57453FD6)
+F (..\Refer\eMPL\inv_mpu_dmp_motion_driver.c)(0x57453FD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Boot -I..\Refer\inc -I..\Refer\eMPL-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I Device\Include-DSTM32F10X_MD -o ..\obj\inv_mpu_dmp_motion_driver.o --omf_browse ..\obj\inv_mpu_dmp_motion_driver.crf --depend ..\obj\inv_mpu_dmp_motion_driver.d)
+I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C7B744)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7B744)
+I (C:\Keil\ARM\ARMCC\include\stdlib.h)(0x51C7B744)
+I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C7B744)
+I (C:\Keil\ARM\ARMCC\include\math.h)(0x51C7B744)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\eMPL\inv_mpu.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\stm32f10x.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Boot\core_cm3.h)(0x57453FD5)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\system_stm32f10x.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\eMPL\inv_mpu_dmp_motion_driver.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\eMPL\dmpKey.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\eMPL\dmpmap.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\usart.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\sys.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\delay.h)(0x57453FD6)
+F (..\Refer\eMPL\inv_mpu.c)(0x57453FD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Boot -I..\Refer\inc -I..\Refer\eMPL-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I Device\Include-DSTM32F10X_MD -o ..\obj\inv_mpu.o --omf_browse ..\obj\inv_mpu.crf --depend ..\obj\inv_mpu.d)
+I (C:\Keil\ARM\ARMCC\include\stdio.h)(0x51C7B744)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7B744)
+I (C:\Keil\ARM\ARMCC\include\stdlib.h)(0x51C7B744)
+I (C:\Keil\ARM\ARMCC\include\string.h)(0x51C7B744)
+I (C:\Keil\ARM\ARMCC\include\math.h)(0x51C7B744)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\eMPL\inv_mpu.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\stm32f10x.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Boot\core_cm3.h)(0x57453FD5)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\system_stm32f10x.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\eMPL\inv_mpu_dmp_motion_driver.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\mpu6050.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\iic.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\sys.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\delay.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\usart.h)(0x57453FD6)
+F (..\Refer\src\DetectionLogic.c)(0x57453FD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Boot -I..\Refer\inc -I..\Refer\eMPL-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I Device\Include-DSTM32F10X_MD -o ..\obj\detectionlogic.o --omf_browse ..\obj\detectionlogic.crf --depend ..\obj\detectionlogic.d)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\DetectionLogic.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\mcuhead.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\stm32f10x.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Boot\core_cm3.h)(0x57453FD5)
+I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7B744)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\system_stm32f10x.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\PID.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\Sensor.h)(0x57453FD6)
+I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\motor.h)(0x57453FD6)

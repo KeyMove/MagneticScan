@@ -29,17 +29,30 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.MainTable = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.SendPath = new System.Windows.Forms.Button();
+            this.turnL = new System.Windows.Forms.Button();
             this.codeindex = new System.Windows.Forms.CheckBox();
+            this.turnR = new System.Windows.Forms.Button();
             this.PathList = new System.Windows.Forms.ListBox();
+            this.turnF = new System.Windows.Forms.Button();
+            this.turnB = new System.Windows.Forms.Button();
+            this.button1 = new System.Windows.Forms.Button();
+            this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.getdatabut = new System.Windows.Forms.Button();
+            this.listView1 = new System.Windows.Forms.ListView();
+            this.send = new System.Windows.Forms.Button();
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.SpeedChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.LeftSpeed = new System.Windows.Forms.TrackBar();
             this.Dvalue = new System.Windows.Forms.TextBox();
+            this.RightSpeed = new System.Windows.Forms.TrackBar();
             this.Ivalue = new System.Windows.Forms.TextBox();
             this.Pvalue = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -48,23 +61,11 @@
             this.trackI = new System.Windows.Forms.TrackBar();
             this.trackD = new System.Windows.Forms.TrackBar();
             this.trackP = new System.Windows.Forms.TrackBar();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.FLen = new System.Windows.Forms.TextBox();
-            this.BLen = new System.Windows.Forms.TextBox();
-            this.SendPath = new System.Windows.Forms.Button();
-            this.button1 = new System.Windows.Forms.Button();
-            this.turnB = new System.Windows.Forms.Button();
-            this.turnF = new System.Windows.Forms.Button();
-            this.turnR = new System.Windows.Forms.Button();
-            this.send = new System.Windows.Forms.Button();
-            this.turnL = new System.Windows.Forms.Button();
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.StatsImg = new System.Windows.Forms.PictureBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.LoadMap = new System.Windows.Forms.Button();
+            this.SaveMap = new System.Windows.Forms.Button();
             this.gotoNodeButton = new System.Windows.Forms.Button();
             this.SearchButton = new System.Windows.Forms.Button();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
@@ -78,21 +79,30 @@
             this.upkey = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.MapBox = new System.Windows.Forms.PictureBox();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.FLen = new System.Windows.Forms.TextBox();
+            this.BLen = new System.Windows.Forms.TextBox();
             this.ImgList = new System.Windows.Forms.ImageList(this.components);
-            this.SaveMap = new System.Windows.Forms.Button();
-            this.LoadMap = new System.Windows.Forms.Button();
-            this.groupBox8 = new System.Windows.Forms.GroupBox();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.listView1 = new System.Windows.Forms.ListView();
+            this.label4 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.Lspeedtex = new System.Windows.Forms.TextBox();
+            this.Rspeedtex = new System.Windows.Forms.TextBox();
             this.MainTable.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBox9.SuspendLayout();
+            this.groupBox8.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SpeedChart)).BeginInit();
             this.groupBox3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.LeftSpeed)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RightSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackI)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackP)).BeginInit();
-            this.groupBox2.SuspendLayout();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.StatsImg)).BeginInit();
             this.tabPage2.SuspendLayout();
@@ -100,8 +110,7 @@
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MapBox)).BeginInit();
-            this.groupBox8.SuspendLayout();
-            this.groupBox9.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainTable
@@ -111,24 +120,61 @@
             this.MainTable.Location = new System.Drawing.Point(12, 12);
             this.MainTable.Name = "MainTable";
             this.MainTable.SelectedIndex = 0;
-            this.MainTable.Size = new System.Drawing.Size(760, 527);
+            this.MainTable.Size = new System.Drawing.Size(857, 555);
             this.MainTable.TabIndex = 0;
             // 
             // tabPage1
             // 
             this.tabPage1.Controls.Add(this.groupBox9);
+            this.tabPage1.Controls.Add(this.groupBox2);
             this.tabPage1.Controls.Add(this.groupBox8);
             this.tabPage1.Controls.Add(this.groupBox5);
             this.tabPage1.Controls.Add(this.groupBox3);
-            this.tabPage1.Controls.Add(this.groupBox2);
             this.tabPage1.Controls.Add(this.groupBox1);
             this.tabPage1.Location = new System.Drawing.Point(4, 22);
             this.tabPage1.Name = "tabPage1";
             this.tabPage1.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage1.Size = new System.Drawing.Size(752, 501);
+            this.tabPage1.Size = new System.Drawing.Size(849, 529);
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "状态";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.SendPath);
+            this.groupBox9.Controls.Add(this.turnL);
+            this.groupBox9.Controls.Add(this.codeindex);
+            this.groupBox9.Controls.Add(this.turnR);
+            this.groupBox9.Controls.Add(this.PathList);
+            this.groupBox9.Controls.Add(this.turnF);
+            this.groupBox9.Controls.Add(this.turnB);
+            this.groupBox9.Controls.Add(this.button1);
+            this.groupBox9.Location = new System.Drawing.Point(452, 380);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(297, 145);
+            this.groupBox9.TabIndex = 10;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "固定线路";
+            // 
+            // SendPath
+            // 
+            this.SendPath.Location = new System.Drawing.Point(8, 19);
+            this.SendPath.Name = "SendPath";
+            this.SendPath.Size = new System.Drawing.Size(75, 23);
+            this.SendPath.TabIndex = 2;
+            this.SendPath.Text = "发送";
+            this.SendPath.UseVisualStyleBackColor = true;
+            this.SendPath.Click += new System.EventHandler(this.SendPath_Click);
+            // 
+            // turnL
+            // 
+            this.turnL.Location = new System.Drawing.Point(215, 18);
+            this.turnL.Name = "turnL";
+            this.turnL.Size = new System.Drawing.Size(75, 23);
+            this.turnL.TabIndex = 2;
+            this.turnL.Text = "路口左转";
+            this.turnL.UseVisualStyleBackColor = true;
+            this.turnL.Click += new System.EventHandler(this.turnB_Click);
             // 
             // codeindex
             // 
@@ -140,6 +186,16 @@
             this.codeindex.Text = "程序动态";
             this.codeindex.UseVisualStyleBackColor = true;
             // 
+            // turnR
+            // 
+            this.turnR.Location = new System.Drawing.Point(215, 47);
+            this.turnR.Name = "turnR";
+            this.turnR.Size = new System.Drawing.Size(75, 23);
+            this.turnR.TabIndex = 2;
+            this.turnR.Text = "路口右转";
+            this.turnR.UseVisualStyleBackColor = true;
+            this.turnR.Click += new System.EventHandler(this.turnB_Click);
+            // 
             // PathList
             // 
             this.PathList.FormattingEnabled = true;
@@ -150,35 +206,111 @@
             this.PathList.TabIndex = 7;
             this.PathList.KeyDown += new System.Windows.Forms.KeyEventHandler(this.PathList_KeyDown);
             // 
+            // turnF
+            // 
+            this.turnF.Location = new System.Drawing.Point(215, 76);
+            this.turnF.Name = "turnF";
+            this.turnF.Size = new System.Drawing.Size(75, 23);
+            this.turnF.TabIndex = 2;
+            this.turnF.Text = "路口直走";
+            this.turnF.UseVisualStyleBackColor = true;
+            this.turnF.Click += new System.EventHandler(this.turnB_Click);
+            // 
+            // turnB
+            // 
+            this.turnB.Location = new System.Drawing.Point(215, 105);
+            this.turnB.Name = "turnB";
+            this.turnB.Size = new System.Drawing.Size(75, 23);
+            this.turnB.TabIndex = 2;
+            this.turnB.Text = "尽头掉头";
+            this.turnB.UseVisualStyleBackColor = true;
+            this.turnB.Click += new System.EventHandler(this.turnB_Click);
+            // 
+            // button1
+            // 
+            this.button1.Location = new System.Drawing.Point(8, 115);
+            this.button1.Name = "button1";
+            this.button1.Size = new System.Drawing.Size(75, 23);
+            this.button1.TabIndex = 2;
+            this.button1.Text = "复位";
+            this.button1.UseVisualStyleBackColor = true;
+            this.button1.Click += new System.EventHandler(this.turnB_Click);
+            // 
+            // groupBox8
+            // 
+            this.groupBox8.Controls.Add(this.getdatabut);
+            this.groupBox8.Controls.Add(this.listView1);
+            this.groupBox8.Controls.Add(this.send);
+            this.groupBox8.Location = new System.Drawing.Point(6, 380);
+            this.groupBox8.Name = "groupBox8";
+            this.groupBox8.Size = new System.Drawing.Size(440, 145);
+            this.groupBox8.TabIndex = 9;
+            this.groupBox8.TabStop = false;
+            this.groupBox8.Text = "设备列表";
+            // 
+            // getdatabut
+            // 
+            this.getdatabut.Location = new System.Drawing.Point(349, 111);
+            this.getdatabut.Name = "getdatabut";
+            this.getdatabut.Size = new System.Drawing.Size(85, 27);
+            this.getdatabut.TabIndex = 4;
+            this.getdatabut.Text = "获取数据";
+            this.getdatabut.UseVisualStyleBackColor = true;
+            this.getdatabut.Click += new System.EventHandler(this.getdatabut_Click);
+            // 
+            // listView1
+            // 
+            this.listView1.Location = new System.Drawing.Point(1, 14);
+            this.listView1.Name = "listView1";
+            this.listView1.Size = new System.Drawing.Size(342, 126);
+            this.listView1.TabIndex = 3;
+            this.listView1.UseCompatibleStateImageBehavior = false;
+            // 
+            // send
+            // 
+            this.send.Location = new System.Drawing.Point(349, 14);
+            this.send.Name = "send";
+            this.send.Size = new System.Drawing.Size(85, 31);
+            this.send.TabIndex = 2;
+            this.send.Text = "刷新网络设备";
+            this.send.UseVisualStyleBackColor = true;
+            this.send.Click += new System.EventHandler(this.send_Click);
+            // 
             // groupBox5
             // 
             this.groupBox5.Controls.Add(this.SpeedChart);
-            this.groupBox5.Location = new System.Drawing.Point(346, 190);
+            this.groupBox5.Location = new System.Drawing.Point(346, 211);
             this.groupBox5.Name = "groupBox5";
-            this.groupBox5.Size = new System.Drawing.Size(400, 163);
+            this.groupBox5.Size = new System.Drawing.Size(501, 163);
             this.groupBox5.TabIndex = 6;
             this.groupBox5.TabStop = false;
             this.groupBox5.Text = "电机速度";
             // 
             // SpeedChart
             // 
-            chartArea3.Name = "ChartArea1";
-            this.SpeedChart.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.SpeedChart.Legends.Add(legend3);
+            chartArea5.Name = "ChartArea1";
+            this.SpeedChart.ChartAreas.Add(chartArea5);
+            legend5.Name = "Legend1";
+            this.SpeedChart.Legends.Add(legend5);
             this.SpeedChart.Location = new System.Drawing.Point(6, 15);
             this.SpeedChart.Name = "SpeedChart";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.SpeedChart.Series.Add(series3);
-            this.SpeedChart.Size = new System.Drawing.Size(388, 142);
+            series5.ChartArea = "ChartArea1";
+            series5.Legend = "Legend1";
+            series5.Name = "Series1";
+            this.SpeedChart.Series.Add(series5);
+            this.SpeedChart.Size = new System.Drawing.Size(489, 142);
             this.SpeedChart.TabIndex = 2;
             this.SpeedChart.Text = "chart1";
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.Rspeedtex);
+            this.groupBox3.Controls.Add(this.Lspeedtex);
+            this.groupBox3.Controls.Add(this.label8);
+            this.groupBox3.Controls.Add(this.label4);
+            this.groupBox3.Controls.Add(this.LeftSpeed);
             this.groupBox3.Controls.Add(this.Dvalue);
+            this.groupBox3.Controls.Add(this.RightSpeed);
             this.groupBox3.Controls.Add(this.Ivalue);
             this.groupBox3.Controls.Add(this.Pvalue);
             this.groupBox3.Controls.Add(this.label7);
@@ -189,22 +321,48 @@
             this.groupBox3.Controls.Add(this.trackP);
             this.groupBox3.Location = new System.Drawing.Point(346, 6);
             this.groupBox3.Name = "groupBox3";
-            this.groupBox3.Size = new System.Drawing.Size(240, 180);
+            this.groupBox3.Size = new System.Drawing.Size(334, 199);
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "电机控制";
             // 
+            // LeftSpeed
+            // 
+            this.LeftSpeed.BackColor = System.Drawing.Color.White;
+            this.LeftSpeed.Location = new System.Drawing.Point(234, 11);
+            this.LeftSpeed.Maximum = 32;
+            this.LeftSpeed.Name = "LeftSpeed";
+            this.LeftSpeed.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.LeftSpeed.Size = new System.Drawing.Size(45, 163);
+            this.LeftSpeed.TabIndex = 4;
+            this.LeftSpeed.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.LeftSpeed.Value = 1;
+            this.LeftSpeed.Scroll += new System.EventHandler(this.LeftSpeed_Scroll);
+            // 
             // Dvalue
             // 
-            this.Dvalue.Location = new System.Drawing.Point(199, 134);
+            this.Dvalue.Location = new System.Drawing.Point(195, 128);
             this.Dvalue.Name = "Dvalue";
             this.Dvalue.Size = new System.Drawing.Size(29, 21);
             this.Dvalue.TabIndex = 3;
             this.Dvalue.Text = "30";
             // 
+            // RightSpeed
+            // 
+            this.RightSpeed.BackColor = System.Drawing.Color.White;
+            this.RightSpeed.Location = new System.Drawing.Point(285, 11);
+            this.RightSpeed.Maximum = 32;
+            this.RightSpeed.Name = "RightSpeed";
+            this.RightSpeed.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.RightSpeed.Size = new System.Drawing.Size(45, 163);
+            this.RightSpeed.TabIndex = 5;
+            this.RightSpeed.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.RightSpeed.Value = 1;
+            this.RightSpeed.Scroll += new System.EventHandler(this.RightSpeed_Scroll);
+            // 
             // Ivalue
             // 
-            this.Ivalue.Location = new System.Drawing.Point(199, 83);
+            this.Ivalue.Location = new System.Drawing.Point(195, 83);
             this.Ivalue.Name = "Ivalue";
             this.Ivalue.Size = new System.Drawing.Size(29, 21);
             this.Ivalue.TabIndex = 3;
@@ -212,7 +370,7 @@
             // 
             // Pvalue
             // 
-            this.Pvalue.Location = new System.Drawing.Point(199, 30);
+            this.Pvalue.Location = new System.Drawing.Point(195, 30);
             this.Pvalue.Name = "Pvalue";
             this.Pvalue.Size = new System.Drawing.Size(29, 21);
             this.Pvalue.TabIndex = 3;
@@ -281,146 +439,12 @@
             this.trackP.Value = 100;
             this.trackP.Scroll += new System.EventHandler(this.trackBar1_Scroll);
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.textBox2);
-            this.groupBox2.Controls.Add(this.FLen);
-            this.groupBox2.Controls.Add(this.BLen);
-            this.groupBox2.Location = new System.Drawing.Point(592, 6);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(157, 180);
-            this.groupBox2.TabIndex = 4;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "超声波传感器";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 68);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(35, 12);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "后方:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(18, 152);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(59, 12);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "探测距离:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 41);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(35, 12);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "前方:";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(79, 149);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(64, 21);
-            this.textBox2.TabIndex = 3;
-            this.textBox2.Text = "5";
-            // 
-            // FLen
-            // 
-            this.FLen.Location = new System.Drawing.Point(59, 37);
-            this.FLen.Name = "FLen";
-            this.FLen.Size = new System.Drawing.Size(88, 21);
-            this.FLen.TabIndex = 3;
-            // 
-            // BLen
-            // 
-            this.BLen.Location = new System.Drawing.Point(59, 64);
-            this.BLen.Name = "BLen";
-            this.BLen.Size = new System.Drawing.Size(88, 21);
-            this.BLen.TabIndex = 3;
-            // 
-            // SendPath
-            // 
-            this.SendPath.Location = new System.Drawing.Point(8, 19);
-            this.SendPath.Name = "SendPath";
-            this.SendPath.Size = new System.Drawing.Size(75, 23);
-            this.SendPath.TabIndex = 2;
-            this.SendPath.Text = "发送";
-            this.SendPath.UseVisualStyleBackColor = true;
-            this.SendPath.Click += new System.EventHandler(this.SendPath_Click);
-            // 
-            // button1
-            // 
-            this.button1.Location = new System.Drawing.Point(8, 115);
-            this.button1.Name = "button1";
-            this.button1.Size = new System.Drawing.Size(75, 23);
-            this.button1.TabIndex = 2;
-            this.button1.Text = "复位";
-            this.button1.UseVisualStyleBackColor = true;
-            this.button1.Click += new System.EventHandler(this.turnB_Click);
-            // 
-            // turnB
-            // 
-            this.turnB.Location = new System.Drawing.Point(215, 105);
-            this.turnB.Name = "turnB";
-            this.turnB.Size = new System.Drawing.Size(75, 23);
-            this.turnB.TabIndex = 2;
-            this.turnB.Text = "尽头掉头";
-            this.turnB.UseVisualStyleBackColor = true;
-            this.turnB.Click += new System.EventHandler(this.turnB_Click);
-            // 
-            // turnF
-            // 
-            this.turnF.Location = new System.Drawing.Point(215, 76);
-            this.turnF.Name = "turnF";
-            this.turnF.Size = new System.Drawing.Size(75, 23);
-            this.turnF.TabIndex = 2;
-            this.turnF.Text = "路口直走";
-            this.turnF.UseVisualStyleBackColor = true;
-            this.turnF.Click += new System.EventHandler(this.turnB_Click);
-            // 
-            // turnR
-            // 
-            this.turnR.Location = new System.Drawing.Point(215, 47);
-            this.turnR.Name = "turnR";
-            this.turnR.Size = new System.Drawing.Size(75, 23);
-            this.turnR.TabIndex = 2;
-            this.turnR.Text = "路口右转";
-            this.turnR.UseVisualStyleBackColor = true;
-            this.turnR.Click += new System.EventHandler(this.turnB_Click);
-            // 
-            // send
-            // 
-            this.send.Location = new System.Drawing.Point(349, 14);
-            this.send.Name = "send";
-            this.send.Size = new System.Drawing.Size(85, 31);
-            this.send.TabIndex = 2;
-            this.send.Text = "刷新网络设备";
-            this.send.UseVisualStyleBackColor = true;
-            this.send.Click += new System.EventHandler(this.send_Click);
-            // 
-            // turnL
-            // 
-            this.turnL.Location = new System.Drawing.Point(215, 18);
-            this.turnL.Name = "turnL";
-            this.turnL.Size = new System.Drawing.Size(75, 23);
-            this.turnL.TabIndex = 2;
-            this.turnL.Text = "路口左转";
-            this.turnL.UseVisualStyleBackColor = true;
-            this.turnL.Click += new System.EventHandler(this.turnB_Click);
-            // 
             // groupBox1
             // 
             this.groupBox1.Controls.Add(this.StatsImg);
             this.groupBox1.Location = new System.Drawing.Point(6, 6);
             this.groupBox1.Name = "groupBox1";
-            this.groupBox1.Size = new System.Drawing.Size(334, 347);
+            this.groupBox1.Size = new System.Drawing.Size(334, 368);
             this.groupBox1.TabIndex = 1;
             this.groupBox1.TabStop = false;
             this.groupBox1.Text = "传感器状态";
@@ -429,7 +453,7 @@
             // 
             this.StatsImg.Location = new System.Drawing.Point(6, 20);
             this.StatsImg.Name = "StatsImg";
-            this.StatsImg.Size = new System.Drawing.Size(320, 320);
+            this.StatsImg.Size = new System.Drawing.Size(322, 342);
             this.StatsImg.TabIndex = 0;
             this.StatsImg.TabStop = false;
             // 
@@ -445,10 +469,30 @@
             this.tabPage2.Location = new System.Drawing.Point(4, 22);
             this.tabPage2.Name = "tabPage2";
             this.tabPage2.Padding = new System.Windows.Forms.Padding(3);
-            this.tabPage2.Size = new System.Drawing.Size(752, 501);
+            this.tabPage2.Size = new System.Drawing.Size(849, 529);
             this.tabPage2.TabIndex = 1;
             this.tabPage2.Text = "路径规划";
             this.tabPage2.UseVisualStyleBackColor = true;
+            // 
+            // LoadMap
+            // 
+            this.LoadMap.Location = new System.Drawing.Point(87, 472);
+            this.LoadMap.Name = "LoadMap";
+            this.LoadMap.Size = new System.Drawing.Size(75, 23);
+            this.LoadMap.TabIndex = 7;
+            this.LoadMap.Text = "读取地图";
+            this.LoadMap.UseVisualStyleBackColor = true;
+            this.LoadMap.Click += new System.EventHandler(this.LoadMap_Click);
+            // 
+            // SaveMap
+            // 
+            this.SaveMap.Location = new System.Drawing.Point(6, 472);
+            this.SaveMap.Name = "SaveMap";
+            this.SaveMap.Size = new System.Drawing.Size(75, 23);
+            this.SaveMap.TabIndex = 7;
+            this.SaveMap.Text = "储存地图";
+            this.SaveMap.UseVisualStyleBackColor = true;
+            this.SaveMap.Click += new System.EventHandler(this.SaveMap_Click);
             // 
             // gotoNodeButton
             // 
@@ -589,88 +633,136 @@
             this.MapBox.TabIndex = 0;
             this.MapBox.TabStop = false;
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Controls.Add(this.textBox2);
+            this.groupBox2.Controls.Add(this.FLen);
+            this.groupBox2.Controls.Add(this.BLen);
+            this.groupBox2.Location = new System.Drawing.Point(686, 6);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(160, 199);
+            this.groupBox2.TabIndex = 4;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "超声波传感器";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(18, 68);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(41, 12);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "前方R:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(18, 162);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(59, 12);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "探测距离:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(18, 41);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(41, 12);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "前方L:";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(79, 159);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(64, 21);
+            this.textBox2.TabIndex = 3;
+            this.textBox2.Text = "10";
+            // 
+            // FLen
+            // 
+            this.FLen.Location = new System.Drawing.Point(59, 37);
+            this.FLen.Name = "FLen";
+            this.FLen.Size = new System.Drawing.Size(88, 21);
+            this.FLen.TabIndex = 3;
+            // 
+            // BLen
+            // 
+            this.BLen.Location = new System.Drawing.Point(59, 64);
+            this.BLen.Name = "BLen";
+            this.BLen.Size = new System.Drawing.Size(88, 21);
+            this.BLen.TabIndex = 3;
+            // 
             // ImgList
             // 
             this.ImgList.ColorDepth = System.Windows.Forms.ColorDepth.Depth24Bit;
             this.ImgList.ImageSize = new System.Drawing.Size(32, 32);
             this.ImgList.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // SaveMap
+            // label4
             // 
-            this.SaveMap.Location = new System.Drawing.Point(6, 472);
-            this.SaveMap.Name = "SaveMap";
-            this.SaveMap.Size = new System.Drawing.Size(75, 23);
-            this.SaveMap.TabIndex = 7;
-            this.SaveMap.Text = "储存地图";
-            this.SaveMap.UseVisualStyleBackColor = true;
-            this.SaveMap.Click += new System.EventHandler(this.SaveMap_Click);
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(232, 11);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(41, 12);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Lspeed";
             // 
-            // LoadMap
+            // label8
             // 
-            this.LoadMap.Location = new System.Drawing.Point(87, 472);
-            this.LoadMap.Name = "LoadMap";
-            this.LoadMap.Size = new System.Drawing.Size(75, 23);
-            this.LoadMap.TabIndex = 7;
-            this.LoadMap.Text = "读取地图";
-            this.LoadMap.UseVisualStyleBackColor = true;
-            this.LoadMap.Click += new System.EventHandler(this.LoadMap_Click);
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(283, 11);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(41, 12);
+            this.label8.TabIndex = 7;
+            this.label8.Text = "Rspeed";
             // 
-            // groupBox8
+            // Lspeedtex
             // 
-            this.groupBox8.Controls.Add(this.listView1);
-            this.groupBox8.Controls.Add(this.send);
-            this.groupBox8.Location = new System.Drawing.Point(6, 355);
-            this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(440, 145);
-            this.groupBox8.TabIndex = 9;
-            this.groupBox8.TabStop = false;
-            this.groupBox8.Text = "设备列表";
+            this.Lspeedtex.Location = new System.Drawing.Point(244, 172);
+            this.Lspeedtex.Name = "Lspeedtex";
+            this.Lspeedtex.Size = new System.Drawing.Size(29, 21);
+            this.Lspeedtex.TabIndex = 8;
+            this.Lspeedtex.Text = "1";
             // 
-            // groupBox9
+            // Rspeedtex
             // 
-            this.groupBox9.Controls.Add(this.SendPath);
-            this.groupBox9.Controls.Add(this.turnL);
-            this.groupBox9.Controls.Add(this.codeindex);
-            this.groupBox9.Controls.Add(this.turnR);
-            this.groupBox9.Controls.Add(this.PathList);
-            this.groupBox9.Controls.Add(this.turnF);
-            this.groupBox9.Controls.Add(this.turnB);
-            this.groupBox9.Controls.Add(this.button1);
-            this.groupBox9.Location = new System.Drawing.Point(452, 355);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(297, 145);
-            this.groupBox9.TabIndex = 10;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "固定线路";
-            // 
-            // listView1
-            // 
-            this.listView1.Location = new System.Drawing.Point(1, 14);
-            this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(342, 126);
-            this.listView1.TabIndex = 3;
-            this.listView1.UseCompatibleStateImageBehavior = false;
+            this.Rspeedtex.Location = new System.Drawing.Point(286, 172);
+            this.Rspeedtex.Name = "Rspeedtex";
+            this.Rspeedtex.Size = new System.Drawing.Size(29, 21);
+            this.Rspeedtex.TabIndex = 9;
+            this.Rspeedtex.Text = "1";
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(784, 546);
+            this.ClientSize = new System.Drawing.Size(878, 578);
             this.Controls.Add(this.MainTable);
+            this.KeyPreview = true;
             this.Name = "Form1";
             this.Text = "Form1";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.KeyDown += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyDown);
+            this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             this.MainTable.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
+            this.groupBox8.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SpeedChart)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox3.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.LeftSpeed)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.RightSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackI)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.trackP)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.StatsImg)).EndInit();
             this.tabPage2.ResumeLayout(false);
@@ -679,9 +771,8 @@
             this.groupBox6.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MapBox)).EndInit();
-            this.groupBox8.ResumeLayout(false);
-            this.groupBox9.ResumeLayout(false);
-            this.groupBox9.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -740,6 +831,13 @@
         private System.Windows.Forms.GroupBox groupBox9;
         private System.Windows.Forms.GroupBox groupBox8;
         private System.Windows.Forms.ListView listView1;
+        private System.Windows.Forms.Button getdatabut;
+        private System.Windows.Forms.TrackBar LeftSpeed;
+        private System.Windows.Forms.TrackBar RightSpeed;
+        private System.Windows.Forms.TextBox Rspeedtex;
+        private System.Windows.Forms.TextBox Lspeedtex;
+        private System.Windows.Forms.Label label8;
+        private System.Windows.Forms.Label label4;
     }
 }
 

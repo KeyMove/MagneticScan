@@ -604,9 +604,9 @@ u8 pathbuff[1024];
 //	Motor.Speed(1,rspeed=PID.Update(&rightspeed, -speed));
 //}
 
-u8 lastAction;
-u8 lastCodeID;
-u32 lastTick;
+u16 lastAction;
+u16 lastCodeID;
+u16 lastTick;
 void AliveEvent(UartEvent e)
 {
 	
@@ -633,6 +633,10 @@ void GetDataEvent(UartEvent e)
 	e->SendAckPacket();
 }
 
+
+u8 AveSpeedL=3;
+u8 AveSpeedR=3;
+u8 statusRL=0;
 void SetDataEvent(UartEvent e)
 {
 	u8 id;
@@ -676,6 +680,34 @@ void SetDataEvent(UartEvent e)
 //			lastCodeID=255;
 			break;
 		case 6:
+			AveSpeedL=e->ReadByte();
+			AveSpeedR=e->ReadByte();
+			break;
+		case 7:
+			statusRL = e->ReadByte();
+			switch(statusRL)
+		{
+				case 0:
+					Motor.Speed(0,0);
+					Motor.Speed(1,0);
+					break;
+				case 1:
+					Motor.Speed(0,AveSpeedL);
+					Motor.Speed(1,AveSpeedR);
+					break;
+				case 2:
+					Motor.Speed(0,-AveSpeedL);
+					Motor.Speed(1,-AveSpeedR);
+					break;
+				case 3:
+					Motor.Speed(0,AveSpeedL);
+					Motor.Speed(1,-AveSpeedR);
+					break;
+				case 4:
+					Motor.Speed(0,-AveSpeedL);
+					Motor.Speed(1,AveSpeedR);
+					break;
+		}
 			break;
 	}
 }
@@ -798,7 +830,7 @@ int main(void)
 	DetectionLogic.Control->StopRun();
 	lastAction=0xff;
 	//DetectionLogic.LoadDefConfig(pathbuff );
-  //Timer.Start(100,led);
+  Timer.Start(100,led);
 	
   UartProtocol.Init(buffdata);
 	UartProtocol.AutoAck(ENABLE);

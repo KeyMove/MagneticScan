@@ -35,6 +35,13 @@ namespace MagneticScanUI
         int lspeed, rspeed;
         bool updatePID;
         bool updateTurn;
+        bool updataSpeed = false;
+        bool updataStatus = false;
+        int AveSpeedL=0;
+        int AveSpeedR=0;
+        int statusLR=0;
+   
+
         PathDir LastDir = new PathDir();
         int dircmd;
 
@@ -149,6 +156,7 @@ namespace MagneticScanUI
                     updateCmd = true;
                 }
         }
+        Timer t = new Timer();
         private void Form1_Load(object sender, EventArgs e)
         {
             LEDON = Resources.LightOn;
@@ -175,7 +183,7 @@ namespace MagneticScanUI
             SpeedChart.ChartAreas[0].AxisY.Minimum = -100;
 
             GetData = Encoding.Default.GetBytes("GetData()");
-            ips = getIPAddress();
+            //ips = getIPAddress();
             new Task(() =>
             {
                 while (!this.IsDisposed)
@@ -258,16 +266,26 @@ namespace MagneticScanUI
 
             }).Start();
 
-            FindDev();
+            //FindDev();
 
-            Timer t = new Timer();
+            
             t.Interval = 100;
             t.Tick += new EventHandler((object s, EventArgs ex) =>
             {
                 if (lasttarget == null) return;
 
                 Search.Send(GetData, GetData.Length, new IPEndPoint(lasttarget.Address | 0xff000000, 2333));
+                if(updataStatus)
+                {
+                    if (sendID == lastID)//确认设置OK
+                    {
+                        updataStatus = false;
+                        sendID++;
+                        return;
+                    }
 
+                    senddata(7,statusLR);
+                }else 
                 if (updatePID)
                 {
                     if (sendID == lastID)
@@ -399,8 +417,21 @@ namespace MagneticScanUI
                     byte[] cmd = Encoding.Default.GetBytes(sb.ToString());
                     Search.Send(cmd, cmd.Length, new IPEndPoint(lasttarget.Address | 0xff000000, 2333));
                 }
+                else if(updataSpeed)//
+                {
+                    if (sendID == lastID)
+                    {
+                        updataSpeed = false;
+                        sendID++;
+                        return;
+                    }
+
+                    senddata(6,LeftSpeed.Value,RightSpeed.Value);
+
+                }
+                
             });
-            t.Start();
+            //t.Start();
         }
 
 
@@ -658,6 +689,71 @@ namespace MagneticScanUI
             }
         }
 
+        bool bust=false;
+        private void getdatabut_Click(object sender, EventArgs e)
+        {
+            bust = !bust;
+            if (bust)
+            {
+                getdatabut.Text = "停止获取";
+                Search.Send(GetData, GetData.Length, "255.255.255.255", 2333);
+                t.Start();
+            }
+            else
+            {
+                getdatabut.Text = "获取数据";
+                t.Stop();
+            }
+        }
+
+        private void Form1_KeyDown(object sender, KeyEventArgs e)
+        {
+            switch (e.KeyCode)
+            {
+                case Keys.W:
+                    statusLR = 1;
+                    updataStatus = true;
+                    break;
+                case Keys.S:
+                    statusLR = 2;
+                    updataStatus = true;
+                    break;
+                case Keys.A:
+                    statusLR = 3;
+                    updataStatus = true;
+                    break;
+                case Keys.D:
+                    statusLR = 4;
+                    updataStatus = true;
+                    break;
+            }
+        }
+
+        private void Form1_KeyUp(object sender, KeyEventArgs e)
+        {
+            if(e.KeyCode==Keys.W|| e.KeyCode == Keys.S || e.KeyCode == Keys.A || e.KeyCode == Keys.D )
+            {
+                statusLR = 0;
+                updataStatus = true;
+            }
+        }
+
+        private void RightSpeed_Scroll(object sender, EventArgs e)
+        {
+            updataSpeed = true;
+            AveSpeedR = RightSpeed.Value;
+            Rspeedtex.Text = RightSpeed.Value.ToString();
+        }
+
+        private void LeftSpeed_Scroll(object sender, EventArgs e)
+        {
+            updataSpeed = true;
+            AveSpeedL = LeftSpeed.Value;
+            Lspeedtex.Text = LeftSpeed.Value.ToString();
+            
+
+        }
+
         private void SearchButton_Click(object sender, EventArgs e)
         {
             if (debug)
@@ -762,8 +858,6 @@ namespace MagneticScanUI
         }
 
 
-
-        
 
     }
 }
