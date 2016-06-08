@@ -37,6 +37,7 @@ namespace MagneticScanUI
         bool updateTurn;
         bool updataSpeed = false;
         bool updataStatus = false;
+        bool updatastatusstop = false;
         int AveSpeedL=0;
         int AveSpeedR=0;
         int statusLR=0;
@@ -268,13 +269,18 @@ namespace MagneticScanUI
 
             //FindDev();
 
-            
+            uint i=0;
             t.Interval = 100;
             t.Tick += new EventHandler((object s, EventArgs ex) =>
             {
                 if (lasttarget == null) return;
 
-                Search.Send(GetData, GetData.Length, new IPEndPoint(lasttarget.Address | 0xff000000, 2333));
+                if(i++>=5)
+                {
+                    i = 0;
+                    Search.Send(GetData, GetData.Length, new IPEndPoint(lasttarget.Address | 0xff000000, 2333));
+                }
+                
                 if(updataStatus)
                 {
                     if (sendID == lastID)//确认设置OK
@@ -285,7 +291,17 @@ namespace MagneticScanUI
                     }
 
                     senddata(7,statusLR);
-                }else 
+                }else if(updatastatusstop)
+                {
+                    if (sendID == lastID)//确认设置OK
+                    {
+                        updatastatusstop = false;
+                        sendID++;
+                        return;
+                    }
+                    senddata(7, statusLR);
+                }
+                else 
                 if (updatePID)
                 {
                     if (sendID == lastID)
@@ -734,7 +750,7 @@ namespace MagneticScanUI
             if(e.KeyCode==Keys.W|| e.KeyCode == Keys.S || e.KeyCode == Keys.A || e.KeyCode == Keys.D )
             {
                 statusLR = 0;
-                updataStatus = true;
+                updatastatusstop = true;
             }
         }
 

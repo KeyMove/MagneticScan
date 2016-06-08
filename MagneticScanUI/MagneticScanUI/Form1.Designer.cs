@@ -29,9 +29,9 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea5 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend5 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series5 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.MainTable = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
@@ -43,6 +43,13 @@
             this.turnF = new System.Windows.Forms.Button();
             this.turnB = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
+            this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label3 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.FLen = new System.Windows.Forms.TextBox();
+            this.BLen = new System.Windows.Forms.TextBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
             this.getdatabut = new System.Windows.Forms.Button();
             this.listView1 = new System.Windows.Forms.ListView();
@@ -50,6 +57,10 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.SpeedChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.Rspeedtex = new System.Windows.Forms.TextBox();
+            this.Lspeedtex = new System.Windows.Forms.TextBox();
+            this.label8 = new System.Windows.Forms.Label();
+            this.label4 = new System.Windows.Forms.Label();
             this.LeftSpeed = new System.Windows.Forms.TrackBar();
             this.Dvalue = new System.Windows.Forms.TextBox();
             this.RightSpeed = new System.Windows.Forms.TrackBar();
@@ -79,21 +90,15 @@
             this.upkey = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.MapBox = new System.Windows.Forms.PictureBox();
-            this.groupBox2 = new System.Windows.Forms.GroupBox();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label3 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.FLen = new System.Windows.Forms.TextBox();
-            this.BLen = new System.Windows.Forms.TextBox();
             this.ImgList = new System.Windows.Forms.ImageList(this.components);
-            this.label4 = new System.Windows.Forms.Label();
-            this.label8 = new System.Windows.Forms.Label();
-            this.Lspeedtex = new System.Windows.Forms.TextBox();
-            this.Rspeedtex = new System.Windows.Forms.TextBox();
+            this.upbut = new System.Windows.Forms.Button();
+            this.downbut = new System.Windows.Forms.Button();
+            this.leftbut = new System.Windows.Forms.Button();
+            this.rightdut = new System.Windows.Forms.Button();
             this.MainTable.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox9.SuspendLayout();
+            this.groupBox2.SuspendLayout();
             this.groupBox8.SuspendLayout();
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SpeedChart)).BeginInit();
@@ -110,7 +115,6 @@
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MapBox)).BeginInit();
-            this.groupBox2.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainTable
@@ -236,6 +240,74 @@
             this.button1.UseVisualStyleBackColor = true;
             this.button1.Click += new System.EventHandler(this.turnB_Click);
             // 
+            // groupBox2
+            // 
+            this.groupBox2.Controls.Add(this.rightdut);
+            this.groupBox2.Controls.Add(this.leftbut);
+            this.groupBox2.Controls.Add(this.downbut);
+            this.groupBox2.Controls.Add(this.upbut);
+            this.groupBox2.Controls.Add(this.label2);
+            this.groupBox2.Controls.Add(this.label3);
+            this.groupBox2.Controls.Add(this.label1);
+            this.groupBox2.Controls.Add(this.textBox2);
+            this.groupBox2.Controls.Add(this.FLen);
+            this.groupBox2.Controls.Add(this.BLen);
+            this.groupBox2.Location = new System.Drawing.Point(686, 6);
+            this.groupBox2.Name = "groupBox2";
+            this.groupBox2.Size = new System.Drawing.Size(160, 199);
+            this.groupBox2.TabIndex = 4;
+            this.groupBox2.TabStop = false;
+            this.groupBox2.Text = "超声波传感器";
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(18, 68);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(41, 12);
+            this.label2.TabIndex = 4;
+            this.label2.Text = "前方R:";
+            // 
+            // label3
+            // 
+            this.label3.AutoSize = true;
+            this.label3.Location = new System.Drawing.Point(30, 175);
+            this.label3.Name = "label3";
+            this.label3.Size = new System.Drawing.Size(59, 12);
+            this.label3.TabIndex = 4;
+            this.label3.Text = "探测距离:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(18, 41);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(41, 12);
+            this.label1.TabIndex = 4;
+            this.label1.Text = "前方L:";
+            // 
+            // textBox2
+            // 
+            this.textBox2.Location = new System.Drawing.Point(91, 172);
+            this.textBox2.Name = "textBox2";
+            this.textBox2.Size = new System.Drawing.Size(64, 21);
+            this.textBox2.TabIndex = 3;
+            this.textBox2.Text = "10";
+            // 
+            // FLen
+            // 
+            this.FLen.Location = new System.Drawing.Point(59, 37);
+            this.FLen.Name = "FLen";
+            this.FLen.Size = new System.Drawing.Size(88, 21);
+            this.FLen.TabIndex = 3;
+            // 
+            // BLen
+            // 
+            this.BLen.Location = new System.Drawing.Point(59, 64);
+            this.BLen.Name = "BLen";
+            this.BLen.Size = new System.Drawing.Size(88, 21);
+            this.BLen.TabIndex = 3;
+            // 
             // groupBox8
             // 
             this.groupBox8.Controls.Add(this.getdatabut);
@@ -288,16 +360,16 @@
             // 
             // SpeedChart
             // 
-            chartArea5.Name = "ChartArea1";
-            this.SpeedChart.ChartAreas.Add(chartArea5);
-            legend5.Name = "Legend1";
-            this.SpeedChart.Legends.Add(legend5);
+            chartArea1.Name = "ChartArea1";
+            this.SpeedChart.ChartAreas.Add(chartArea1);
+            legend1.Name = "Legend1";
+            this.SpeedChart.Legends.Add(legend1);
             this.SpeedChart.Location = new System.Drawing.Point(6, 15);
             this.SpeedChart.Name = "SpeedChart";
-            series5.ChartArea = "ChartArea1";
-            series5.Legend = "Legend1";
-            series5.Name = "Series1";
-            this.SpeedChart.Series.Add(series5);
+            series1.ChartArea = "ChartArea1";
+            series1.Legend = "Legend1";
+            series1.Name = "Series1";
+            this.SpeedChart.Series.Add(series1);
             this.SpeedChart.Size = new System.Drawing.Size(489, 142);
             this.SpeedChart.TabIndex = 2;
             this.SpeedChart.Text = "chart1";
@@ -325,6 +397,40 @@
             this.groupBox3.TabIndex = 5;
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "电机控制";
+            // 
+            // Rspeedtex
+            // 
+            this.Rspeedtex.Location = new System.Drawing.Point(286, 172);
+            this.Rspeedtex.Name = "Rspeedtex";
+            this.Rspeedtex.Size = new System.Drawing.Size(29, 21);
+            this.Rspeedtex.TabIndex = 9;
+            this.Rspeedtex.Text = "1";
+            // 
+            // Lspeedtex
+            // 
+            this.Lspeedtex.Location = new System.Drawing.Point(244, 172);
+            this.Lspeedtex.Name = "Lspeedtex";
+            this.Lspeedtex.Size = new System.Drawing.Size(29, 21);
+            this.Lspeedtex.TabIndex = 8;
+            this.Lspeedtex.Text = "1";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Location = new System.Drawing.Point(283, 11);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(41, 12);
+            this.label8.TabIndex = 7;
+            this.label8.Text = "Rspeed";
+            // 
+            // label4
+            // 
+            this.label4.AutoSize = true;
+            this.label4.Location = new System.Drawing.Point(232, 11);
+            this.label4.Name = "label4";
+            this.label4.Size = new System.Drawing.Size(41, 12);
+            this.label4.TabIndex = 6;
+            this.label4.Text = "Lspeed";
             // 
             // LeftSpeed
             // 
@@ -633,109 +739,47 @@
             this.MapBox.TabIndex = 0;
             this.MapBox.TabStop = false;
             // 
-            // groupBox2
-            // 
-            this.groupBox2.Controls.Add(this.label2);
-            this.groupBox2.Controls.Add(this.label3);
-            this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.textBox2);
-            this.groupBox2.Controls.Add(this.FLen);
-            this.groupBox2.Controls.Add(this.BLen);
-            this.groupBox2.Location = new System.Drawing.Point(686, 6);
-            this.groupBox2.Name = "groupBox2";
-            this.groupBox2.Size = new System.Drawing.Size(160, 199);
-            this.groupBox2.TabIndex = 4;
-            this.groupBox2.TabStop = false;
-            this.groupBox2.Text = "超声波传感器";
-            // 
-            // label2
-            // 
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(18, 68);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(41, 12);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "前方R:";
-            // 
-            // label3
-            // 
-            this.label3.AutoSize = true;
-            this.label3.Location = new System.Drawing.Point(18, 162);
-            this.label3.Name = "label3";
-            this.label3.Size = new System.Drawing.Size(59, 12);
-            this.label3.TabIndex = 4;
-            this.label3.Text = "探测距离:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(18, 41);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(41, 12);
-            this.label1.TabIndex = 4;
-            this.label1.Text = "前方L:";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(79, 159);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(64, 21);
-            this.textBox2.TabIndex = 3;
-            this.textBox2.Text = "10";
-            // 
-            // FLen
-            // 
-            this.FLen.Location = new System.Drawing.Point(59, 37);
-            this.FLen.Name = "FLen";
-            this.FLen.Size = new System.Drawing.Size(88, 21);
-            this.FLen.TabIndex = 3;
-            // 
-            // BLen
-            // 
-            this.BLen.Location = new System.Drawing.Point(59, 64);
-            this.BLen.Name = "BLen";
-            this.BLen.Size = new System.Drawing.Size(88, 21);
-            this.BLen.TabIndex = 3;
-            // 
             // ImgList
             // 
             this.ImgList.ColorDepth = System.Windows.Forms.ColorDepth.Depth24Bit;
             this.ImgList.ImageSize = new System.Drawing.Size(32, 32);
             this.ImgList.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // label4
+            // upbut
             // 
-            this.label4.AutoSize = true;
-            this.label4.Location = new System.Drawing.Point(232, 11);
-            this.label4.Name = "label4";
-            this.label4.Size = new System.Drawing.Size(41, 12);
-            this.label4.TabIndex = 6;
-            this.label4.Text = "Lspeed";
+            this.upbut.Location = new System.Drawing.Point(59, 101);
+            this.upbut.Name = "upbut";
+            this.upbut.Size = new System.Drawing.Size(42, 23);
+            this.upbut.TabIndex = 9;
+            this.upbut.Text = "UP";
+            this.upbut.UseVisualStyleBackColor = true;
             // 
-            // label8
+            // downbut
             // 
-            this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(283, 11);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(41, 12);
-            this.label8.TabIndex = 7;
-            this.label8.Text = "Rspeed";
+            this.downbut.Location = new System.Drawing.Point(59, 129);
+            this.downbut.Name = "downbut";
+            this.downbut.Size = new System.Drawing.Size(42, 23);
+            this.downbut.TabIndex = 10;
+            this.downbut.Text = "Down";
+            this.downbut.UseVisualStyleBackColor = true;
             // 
-            // Lspeedtex
+            // leftbut
             // 
-            this.Lspeedtex.Location = new System.Drawing.Point(244, 172);
-            this.Lspeedtex.Name = "Lspeedtex";
-            this.Lspeedtex.Size = new System.Drawing.Size(29, 21);
-            this.Lspeedtex.TabIndex = 8;
-            this.Lspeedtex.Text = "1";
+            this.leftbut.Location = new System.Drawing.Point(11, 114);
+            this.leftbut.Name = "leftbut";
+            this.leftbut.Size = new System.Drawing.Size(42, 23);
+            this.leftbut.TabIndex = 11;
+            this.leftbut.Text = "Left";
+            this.leftbut.UseVisualStyleBackColor = true;
             // 
-            // Rspeedtex
+            // rightdut
             // 
-            this.Rspeedtex.Location = new System.Drawing.Point(286, 172);
-            this.Rspeedtex.Name = "Rspeedtex";
-            this.Rspeedtex.Size = new System.Drawing.Size(29, 21);
-            this.Rspeedtex.TabIndex = 9;
-            this.Rspeedtex.Text = "1";
+            this.rightdut.Location = new System.Drawing.Point(107, 114);
+            this.rightdut.Name = "rightdut";
+            this.rightdut.Size = new System.Drawing.Size(42, 23);
+            this.rightdut.TabIndex = 12;
+            this.rightdut.Text = "Right";
+            this.rightdut.UseVisualStyleBackColor = true;
             // 
             // Form1
             // 
@@ -753,6 +797,8 @@
             this.tabPage1.ResumeLayout(false);
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
+            this.groupBox2.ResumeLayout(false);
+            this.groupBox2.PerformLayout();
             this.groupBox8.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SpeedChart)).EndInit();
@@ -771,8 +817,6 @@
             this.groupBox6.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MapBox)).EndInit();
-            this.groupBox2.ResumeLayout(false);
-            this.groupBox2.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -838,6 +882,10 @@
         private System.Windows.Forms.TextBox Lspeedtex;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.Button upbut;
+        private System.Windows.Forms.Button rightdut;
+        private System.Windows.Forms.Button leftbut;
+        private System.Windows.Forms.Button downbut;
     }
 }
 

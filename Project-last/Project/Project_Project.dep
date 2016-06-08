@@ -1,5 +1,5 @@
 Dependencies for Project 'Project', Target 'Project': (DO NOT MODIFY !)
-F (.\main.c)(0x57453FD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Boot -I..\Refer\inc -I..\Refer\eMPL-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I Device\Include-DSTM32F10X_MD -o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
+F (.\main.c)(0x57512612)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Boot -I..\Refer\inc -I..\Refer\eMPL-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I Device\Include-DSTM32F10X_MD -o ..\obj\main.o --omf_browse ..\obj\main.crf --depend ..\obj\main.d)
 I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\delay.h)(0x57453FD6)
 I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\sys.h)(0x57453FD6)
 I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\stm32f10x.h)(0x57453FD6)
@@ -51,7 +51,7 @@ I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\stm32f10x.h)(0
 I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Boot\core_cm3.h)(0x57453FD5)
 I (C:\Keil\ARM\ARMCC\include\stdint.h)(0x51C7B744)
 I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\system_stm32f10x.h)(0x57453FD6)
-F (..\Refer\src\motor.c)(0x57453FD6)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Boot -I..\Refer\inc -I..\Refer\eMPL-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I Device\Include-DSTM32F10X_MD -o ..\obj\motor.o --omf_browse ..\obj\motor.crf --depend ..\obj\motor.d)
+F (..\Refer\src\motor.c)(0x57526C44)(-c --cpu Cortex-M3 -D__MICROLIB -g -O0 --apcs=interwork --split_sections -I..\Boot -I..\Refer\inc -I..\Refer\eMPL-I C:\Keil\ARM\RV31\INC-I C:\Keil\ARM\CMSIS\Include-I Device\Include-DSTM32F10X_MD -o ..\obj\motor.o --omf_browse ..\obj\motor.crf --depend ..\obj\motor.d)
 I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\Motor.h)(0x57453FD6)
 I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\mcuhead.h)(0x57453FD6)
 I (C:\Users\xinsh\Desktop\Git\MagneticScan\Project-last\Refer\inc\stm32f10x.h)(0x57453FD6)

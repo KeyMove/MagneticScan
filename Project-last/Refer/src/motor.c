@@ -39,7 +39,7 @@ static void setSpeed(u8 LR,s8 speed)
 			{
 				CLRBIT(motorstop,BIT0);
 				CLRBIT(motorstats,BIT0);
-				MOTOR_L_BA();
+				MOTOR_L_AB();
 			}
 			setDuty(LR,32-(-speed));
 		}
@@ -48,7 +48,7 @@ static void setSpeed(u8 LR,s8 speed)
 			{
 				CLRBIT(motorstop,BIT0);
 				SETBIT(motorstats,BIT0);
-				MOTOR_L_AB();
+				MOTOR_L_BA();
 			}
 			setDuty(LR,32-speed);
 		}
