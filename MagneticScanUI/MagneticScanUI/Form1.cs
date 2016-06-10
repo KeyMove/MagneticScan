@@ -70,10 +70,16 @@ namespace MagneticScanUI
         MapDraw mapInfo;
 
 
+        byte[][] sendarraydata = new byte[10][];
+        byte[] sendarrayid = new byte[10];
+        bool checkdata(SendCode code)
+        {
+            return sendarraydata[(int)code] == null;
+        }
 
         void SearchCheck()
         {
-            if (NodesSearch && !updateCmd)
+            if (NodesSearch && checkdata(SendCode.PathCmd))
                 if (lastAction == 0)
                 {
                     if (!TurnBack)
@@ -154,7 +160,8 @@ namespace MagneticScanUI
                             TurnBack = false;
                         }
                     }
-                    updateCmd = true;
+                    //updateCmd = true;
+                    senddata(SendCode.PathCmd, dircmd);
                 }
         }
         Timer t = new Timer();
@@ -184,7 +191,7 @@ namespace MagneticScanUI
             SpeedChart.ChartAreas[0].AxisY.Minimum = -100;
 
             GetData = Encoding.Default.GetBytes("GetData()");
-            //ips = getIPAddress();
+            ips = getIPAddress();
             new Task(() =>
             {
                 while (!this.IsDisposed)
@@ -228,7 +235,7 @@ namespace MagneticScanUI
                             lastID = br.ReadByte();
                             if (NodesSearch)
                             {
-                                if (!updateCmd)
+                                if (checkdata(SendCode.PathCmd))
                                 {
                                     if (lastAction == 0xff)
                                     {
@@ -245,7 +252,7 @@ namespace MagneticScanUI
                                         }
                                         else
                                         {
-                                            updateCmd = true;
+                                            senddata(SendCode.PathCmd, dircmd);
                                         }
                                         Invoke(new MethodInvoker(() =>
                                         {
@@ -267,19 +274,42 @@ namespace MagneticScanUI
 
             }).Start();
 
-            //FindDev();
+            FindDev();
 
-            uint i=0;
+            //uint i=0;
             t.Interval = 100;
             t.Tick += new EventHandler((object s, EventArgs ex) =>
             {
                 if (lasttarget == null) return;
+                Search.Send(GetData, GetData.Length, new IPEndPoint(lasttarget.Address | 0xff000000, 2333));
 
-                if(i++>=5)
+                for (int i = 0; i < sendarraydata.Length; i++)
                 {
-                    i = 0;
-                    Search.Send(GetData, GetData.Length, new IPEndPoint(lasttarget.Address | 0xff000000, 2333));
+                    if(lastSendID!=-1)
+                    if (sendarrayid[lastSendID] == lastID)
+                    {
+                        sendarraydata[lastSendID] = null;
+                        lastSendID = -1;
+                        //sendID++;
+                    }
+
+                    if (lastSendID != -1)
+                    {
+                        Search.Send(sendarraydata[lastSendID], sendarraydata[lastSendID].Length, new IPEndPoint(lasttarget.Address | 0xff000000, 2333));
+                        return;
+                    }
+                    else
+                    {
+                        if (sendarraydata[i] != null)
+                        {
+                            lastSendID = i;
+                            //sendarraydata[i][14] = (byte)sendID;
+                            Search.Send(sendarraydata[lastSendID], sendarraydata[lastSendID].Length, new IPEndPoint(lasttarget.Address | 0xff000000, 2333));
+                            return;
+                        }
+                    }
                 }
+                return;
                 
                 if(updataStatus)
                 {
@@ -290,7 +320,7 @@ namespace MagneticScanUI
                         return;
                     }
 
-                    senddata(7,statusLR);
+                   // senddata(7,statusLR);
                 }else if(updatastatusstop)
                 {
                     if (sendID == lastID)//确认设置OK
@@ -299,7 +329,7 @@ namespace MagneticScanUI
                         sendID++;
                         return;
                     }
-                    senddata(7, statusLR);
+                   // senddata(7, statusLR);
                 }
                 else 
                 if (updatePID)
@@ -311,7 +341,7 @@ namespace MagneticScanUI
                         return;
                     }
                     updatePID = false;
-                    senddata(0, trackP.Value, trackD.Value, trackI.Value);
+                    senddata(0, trackP.Value, trackI.Value, trackD.Value);
                     //byte[] cmd = Encoding.Default.GetBytes("uartpacket(2,{0," + trackP.Value + "," + trackD.Value + "," + trackI.Value + "})");
                     //Search.Send(cmd, cmd.Length, new IPEndPoint(lasttarget.Address | 0xff000000, 2333));
                 }
@@ -368,7 +398,7 @@ namespace MagneticScanUI
                         sb.Append(',');
                     }
                     sb.Append("0");
-                    senddata(3, sb.ToString());
+                    //senddata(3, sb.ToString());
                     //byte[] cmd = Encoding.Default.GetBytes(sb.ToString());
                     //Search.Send(cmd, cmd.Length, new IPEndPoint(lasttarget.Address | 0xff000000, 2333));
                     
@@ -382,7 +412,7 @@ namespace MagneticScanUI
                         sendID++;
                         return;
                     }
-                    senddata(4, dircmd);
+                    //senddata(4, dircmd);
                     //byte[] cmd = Encoding.Default.GetBytes("uartpacket(2,{4," + sendID + ","+ dircmd + "})");
                     //Search.Send(cmd, cmd.Length, new IPEndPoint(lasttarget.Address | 0xff000000, 2333));
                 }   
@@ -394,7 +424,7 @@ namespace MagneticScanUI
                         sendID++;
                         return;
                     }
-                    senddata(5);
+                    //senddata(5);
                     //byte[] cmd = Encoding.Default.GetBytes("uartpacket(2,{5})");
                     //Search.Send(cmd, cmd.Length, new IPEndPoint(lasttarget.Address | 0xff000000, 2333));
                 }
@@ -442,20 +472,34 @@ namespace MagneticScanUI
                         return;
                     }
 
-                    senddata(6,LeftSpeed.Value,RightSpeed.Value);
+                    //senddata(6,LeftSpeed.Value,RightSpeed.Value);
 
                 }
                 
             });
-            //t.Start();
+            t.Start();
         }
 
+        enum SendCode:int
+        {
+            PID=0,
+            LoadPathList=3,
+            PathCmd=4,
+            Reset=5,
+            AveSpeed=6,
+            MotorSpeed=7,
+        }
 
-        void senddata(int id,params object[] list)
+        void senddata(SendCode code,params object[] list)
+        {
+            senddata((int)code, list);
+        }
+        void senddata(int id,object[] list)
         {
             StringBuilder sb = new StringBuilder();
+            sendarrayid[id] = sendID;
             sb.Append("uartpacket(2,{");
-            sb.Append(sendID);
+            sb.Append(sendID++);
             sb.Append(',');
             sb.Append(id);
             sb.Append(',');
@@ -465,8 +509,9 @@ namespace MagneticScanUI
                 sb.Append(',');
             }
             sb.Append("0})");
-            byte[] cmd = Encoding.Default.GetBytes(sb.ToString());
-            Search.Send(cmd, cmd.Length, new IPEndPoint(lasttarget.Address | 0xff000000, 2333));
+
+            sendarraydata[id] = Encoding.Default.GetBytes(sb.ToString());
+            //Search.Send(cmd, cmd.Length, new IPEndPoint(lasttarget.Address | 0xff000000, 2333));
         }
 
 
@@ -520,12 +565,10 @@ namespace MagneticScanUI
             Pvalue.Text = trackP.Value.ToString();
             Ivalue.Text = trackI.Value.ToString();
             Dvalue.Text = trackD.Value.ToString();
+            senddata(SendCode.PID, trackP.Value, trackI.Value, trackD.Value);
         }
 
-        private void trackBar3_Scroll(object sender, EventArgs e)
-        {
-            updatePID = true;
-        }
+
 
         private void turnL_Click(object sender, EventArgs e)
         {
@@ -535,6 +578,54 @@ namespace MagneticScanUI
         private void turnR_Click(object sender, EventArgs e)
         {
             PathList.Items.Add("路口右转");
+        }
+
+        void sendturn()
+        {
+            StringBuilder sb = new StringBuilder();
+            sb.Append("0,0,");
+            sb.Append(PathRunList.Count);
+            sb.Append(',');
+            foreach (PathType type in PathRunList)
+            {
+                switch (type)
+                {
+                    case PathType.Forward:
+                        sb.Append('2');
+                        break;
+                    case PathType.Left:
+                        sb.Append('0');
+                        break;
+                    case PathType.Right:
+                        sb.Append('1');
+                        break;
+                    case PathType.Back:
+                        sb.Append('3');
+                        break;
+                }
+
+                //switch (str)
+                //{
+                //    case "路口左转":
+                //        sb.Append('0');
+                //        break;
+                //    case "路口右转":
+                //        sb.Append('1');
+                //        break;
+                //    case "路口直走":
+                //        sb.Append('2');
+                //        break;
+                //    case "尽头掉头":
+                //        sb.Append('3');
+                //        break;
+                //    case "复位":
+                //        sb.Append('4');
+                //        break;
+                //}
+                sb.Append(',');
+            }
+            sb.Append("0");
+            senddata(SendCode.LoadPathList, sb.ToString());
         }
 
         private void SendPath_Click(object sender, EventArgs e)
@@ -562,7 +653,9 @@ namespace MagneticScanUI
                 }
             }
             updateTurn = true;
+            sendturn();
             updateReset = true;
+            senddata(SendCode.Reset);
         }
 
         private void PathList_KeyDown(object sender, KeyEventArgs e)
@@ -597,7 +690,7 @@ namespace MagneticScanUI
         private byte sendID;
         private bool updateReset;
 
-        bool debug = true;
+        bool debug = false;
 
         private void gotoNodeButton_Click(object sender, EventArgs e)
         {
@@ -613,8 +706,10 @@ namespace MagneticScanUI
                         list.RemoveAt(0);
                     list.Add(PathType.Forward);
                     PathRunList.AddRange(list.ToArray());
-                    updateTurn = true;
-                    updateCmd = true;
+                    //updateTurn = true;
+                    sendturn();
+                    //updateCmd = true;
+                    senddata(SendCode.PathCmd, dircmd);
                     //updateReset = true;
                 }
                 MapBox.Image = mapInfo.Update();
@@ -649,31 +744,36 @@ namespace MagneticScanUI
 
         private void upkey_Click(object sender, EventArgs e)
         {
-            dircmd = (int)PathType.Forward;
-            updateCmd = true;
+            //dircmd = (int)PathType.Forward;
+            //updateCmd = true;
+            senddata(SendCode.PathCmd, (int)PathType.Forward);
         }
 
         private void leftkey_Click(object sender, EventArgs e)
         {
-            dircmd = (int)PathType.Left;
-            updateCmd = true;
+            senddata(SendCode.PathCmd, (int)PathType.Left);
+            //dircmd = (int)PathType.Left;
+            //updateCmd = true;
         }
 
         private void downkey_Click(object sender, EventArgs e)
         {
-            dircmd = (int)PathType.Back;
-            updateCmd = true;
+            senddata(SendCode.PathCmd, (int)PathType.Back);
+            //dircmd = (int)PathType.Back;
+            //updateCmd = true;
         }
 
         private void rightkey_Click(object sender, EventArgs e)
         {
-            dircmd = (int)PathType.Right;
-            updateCmd = true;
+            senddata(SendCode.PathCmd, (int)PathType.Right);
+            //dircmd = (int)PathType.Right;
+            //updateCmd = true;
         }
 
         private void resetKey_Click(object sender, EventArgs e)
         {
-            updateReset = true;
+            senddata(SendCode.Reset);
+            //updateReset = true;
         }
 
         SaveFileDialog sf = new SaveFileDialog();
@@ -706,13 +806,16 @@ namespace MagneticScanUI
         }
 
         bool bust=false;
+        private int lastSendID=-1;
+
         private void getdatabut_Click(object sender, EventArgs e)
         {
             bust = !bust;
             if (bust)
             {
                 getdatabut.Text = "停止获取";
-                Search.Send(GetData, GetData.Length, "255.255.255.255", 2333);
+                //Search.Send(GetData, GetData.Length, "255.255.255.255", 2333);
+                FindDev();
                 t.Start();
             }
             else
@@ -728,19 +831,23 @@ namespace MagneticScanUI
             {
                 case Keys.W:
                     statusLR = 1;
-                    updataStatus = true;
+                    //updataStatus = true;
+                    senddata(SendCode.MotorSpeed, statusLR);
                     break;
                 case Keys.S:
                     statusLR = 2;
-                    updataStatus = true;
+                    //updataStatus = true;
+                    senddata(SendCode.MotorSpeed, statusLR);
                     break;
                 case Keys.A:
                     statusLR = 3;
-                    updataStatus = true;
+                    //updataStatus = true;
+                    senddata(SendCode.MotorSpeed, statusLR);
                     break;
                 case Keys.D:
                     statusLR = 4;
-                    updataStatus = true;
+                    //updataStatus = true;
+                    senddata(SendCode.MotorSpeed, statusLR);
                     break;
             }
         }
@@ -750,23 +857,25 @@ namespace MagneticScanUI
             if(e.KeyCode==Keys.W|| e.KeyCode == Keys.S || e.KeyCode == Keys.A || e.KeyCode == Keys.D )
             {
                 statusLR = 0;
-                updatastatusstop = true;
+                //updatastatusstop = true;
+                senddata(SendCode.MotorSpeed, statusLR);
             }
         }
 
         private void RightSpeed_Scroll(object sender, EventArgs e)
         {
-            updataSpeed = true;
+            //updataSpeed = true;
             AveSpeedR = RightSpeed.Value;
             Rspeedtex.Text = RightSpeed.Value.ToString();
+            senddata(SendCode.AveSpeed, LeftSpeed.Value, RightSpeed.Value);
         }
 
         private void LeftSpeed_Scroll(object sender, EventArgs e)
         {
-            updataSpeed = true;
+            //updataSpeed = true;
             AveSpeedL = LeftSpeed.Value;
             Lspeedtex.Text = LeftSpeed.Value.ToString();
-            
+            senddata(SendCode.AveSpeed, LeftSpeed.Value, RightSpeed.Value);
 
         }
 
@@ -795,7 +904,8 @@ namespace MagneticScanUI
             mapInfo.SearchInit();
             NodesSearch = true;
             dircmd = (int)PathType.Forward;
-            updateReset = true;
+            //updateReset = true;
+            senddata(SendCode.Reset);
             MapBox.Image = mapInfo.Update();
             
         }

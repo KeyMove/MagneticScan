@@ -27,9 +27,6 @@ const UARTBase UART={
 #endif
 
 
-u16 packlen=0;//包长度
-u8 *packbuff;//接收区缓存
-u8 *sendbuff;//发送区缓存
 u8 recvmode=0;//
 u8 RecvFlag=0;//接收标志位
 u8 RecvCheck=0;//接收校验
@@ -37,13 +34,22 @@ u8 TimeOut=0;
 u16 LinkTimeOut = 0;
 u8 recvcmd=0;//接收到的串口命令
 u8 savecmd;//上一次发送的命令
-//u8 aliveflag=0;
+
+u16 sendSize=SEND_BUFF_LEN;
+u16 sendCount = 0;
+u16 sendPos = 0;
+u8 *sendbuff;//发送区缓存
+u8 *outputbuff;
+u16 lastSendCount=0;
+u8 sendSum = 0;;
+
+u16 recvPos;
+u8 *packbuff;//接收区缓存
+u16 packlen=0;//包长度
 
 static const UARTDATA UD;
 
 u8 AutoACK;//接收数据流
-u16 recvdatapos;
-u16 senddatapos;
 
 void OnRecvData(u8 dat)
 {
@@ -112,88 +118,97 @@ void TimeOutTick(void) {
 static void Setoffset(s16 offset,u8 flag)
 {
 	if(flag){
-		recvdatapos+=offset;
+		recvPos+=offset;
 	}
 	else{
-		recvdatapos=offset;
+		recvPos=offset;
 	}
 }
 
 static u8 ReadByte(){
-	if((recvdatapos+1)>packlen){
+	if((recvPos+1)>packlen){
 		return 0;
 	}
-	return packbuff[recvdatapos++];
+	return packbuff[recvPos++];
 }
 
-static u8 WriteByte(u8 dat){
-	if((senddatapos+1)>SEND_BUFF_LEN){
+static u8 WriteByte(u8 dat) {
+	if (sendSize<3) {
 		return 0;
 	}
-	sendbuff[senddatapos++]=dat;
+	sendSize--;
+	sendSum += sendbuff[sendPos++] = dat; if (sendPos == SEND_BUFF_LEN)sendPos = 0;
+	sendCount++;
 	return 1;
 }
 
-static u16 ReadWord(){
+static u16 ReadWord() {
 	u16 v;
-	if((recvdatapos+2)>packlen){
+	if ((recvPos + 2) > packlen) {
 		return 0;
 	}
-	_16T8H(v)=packbuff[recvdatapos++];
-	_16T8L(v)=packbuff[recvdatapos++];
+	_16T8H(v) = packbuff[recvPos++];
+	_16T8L(v) = packbuff[recvPos++];
 	return v;
 }
 
-static u8 WriteWord(u16 dat){
-	if((senddatapos+2)>SEND_BUFF_LEN){
+static u8 WriteWord(u16 dat) {
+	if (sendSize < 4) {
 		return 0;
 	}
-	sendbuff[senddatapos++]=_16T8H(dat);
-	sendbuff[senddatapos++]=_16T8L(dat);
+	sendSize -= 2;
+	sendCount += 2;
+	sendSum += sendbuff[sendPos++] = _16T8H(dat); if (sendPos == SEND_BUFF_LEN)sendPos = 0;
+	sendSum += sendbuff[sendPos++] = _16T8L(dat); if (sendPos == SEND_BUFF_LEN)sendPos = 0;
 	return 1;
 }
 
 static u32 ReadDWord(){
 	u32 v;
-	if((recvdatapos+4)>packlen){
+	if((recvPos+4)>packlen){
 		return 0;
 	}
-	_32T8HH(v)=packbuff[recvdatapos++];
-	_32T8H(v)=packbuff[recvdatapos++];
-	_32T8L(v)=packbuff[recvdatapos++];
-	_32T8LL(v)=packbuff[recvdatapos++];
+	_32T8HH(v)=packbuff[recvPos++];
+	_32T8H(v)=packbuff[recvPos++];
+	_32T8L(v)=packbuff[recvPos++];
+	_32T8LL(v)=packbuff[recvPos++];
 	return v;
 }
 
-static u8 WriteDWord(u32 dat){
-	if((senddatapos+4)>SEND_BUFF_LEN){
+static u8 WriteDWord(u32 dat) {
+	if (sendSize < 6) {
 		return 0;
 	}
-	sendbuff[senddatapos++]=_32T8HH(dat);
-	sendbuff[senddatapos++]=_32T8H(dat);
-	sendbuff[senddatapos++]=_32T8L(dat);
-	sendbuff[senddatapos++]=_32T8LL(dat);
+	sendSize -= 4;
+	sendCount += 4;
+	sendSum += sendbuff[sendPos++] = _32T8HH(dat); if (sendPos == SEND_BUFF_LEN)sendPos = 0;
+	sendSum += sendbuff[sendPos++] = _32T8H(dat); if (sendPos == SEND_BUFF_LEN)sendPos = 0;
+	sendSum += sendbuff[sendPos++] = _32T8L(dat); if (sendPos == SEND_BUFF_LEN)sendPos = 0;
+	sendSum += sendbuff[sendPos++] = _32T8LL(dat); if (sendPos == SEND_BUFF_LEN)sendPos = 0;
 	return 1;
 }
 
 static u16 ReadBuff(u8 *buff,u16 len)
 {
-	if((len+recvdatapos)>=packlen){
-		len=packlen-recvdatapos;
+	if((len+recvPos)>=packlen){
+		len=packlen-recvPos;
 	}
 	while(len--){
-		*buff++=packbuff[recvdatapos++];
+		*buff++=packbuff[recvPos++];
 	}
 	return len;
 }
 
 static u16 WriteBuff(u8 *buff,u16 len)
 {
-	if((len+recvdatapos)>=SEND_BUFF_LEN){
-		len=SEND_BUFF_LEN-recvdatapos;
+	if(sendSize<(len+2)){
+		len = sendSize-2;
 	}
+	sendSize -= len;
+	sendCount += len;
 	while(len--){
-		sendbuff[senddatapos++]=*buff++;
+		sendSum += *buff;
+		sendbuff[sendPos++]=*buff++;
 	}
 	return len;
 }
@@ -201,9 +216,12 @@ static u16 WriteBuff(u8 *buff,u16 len)
 static u16 Writestr(u8 *str)
 {
 	u16 len=0;
-	while((*str!=0)&&(recvdatapos<SEND_BUFF_LEN))
+	while((*str!=0)&&(sendSize))
 	{
-		sendbuff[senddatapos++]=*str++;
+		sendSum += *str;
+		sendbuff[sendPos++]=*str++; if (sendPos == SEND_BUFF_LEN)sendPos = 0;
+		sendSize --;
+		sendCount ++;
 		len++;
 	}
 	return len;
@@ -211,7 +229,7 @@ static u16 Writestr(u8 *str)
 
 static u8* getbuff()
 {
-	return &packbuff[recvdatapos];
+	return &packbuff[recvPos];
 }
 
 static u16 getlen(){
@@ -223,22 +241,26 @@ static u8 getcmd(){
 }
 
 static u8* getsendbuff() {
-	return &sendbuff[senddatapos];
+	return &sendbuff[sendPos];
 }
 //---------------------------------------------------------------------------------
 
 static void Init(u8* databuff)
 {
 	u16 i;
-	for(i=0;i<MAX_CMD;i++)
+	for (i = 0; i < MAX_CMD; i++)
 	{
-		UartCmdEvent[i]=0;
+		UartCmdEvent[i] = 0;
 	}
-	for(i=0;i<RECV_BUFF_LEN+SEND_BUFF_LEN;i++){
-		databuff[i]=0;
+	for (i = 0; i < RECV_BUFF_LEN + SEND_BUFF_LEN; i++) {
+		databuff[i] = 0;
 	}
-	packbuff=databuff;
-	sendbuff=&databuff[RECV_BUFF_LEN];
+	packbuff = databuff;
+
+	sendbuff = &databuff[RECV_BUFF_LEN];
+	outputbuff = sendbuff+SEND_BUFF_LEN/2; 
+	WriteDWord(0x55000000);
+	sendSum = 0;
 }
 
 void SendPack(u8 cmd,u8 *buff,u16 len)
@@ -294,33 +316,48 @@ void aack(u8 stats)
 	AutoACK=stats;
 }
 
-void ackpack(u8 *buff,u16 len)
+void ackpack(u8 cmd)
 {
-	SendPack(recvcmd,buff,len);
+	//SendPack(recvcmd,buff,len);
+	u8* pdata = sendbuff+1;
+	*pdata++ = _16T8H(sendCount);
+	*pdata++ = _16T8L(sendCount);
+	*pdata++ = cmd;
+	WriteByte(sendSum);
+	WriteByte(0xaa);
+	UART.SendBuff(sendbuff, sendCount);
+	pdata=sendbuff;
+	sendbuff=outputbuff;
+	outputbuff=pdata;
+	sendPos=0;
+	sendSize=SEND_BUFF_LEN/2;
+	sendCount = 0;
+	WriteDWord(0x55000000);
+	sendSum = 0;
 	AutoACK+=2;
 }
 
 void sendackpacket(void)
 {
-	if(senddatapos==0)
+	if(sendCount==0)
 	{
 		WriteByte(0);
 	}
-	ackpack(sendbuff,senddatapos);
+	ackpack(recvcmd);
 }
 
 void UartCmd(void)
 {	
 	if(RecvFlag==RF_OK){
 		RecvFlag=0;
-		recvdatapos=0;
-		senddatapos=0;
+		recvPos=0;
+		//sendPos=0;
 		LinkTimeOut = LinkTime;
 		if(UartCmdEvent[recvcmd]!=0)
 		{
 			UartCmdEvent[recvcmd]((UartEvent)&UD);
 			if(AutoACK==1){
-				SendCmdPack(recvcmd);
+				sendackpacket();// SendCmdPack(recvcmd);
 			}
 			else{
 				AutoACK&=1;
@@ -360,7 +397,7 @@ const UartProtocolBase UartProtocol={
 	UnRegisterCmdEvent,
 	aack,
 	SendCmdPack,
-	ackpack,
+//	ackpack,
 	SendPack,
 	UartCmd,
 	isLink,

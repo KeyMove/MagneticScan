@@ -6,7 +6,7 @@
 //接收缓冲区大小
 #define RECV_BUFF_LEN 64
 //发送缓冲区大小
-#define SEND_BUFF_LEN 64
+#define SEND_BUFF_LEN 128
 //最大命令数量
 #define MAX_CMD 16
 //命令ID号
@@ -94,14 +94,14 @@ typedef struct{
 	//发送指定ID号的回应包
 	//如果设置了”自动回应“则执行回调函数执行完后自动发送一个回应包
 	//cmd：回应的命令ID
-	void(*SendACKPacket)(u8 cmd);
+	void(*SendCmdPacket)(u8 cmd);
 	
-	//发送带数据回应包
-	//发送当前ID号的回应包
-	//如果设置了”自动回应“这个会覆盖掉自动回应的数据内容
-	//buff：数据内容 len：数据长度
-	void(*SendACKDataPacket)(u8 *buff,u16 len);
-	
+	////发送带数据回应包
+	////发送当前ID号的回应包
+	////如果设置了”自动回应“这个会覆盖掉自动回应的数据内容
+	////buff：数据内容 len：数据长度
+	//void(*SendACKDataPacket)(u8 *buff,u16 len);
+	//
 
 	//发送数据包
 	//可指定命令数据内容

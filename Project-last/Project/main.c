@@ -614,6 +614,7 @@ void AliveEvent(UartEvent e)
 
 void GetDataEvent(UartEvent e)
 {
+	u8 i;
 	s16 yawvalue;
 	SensorStatus val=Sensor.Read();
   //mpu_dmp_get_data(&pitch,&roll,&yaw);
@@ -630,6 +631,10 @@ void GetDataEvent(UartEvent e)
 	e->WriteByte(PathSelect);
 	e->WriteByte(lastCodeID);
 	e->WriteWord(lastTick);
+	for(i=0;i<MaxSensor;i++)
+	{
+		e->WriteWord(Sensor.GetCHValue(i));		
+	}
 	e->SendAckPacket();
 }
 
@@ -688,24 +693,24 @@ void SetDataEvent(UartEvent e)
 			switch(statusRL)
 		{
 				case 0:
-					Motor.Speed(0,0);
-					Motor.Speed(1,0);
+					Motor.Speed(0,MotorLeftSpeed=0);
+					Motor.Speed(1,MotorRightSpeed=0);
 					break;
 				case 1:
-					Motor.Speed(0,AveSpeedL);
-					Motor.Speed(1,AveSpeedR);
+					Motor.Speed(0,MotorLeftSpeed=AveSpeedL);
+					Motor.Speed(1,MotorRightSpeed=AveSpeedR);
 					break;
 				case 2:
-					Motor.Speed(0,-AveSpeedL);
-					Motor.Speed(1,-AveSpeedR);
+					Motor.Speed(0,MotorLeftSpeed=-AveSpeedL);
+					Motor.Speed(1,MotorRightSpeed=-AveSpeedR);
 					break;
 				case 3:
-					Motor.Speed(0,AveSpeedL);
-					Motor.Speed(1,-AveSpeedR);
+					Motor.Speed(0,MotorLeftSpeed=-AveSpeedL);
+					Motor.Speed(1,MotorRightSpeed=AveSpeedR);
 					break;
 				case 4:
-					Motor.Speed(0,-AveSpeedL);
-					Motor.Speed(1,AveSpeedR);
+					Motor.Speed(0,MotorLeftSpeed=AveSpeedL);
+					Motor.Speed(1,MotorRightSpeed=-AveSpeedR);
 					break;
 		}
 			break;
@@ -714,7 +719,8 @@ void SetDataEvent(UartEvent e)
 void led(void)
 {
   LED=~LED;
-	mpu_dmp_get_data(&pitch,&roll,&yaw);
+	UART.SendString((u8*)"test!");
+	//mpu_dmp_get_data(&pitch,&roll,&yaw);
 	Yaw=yaw;
 }
 
@@ -818,10 +824,13 @@ int main(void)
 	
 	UART.Init(72,115200,OnRecvData);
 	UART.SendByte(0);
+	UART.SendByte(0xff);
+	UART.SendByte(0x55);
 	
 	Timer.Start(0,UartProtocol.Check);
   Timer.Start(0,tick1);
   Timer.Start(10,DetectionLogic.LogicRun);
+	Timer.Start(2,Sensor.LoopScan);
 	PathList=pathbuff;
 	DetectionLogic.Init();
 	DetectionLogic.RegisterEvent(ActionType.EnterWay,inway);
@@ -830,7 +839,7 @@ int main(void)
 	DetectionLogic.Control->StopRun();
 	lastAction=0xff;
 	//DetectionLogic.LoadDefConfig(pathbuff );
-  Timer.Start(100,led);
+  //Timer.Start(500,led);
 	
   UartProtocol.Init(buffdata);
 	UartProtocol.AutoAck(ENABLE);

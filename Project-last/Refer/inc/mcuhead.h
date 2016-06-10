@@ -84,6 +84,7 @@ union u2i{
 #define PPMODE (u32)0x3
 #define PUMODE (u32)0x8
 #define AFMODE (u32)0xb
+#define AIMODE (u32)0
 
 #define HT4(x,y,z) (((x&(1<<y))!=0)*(z<<4*y))
 #define HT16(x) (~(HT4(x,0,_0xf)|HT4(x,1,_0xf)|HT4(x,2,_0xf)|HT4(x,3,_0xf)|HT4(x,4,_0xf)|HT4(x,5,_0xf)|HT4(x,6,_0xf)|HT4(x,7,_0xf)))
@@ -99,5 +100,9 @@ union u2i{
 #define AF16(x) (HT4(x,0,AFMODE)|HT4(x,1,AFMODE)|HT4(x,2,AFMODE)|HT4(x,3,AFMODE)|HT4(x,4,AFMODE)|HT4(x,5,AFMODE)|HT4(x,6,AFMODE)|HT4(x,7,AFMODE))
 #define _GPIO_AF(io,b1,b2) io->CRH=(io->CRH&HT16(b1))|AF16(b1);io->CRL=(io->CRL&HT16(b2))|AF16(b2);
 #define GPIO_AF(io,b1,b2) _GPIO_AF(io,BIN(b1),BIN(b2))
+
+#define AI16(x) (HT4(x,0,AIMODE)|HT4(x,1,AIMODE)|HT4(x,2,AIMODE)|HT4(x,3,AIMODE)|HT4(x,4,AIMODE)|HT4(x,5,AIMODE)|HT4(x,6,AIMODE)|HT4(x,7,AIMODE))
+#define _GPIO_AI(io,b1,b2) io->CRH=(io->CRH&HT16(b1))|AI16(b1);io->CRL=(io->CRL&HT16(b2))|AI16(b2);
+#define GPIO_AI(io,b1,b2) _GPIO_AI(io,BIN(b1),BIN(b2))
 
 #endif

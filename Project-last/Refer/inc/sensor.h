@@ -23,7 +23,10 @@
 
 typedef struct {
 	void(*Init)(void);
+	void(*LoopScan)(void);
 	SensorStatus(*Read)(void);
+	void(*SetCHTH)(u8 ch,u16 value);
+	u16(*GetCHValue)(u8 ch);
 }SensorBase;
 
 extern const SensorBase Sensor;

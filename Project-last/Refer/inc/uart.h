@@ -14,6 +14,7 @@ void UART_SetEnable(u8 set);
 void UART_SendByte(u8 dat);
 void UART_SendString(u8* p);
 void UART_ReSetBps(u32 b);
+void UART_SendBuff(u8 *buff,u16 len);
 
 void UART_OnRecv(void(*p)(u8));
 
@@ -23,6 +24,7 @@ typedef struct{
 	void (*Init)(u8 f_MHz,u32 Baud,UARTCALLBACK CallBack);
 	void (*SendByte)(u8);
 	void (*SendString)(u8*);
+	void (*SendBuff)(u8*,u16);
 	void (*SetBaud)(u32);
 	void (*RegisterUartEvent)(void(*)(u8));
 }UARTBase;
