@@ -1,6 +1,14 @@
 #include "spi.h"
 
 #if !hw
+
+//static void wait(){
+//	u8 i=50;
+//	while(i--);
+//}
+
+#define nop(); 
+
 static void Init() {
 	SETBIT(RCC->APB2ENR,RCC_APB2ENR_IOPAEN);
 	SETBIT(GPIOA->ODR, BIT7 | BIT6 | BIT5);
@@ -12,12 +20,15 @@ static void WriteByte(u8 temp)
   u8 i;
   for(i=0;i<8;i++)
   {
-	  SPI_CLK_CLR();
+		nop();
 	  if (temp&BIT7)
 		  SPI_MOSI_SET();
 	  else
 		  SPI_MOSI_CLR();
+		SPI_CLK_CLR();
+	  nop();
 	  SPI_CLK_SET();
+		
 	  temp <<= 1;
   }
 }
@@ -28,7 +39,9 @@ static u8 ReadByte(void)
   dat1=0;
   for(i=0;i<8;i++)
   {	
+		nop();
 		SPI_CLK_CLR();
+		nop();
 		dat1<<=1;
 	  if (SPI_MISO())
 		  dat1++;
@@ -63,3 +76,5 @@ const SPIBase SPI = {
 	WriteByte,
 	ReadByte,
 };
+
+#undef nop

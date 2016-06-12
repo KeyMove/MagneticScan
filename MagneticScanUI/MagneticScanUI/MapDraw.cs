@@ -27,6 +27,8 @@ namespace MagneticScanUI
         public string pathName;
         public int x, y;
         public int w;
+        public object Tag;
+
         public bool isNew
         {
             get { return pathCount == 0; }
@@ -261,11 +263,13 @@ namespace MagneticScanUI
     {
         Bitmap map;
         Graphics Draw;
-        Pen norpen = new Pen(Color.Black,3);
-        Pen deadpen = new Pen(Color.Gray, 3);
-        Pen newpen = new Pen(Color.Blue, 3);
-        Pen targetpen = new Pen(Color.Red, 3);
+        Pen norpen = new Pen(Color.Gray,5);
+        Brush norBrush = Brushes.Gray;
+        Brush deadBrush = Brushes.Black;
+        Pen newpen = new Pen(Color.SkyBlue, 3);
+        Brush targetBrush = Brushes.Red;
         Pen PathPen = new Pen(Color.GreenYellow, 1);
+        Brush CarBrush = Brushes.Orange;
 
         List<PathNode> TargetPath = new List<PathNode>();
         List<PathType> TargetDirList = new List<PathType>();
@@ -274,7 +278,7 @@ namespace MagneticScanUI
         PathDir findDir=new PathDir();
         Font strFont = new Font("宋体", 9);    
         int xpos, ypos;
-        int width=30;
+        int width=10;
         List<PathNode> allPath = new List<PathNode>();
 
         int nodescount = 0;
@@ -287,17 +291,22 @@ namespace MagneticScanUI
         bool isOver = false;
         PathDir LastDir=new PathDir();
 
+        PathDir LastPathDirValue = new PathDir();
         public PathDir LastPathDir
         {
-            get { return LastDir.clone(); }
+            get { return LastPathDirValue.clone(); }
             set
             {
                 if (value != null)
-                    LastDir = value.clone();
+                    LastPathDirValue = value.clone();
             }
         }
 
+        public bool WayLenght { get; private set; }
+
         Stack<PathNode> searchStack = new Stack<PathNode>();
+        private int lastlenght;
+
         public MapDraw(int w,int h)
         {
             map = new Bitmap(w, h);
@@ -321,20 +330,45 @@ namespace MagneticScanUI
             }
         }
 
-        void DrawPath(int x,int y,PathNode node,PathType t=PathType.nil)
+
+        //public List<PathNode> getAllNode(List<PathNode> list = null)
+        //{
+        //    List<PathNode> nodes = list;
+        //    if (nodes == null)
+        //    {
+        //        nodes = new List<PathNode>();
+        //    }
+        //    for (int i = 0; i < paths.Length; i++)
+        //    {
+        //        if (this.paths[i] != null)
+        //        {
+        //            if (nodes.Contains(this.paths[i])) continue;
+        //            nodes.Add(this.paths[i]);
+        //            this.paths[i].getAllNode(nodes);
+        //        }
+        //    }
+        //    return nodes;
+        //}
+        List<PathNode> DrawPathList(int x,int y,PathNode node,List<PathNode> pathlist=null, List<Point> ps=null)
         {
-            PathNode n;
-            Pen pen = norpen;
-            int ax=0, ay=0;
-            int w = node.w != 0 ? node.w : width;
-            node.x = x;
-            node.y = y;
-            if (t != PathType.nil)
+            List<PathNode> nodes = pathlist;
+            List<Point> Points=ps;
+            bool f = false;
+            if (nodes == null)
             {
-                if (node[t] != null)
+                f = true;
+                Points = new List<Point>();
+                nodes = new List<PathNode>();
+            }
+            int ax=0, ay=0;
+            int w;
+            for (int i = 0; i < node.paths.Length; i++)
+            {
+                if (node.paths[i] != null)
                 {
-                    n = node[t];
-                    switch (findDir[t])
+                    if (nodes.Contains(node.paths[i])) continue;
+                    if ((w = node.pathlenght[i]) == 0) w = width;
+                    switch ((PathType)i)
                     {
                         case PathType.Forward:
                             ax = 0;
@@ -353,196 +387,45 @@ namespace MagneticScanUI
                             ay = w;
                             break;
                     }
-                    if (!n.isDead)
+
+                    if (!node.paths[i].isDead)
                     {
                         Draw.DrawLine(norpen, x, y, x + ax, y + ay);
-                        findDir.Rotate(t);
-                        NodeList.Add(node);
-                        DrawPath(x + ax, y + ay, n);
-                        NodeList.Remove(node);
-                        findDir.Rotate(t);
-                        findDir.Rotate(t);
-                        findDir.Rotate(t);
-                        Draw.DrawEllipse(norpen, new Rectangle(x + ax - 5, y + ay - 5, 10, 10));
-                        if (lastNode == n)
-                            Draw.DrawEllipse(targetpen, new Rectangle(x + ax - 5, y + ay - 5, 10, 10));
+                        Draw.FillEllipse(norBrush, new Rectangle(x + ax - 2, y + ay - 2, 4, 4));
+                        //if (lastNode == node.paths[i])
+                        //    Draw.DrawEllipse(targetpen, new Rectangle(x + ax - 5, y + ay - 5, 10, 10));
                     }
-                    else if (n.isNew)
+                    else if (node.paths[i].isNew)
                     {
                         Draw.DrawLine(newpen, x, y, x + ax, y + ay);
-                        n.x = x+ax;
-                        n.y = y+ay;
+                        node.paths[i].x = x + ax;
+                        node.paths[i].y = y + ay;
                     }
                     else
                     {
-                        Draw.DrawLine(deadpen, x, y, x + ax, y + ay);
-                        Draw.DrawEllipse(deadpen, new Rectangle(x + ax - 5, y + ay - 5, 10, 10));
-                        if (lastNode == n)
-                            Draw.DrawEllipse(targetpen, new Rectangle(x + ax - 5, y + ay - 5, 10, 10));
-                        Draw.DrawString(n.pathName, strFont, Brushes.Black, x + ax + 5, y + ay + 5);
-                        n.x = x + ax;
-                        n.y = y + ay;
+                        Draw.DrawLine(norpen, x, y, x + ax, y + ay);
+                        //Draw.DrawEllipse(deadpen, new Rectangle(x + ax - 5, y + ay - 5, 10, 10));
+                        //if (lastNode == node.paths[i])
+                        //    Draw.DrawEllipse(targetpen, new Rectangle(x + ax - 5, y + ay - 5, 10, 10));
+                        Draw.DrawString(node.paths[i].pathName, strFont, Brushes.Black, x + ax + 5, y + ay + 5);
+                        node.paths[i].x = x + ax;
+                        node.paths[i].y = y + ay;
+                        Points.Add(new Point(node.paths[i].x, node.paths[i].y));
                     }
+
+                    nodes.Add(node.paths[i]);
+                    DrawPathList(x + ax, y + ay, node.paths[i], nodes, Points);
                 }
-                return;
             }
-            if(node[findDir.Right]!=null&&!NodeList.Contains(node[findDir.Right]))
+            if (f)
             {
-                n = node[findDir.Right];
-                switch (findDir.Right)
+                foreach(Point p in Points)
                 {
-                    case PathType.Forward:
-                        ax = 0;
-                        ay = -w;
-                        break;
-                    case PathType.Left:
-                        ax = -w;
-                        ay = 0;
-                        break;
-                    case PathType.Right:
-                        ax = w;
-                        ay = 0;
-                        break;
-                    case PathType.Back:
-                        ax = 0;
-                        ay = w;
-                        break;
+                    Draw.FillRectangle(deadBrush,p.X-8,p.Y-8,16,16);
                 }
-                if (!n.isDead)
-                {
-                    Draw.DrawLine(norpen, x, y, x + ax, y + ay);
-                    findDir.Rotate(PathType.Right);
-                    NodeList.Add(node);
-                    DrawPath(x + ax, y + ay, n);
-                    NodeList.Remove(node);
-                    findDir.Rotate(PathType.Left);
-                    Draw.DrawEllipse(norpen, new Rectangle(x + ax - 5, y + ay - 5, 10, 10));
-                    if (lastNode == n)
-                        Draw.DrawEllipse(targetpen, new Rectangle(x + ax - 5, y + ay - 5, 10, 10));
-                    
-                        
-                }
-                else if (n.isNew)
-                {
-                    Draw.DrawLine(newpen, x, y, x + ax, y + ay);
-                    n.x = x + ax;
-                    n.y = y + ay;
-                }
-                else
-                {
-                    Draw.DrawLine(deadpen, x, y, x + ax, y + ay);
-                    Draw.DrawEllipse(deadpen, new Rectangle(x + ax - 5, y + ay - 5, 10, 10));
-                    if (lastNode == n)
-                        Draw.DrawEllipse(targetpen, new Rectangle(x + ax - 5, y + ay - 5, 10, 10));
-                    Draw.DrawString(n.pathName, strFont, Brushes.Black, x + ax + 5, y + ay + 5);
-                    n.x = x + ax;
-                    n.y = y + ay;
-                }
+                Draw.FillEllipse(targetBrush, new Rectangle(lastNode.x - 5, lastNode.y - 5, 10, 10));
             }
-            if (node[findDir.Forward] != null && !NodeList.Contains(node[findDir.Forward]))
-            {
-                n = node[findDir.Forward];
-                switch (findDir.Forward)
-                {
-                    case PathType.Forward:
-                        ax = 0;
-                        ay = -w;
-                        break;
-                    case PathType.Left:
-                        ax = -w;
-                        ay = 0;
-                        break;
-                    case PathType.Right:
-                        ax = w;
-                        ay = 0;
-                        break;
-                    case PathType.Back:
-                        ax = 0;
-                        ay = w;
-                        break;
-                }
-                if (!n.isDead)
-                {
-                    Draw.DrawLine(norpen, x, y, x + ax, y + ay);
-                    NodeList.Add(node);
-                    DrawPath(x + ax, y + ay, n);
-                    NodeList.Remove(node);
-                    Draw.DrawEllipse(norpen, new Rectangle(x + ax - 5, y + ay - 5, 10, 10));
-                    if (lastNode == n)
-                        Draw.DrawEllipse(targetpen, new Rectangle(x + ax - 5, y + ay - 5, 10, 10));
-
-
-                }
-                else if (n.isNew)
-                {
-                    Draw.DrawLine(newpen, x, y, x + ax, y + ay);
-                    n.x = x + ax;
-                    n.y = y + ay;
-                }
-                else
-                {
-                    Draw.DrawLine(deadpen, x, y, x + ax, y + ay);
-                    Draw.DrawEllipse(deadpen, new Rectangle(x + ax - 5, y + ay - 5, 10, 10));
-                    if (lastNode == n)
-                        Draw.DrawEllipse(targetpen, new Rectangle(x + ax - 5, y + ay - 5, 10, 10));
-                    Draw.DrawString(n.pathName, strFont, Brushes.Black, x + ax + 5, y + ay + 5);
-                    n.x = x + ax;
-                    n.y = y + ay;
-                }
-            }
-            if (node[findDir.Left] != null && !NodeList.Contains(node[findDir.Left]))
-            {
-                n = node[findDir.Left];
-                switch (findDir.Left)
-                {
-                    case PathType.Forward:
-                        ax = 0;
-                        ay = -w;
-                        break;
-                    case PathType.Left:
-                        ax = -w;
-                        ay = 0;
-                        break;
-                    case PathType.Right:
-                        ax = w;
-                        ay = 0;
-                        break;
-                    case PathType.Back:
-                        ax = 0;
-                        ay = w;
-                        break;
-                }
-                if (!n.isDead)
-                {
-                    Draw.DrawLine(norpen, x, y, x + ax, y + ay);
-                    findDir.Rotate(PathType.Left);
-                    NodeList.Add(node);
-                    DrawPath(x + ax, y + ay, n);
-                    NodeList.Remove(node);
-                    findDir.Rotate(PathType.Right);
-                    Draw.DrawEllipse(norpen, new Rectangle(x + ax - 5, y + ay - 5, 10, 10));
-                    if (lastNode == n)
-                        Draw.DrawEllipse(targetpen, new Rectangle(x + ax - 5, y + ay - 5, 10, 10));
-
-
-                }
-                else if (n.isNew)
-                {
-                    Draw.DrawLine(newpen, x, y, x + ax, y + ay);
-                    n.x = x + ax;
-                    n.y = y + ay;
-                }
-                else
-                {
-                    Draw.DrawLine(deadpen, x, y, x + ax, y + ay);
-                    Draw.DrawEllipse(deadpen, new Rectangle(x + ax - 5, y + ay - 5, 10, 10));
-                    if (lastNode == n)
-                        Draw.DrawEllipse(targetpen, new Rectangle(x + ax - 5, y + ay - 5, 10, 10));
-                    Draw.DrawString(n.pathName, strFont, Brushes.Black, x + ax + 5, y + ay + 5);
-                    n.x = x + ax;
-                    n.y = y + ay;
-                }
-            }
+            return nodes;
         }
 
         public List<PathNode> getEndPoint()
@@ -556,10 +439,12 @@ namespace MagneticScanUI
             ypos = map.Height/2 ;
             Draw.Clear(Color.White);
             NodeList.Clear();
-            DrawPath(xpos,ypos,nodes);
-            findDir.Rotate(PathType.Back);
-            DrawPath(nodes[PathType.Forward].x, nodes[PathType.Forward].y, nodes[PathType.Forward]);
+            DrawPathList(xpos, ypos, nodes);
             DrawTargetPath();
+            updateCar(lastlenght);
+            //DrawPath(xpos,ypos,nodes);
+            //findDir.Rotate(PathType.Back);
+            //DrawPath(nodes[PathType.Forward].x, nodes[PathType.Forward].y, nodes[PathType.Forward],PathType.Back);
             findDir.Reset();
             return map;
         }
@@ -578,6 +463,12 @@ namespace MagneticScanUI
             LastPathDir = dir;
             lastNode = node;
             return true;
+        }
+
+
+        public List<PathNode> getLastTargetPath()
+        {
+            return TargetPath;
         }
 
         public bool setTargetPoint(PathNode node)
@@ -616,6 +507,7 @@ namespace MagneticScanUI
         {
             nodescount = 0;
             isOver = false;
+            TargetPath.Clear();
             TargetNode = nodes = new PathNode(nodescount++);
             searchStack.Clear();
             searchStack.Push(nodes);
@@ -624,10 +516,103 @@ namespace MagneticScanUI
             lastNode = nodes[PathType.Forward];
             LastDir.Reset();
             TurnBack = false;
+            WayLenght = true;
         }
+
+
+        public void setCarNode(PathNode d,PathNode s=null)
+        {
+
+            if (s != null)
+                TargetNode = s;
+            else
+                TargetNode = lastNode;
+            lastNode = d;
+            LastDir.Reset();
+            PathType pt = TargetNode[d];
+            //LastDir.Rotate(PathType.Back);
+            LastDir.Rotate(pt);
+        }
+
+        void updateCar(int w)
+        {
+            int angle=0;
+            int ax = 0, ay = 0;
+            switch (LastDir.Forward)
+            {
+                case PathType.Forward:
+                    ax = 0;
+                    ay = -w;
+                    angle = 0;
+                    break;
+                case PathType.Left:
+                    ax = -w;
+                    ay = 0;
+                    angle = -90;
+                    break;
+                case PathType.Right:
+                    ax = w;
+                    ay = 0;
+                    angle = 90;
+                    break;
+                case PathType.Back:
+                    ax = 0;
+                    ay = w;
+                    angle = 180;
+                    break;
+            }
+            drawCar(TargetNode.x+ax, TargetNode.y+ay, angle);
+        }
+
+        void drawCar(int x,int y,int angle)
+        {
+            Draw.FillEllipse(CarBrush, new Rectangle(x - 8, y - 8, 16, 16));
+            Point[] ps = new Point[4];
+            double dy = Math.Sin((angle - 180) * Math.PI / 180) * 8 + y;
+            double dx = Math.Cos((angle - 180) * Math.PI / 180) * 8 + x;
+            ps[0].X = (int)dx;
+            ps[0].Y = (int)dy;
+            dy = Math.Sin((angle - 90) * Math.PI / 180) * 14 + y;
+            dx = Math.Cos((angle - 90) * Math.PI / 180) * 14 + x;
+            ps[1].X = (int)dx;
+            ps[1].Y = (int)dy;
+            dy = Math.Sin((angle) * Math.PI / 180) * 8 + y;
+            dx = Math.Cos((angle) * Math.PI / 180) * 8 + x;
+            ps[2].X = (int)dx;
+            ps[2].Y = (int)dy;
+
+            ps[3].X = x;
+            ps[3].Y = y;
+            Draw.FillPolygon(CarBrush, ps);
+            Draw.FillEllipse(Brushes.White, new Rectangle(x - 3, y - 3, 6, 6));
+        }
+
+        public void SetLastPathLenght(int lenght)
+        {
+            if(WayLenght)
+            { lastNode.pathlenght[(int)LastDir.Back]=TargetNode.pathlenght[(int)LastDir.Forward] = lenght; }
+            lastlenght = lenght> lastNode.pathlenght[(int)LastDir.Back]? lastNode.pathlenght[(int)LastDir.Back]:lenght;
+        }
+
+        public int GetLastPathLenght()
+        {
+            return lastNode.pathlenght[(int)LastDir.Back];
+        }
+
+        public int getlastTargetLenght()
+        {
+            return TargetNode.pathlenght[(int)TargetNode[lastNode]];
+        }
+
+        public void SetLastPathTag(object obj)
+        {
+            lastNode.Tag = obj;
+        }
+
         public int SearchCheck(int lastPathSelect)
         {
             int PathOut = -1;
+            WayLenght = false;
             if (!TurnBack)
             {
                 lastPath = (PathType)PathOut;
@@ -648,6 +633,7 @@ namespace MagneticScanUI
                 }
                 if (PathOut < 0)
                 {
+                    TargetNode = lastNode;
                     lastNode = searchStack.Pop();
                     PathOut = (int)PathType.Back;
                     LastDir.Rotate(PathType.Back);
@@ -655,10 +641,12 @@ namespace MagneticScanUI
                 }
                 else
                 {
+                    WayLenght = true;
                     searchStack.Push(lastNode);
                     lastPath = LastDir[(PathType)PathOut];
                     LastDir.Rotate((PathType)PathOut);
                     lastNode[lastPath][LastDir.Back] = lastNode;
+                    TargetNode = lastNode;
                     lastNode = lastNode[lastPath];
                 }
             }
@@ -702,6 +690,8 @@ namespace MagneticScanUI
                         else
                         {
                             UpdateEndPoint();
+                            lastlenght = 0;
+                            TargetNode = nodes[PathType.Forward];
                             return -1;
                         }
                         if (lastNode[PathType.Back].isDead)
@@ -709,6 +699,7 @@ namespace MagneticScanUI
                             searchStack.Push(lastNode);
                             PathOut = (int)LastDir.getDir(lastNode[lastNode[PathType.Back]]);
                             LastDir.Rotate((PathType)PathOut);
+                            TargetNode = lastNode;
                             lastNode = lastNode[PathType.Back];
                             TurnBack = false;
                         }
@@ -724,6 +715,7 @@ namespace MagneticScanUI
                     lastNode[lastPath][LastDir.Back] = lastNode;
                     lastNode = lastNode[lastPath];
                     TurnBack = false;
+                    WayLenght = true;
                 }
             }
             return PathOut;

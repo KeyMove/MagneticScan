@@ -18,6 +18,7 @@ namespace MagneticScanUI
 {
     public partial class Form1 : Form
     {
+        const int MaxSensor = 9;
         public Form1()
         {
             InitializeComponent();
@@ -41,7 +42,7 @@ namespace MagneticScanUI
         int AveSpeedL=0;
         int AveSpeedR=0;
         int statusLR=0;
-   
+
 
         PathDir LastDir = new PathDir();
         int dircmd;
@@ -60,6 +61,7 @@ namespace MagneticScanUI
         List<PathType> pathDirList = new List<PathType>();
         List<PathType> PathRunList = new List<PathType>();
         PathNode lastNode;
+        List<PathNode> lastPathRunNode;
         PathType lastPath;
         bool TurnBack = false;
 
@@ -165,6 +167,29 @@ namespace MagneticScanUI
                 }
         }
         Timer t = new Timer();
+
+        int readint16(Stream s)
+        {
+            int v;
+            v=s.ReadByte();
+            v <<= 8;
+            v |= s.ReadByte();
+            return v;
+        }
+
+        int readint32(Stream s)
+        {
+            int v;
+            v = s.ReadByte();
+            v <<= 8;
+            v |= s.ReadByte();
+            v <<= 8;
+            v |= s.ReadByte();
+            v <<= 8;
+            v |= s.ReadByte();
+            return v;
+        }
+
         private void Form1_Load(object sender, EventArgs e)
         {
             LEDON = Resources.LightOn;
@@ -228,12 +253,15 @@ namespace MagneticScanUI
                             if (ag > 0x7fff)
                                 ag -= 65536;
                             accangle = -ag;
-                            ag = (br.ReadByte() << 8) | br.ReadByte();
-                            pathpos = ag;
+                            pathpos = readint16(br.BaseStream);
                             lastAction = br.ReadByte();
                             lastPathSelect = br.ReadByte();
                             lastID = br.ReadByte();
-                            if (NodesSearch)
+                            lastTick = readint16(br.BaseStream);
+                            lastIDCard = readint32(br.BaseStream);
+                            for (int i = 0; i < MaxSensor; i++)
+                                lastCHVA[i] = readint16(br.BaseStream);
+                            while (NodesSearch)
                             {
                                 if (checkdata(SendCode.PathCmd))
                                 {
@@ -248,18 +276,72 @@ namespace MagneticScanUI
                                                 SearchButton.BackColor = Color.DarkRed;
                                                 PathPoint.Items.Clear();
                                                 PathPoint.Items.AddRange(mapInfo.getEndPoint().ToArray());
+                                                MapBox.Image = mapInfo.Update();
                                             }));
+                                            break;
                                         }
                                         else
                                         {
+                                            lastMaxTick = lastTick;
                                             senddata(SendCode.PathCmd, dircmd);
                                         }
-                                        Invoke(new MethodInvoker(() =>
-                                        {
-                                            MapBox.Image= mapInfo.Update();
-                                        }));
-                                    }
+                                        
+                                    } 
                                 }
+                                if (lastTick >= lastMaxTick)
+                                    mapInfo.SetLastPathLenght(1);
+                                else
+                                {
+                                    mapInfo.SetLastPathLenght(lastTick / 100 + 1);
+                                    lastMaxTick = 0x7fffffff;
+                                }
+                                Invoke(new MethodInvoker(() =>
+                                {
+                                    MapBox.Image = mapInfo.Update();
+                                }));
+                                break;
+                            }
+                            while (PathRun)
+                            {
+                                if (pathpos == 0xffff)
+                                {
+                                    if (lastPathPos > 1)
+                                    {
+                                        PathRun = false;
+                                        mapInfo.SetLastPathLenght(lastMaxTick); 
+                                    }
+                                    break;
+                                }
+                                if (pathpos>lastPathPos)
+                                {
+                                    //lastMaxTick = lastTick;                                    
+                                    //if ((pathpos - lastPathPos) > 1)
+                                    //{
+                                    //    lastPathPos = pathpos;
+                                    //    mapInfo.setCarNode(lastPathRunNode[lastPathPos], lastPathRunNode[lastPathPos - 1]);
+                                    //}
+                                    //else
+                                    //{
+                                    //    lastPathPos = pathpos;
+                                    //    if (lastPathPos >= lastPathRunNode.Count)
+                                    //        mapInfo.setCarNode(lastPathRunNode[lastPathRunNode.Count - 1]);
+                                    //    else
+                                    //        mapInfo.setCarNode(lastPathRunNode[lastPathPos]);
+                                    //}
+                                    mapInfo.setCarNode(lastPathRunNode[lastPathPos]);
+                                }
+                                if(pathpos>=lastPathPos)
+                                    lastMaxTick = mapInfo.getlastTargetLenght();
+                                lastTick /= 100;
+                                lastTick++;
+                                if (lastTick > lastMaxTick)
+                                    lastTick = lastMaxTick;
+                                mapInfo.SetLastPathLenght(lastTick);
+                                Invoke(new MethodInvoker(() =>
+                                {
+                                    MapBox.Image = mapInfo.Update();
+                                }));
+                                break;
                             }
                             //PathNode pn;
                             //data >>= 24;
@@ -692,18 +774,65 @@ namespace MagneticScanUI
 
         bool debug = false;
 
+        Timer runTimer;
         private void gotoNodeButton_Click(object sender, EventArgs e)
         {
+            if (debug)
+            {
+                if (runTimer == null)
+                {
+                    runTimer = new Timer();
+                    runTimer.Interval = 100;
+                    runTimer.Tick += (object s, EventArgs ex) =>
+                    {
+                        mapInfo.SetLastPathLenght(tsize += 3);
+                        MapBox.Image = mapInfo.Update();
+                        if (--tcount <= 0)
+                        {
+                            tsize = 0;
+                            if (++lastPathPos >= lastPathRunNode.Count)
+                            {
+                                runTimer.Stop();
+                                return;
+                            }
+                            mapInfo.setCarNode(lastPathRunNode[lastPathPos]);
+                            tcount = mapInfo.getlastTargetLenght() / 3;
+                            tsize = 0;
+                        }
+                    };
+                }
+                if (runTimer.Enabled)
+                {
+                    runTimer.Stop();
+                }
+                else
+                {
+                    if (mapInfo.MoveToPoint((PathNode)PathPoint.SelectedItem))
+                    {
+                        lastPathPos = 0;
+                        lastPathRunNode = mapInfo.getLastTargetPath();
+                        mapInfo.setCarNode(lastPathRunNode[lastPathPos+1],lastPathRunNode[lastPathPos]);
+                        lastPathPos++;
+                        tcount = mapInfo.getlastTargetLenght() / 3;
+                    }
+                    runTimer.Start();
+                }
+                return;
+            }
             if (PathPoint.SelectedItem != null)
             {
-                //List<PathNode> ns = 
                 if (mapInfo.MoveToPoint((PathNode)PathPoint.SelectedItem))
                 {
+                    NodesSearch = false;
+                    PathRun = true;
+                    lastPathPos = 0;
                     PathRunList.Clear();
                     List<PathType> list = mapInfo.getTargetPath();
                     dircmd = (int)list[0];
-                    if (list[0] == PathType.Forward)
-                        list.RemoveAt(0);
+                    if (list[0] == PathType.Forward) {
+                        //    list.RemoveAt(0);
+
+                    }
                     list.Add(PathType.Forward);
                     PathRunList.AddRange(list.ToArray());
                     //updateTurn = true;
@@ -711,6 +840,17 @@ namespace MagneticScanUI
                     //updateCmd = true;
                     senddata(SendCode.PathCmd, dircmd);
                     //updateReset = true;
+                    lastPathRunNode = mapInfo.getLastTargetPath();
+                    mapInfo.setCarNode(lastPathRunNode[lastPathPos + 1], lastPathRunNode[lastPathPos]);
+                    lastPathPos++;
+                    lastMaxTick = 1;
+                    if (list[0] == PathType.Forward)
+                    {
+                        lastMaxTick = mapInfo.getlastTargetLenght();
+                        //    list.RemoveAt(0);
+
+                    }
+                    
                 }
                 MapBox.Image = mapInfo.Update();
                 
@@ -807,6 +947,9 @@ namespace MagneticScanUI
 
         bool bust=false;
         private int lastSendID=-1;
+        private int lastTick;
+        private int lastIDCard;
+        private int[] lastCHVA=new int[9];
 
         private void getdatabut_Click(object sender, EventArgs e)
         {
@@ -878,20 +1021,72 @@ namespace MagneticScanUI
             senddata(SendCode.AveSpeed, LeftSpeed.Value, RightSpeed.Value);
 
         }
+        Random rand = new Random();
+        Timer mapscan;
+        int tsize;
+        int tcount;
+        private int lastMaxTick;
+        private bool PathRun;
+        private int lastPathPos;
 
         private void SearchButton_Click(object sender, EventArgs e)
         {
             if (debug)
             {
-                if (ic == 0)
-                    mapInfo.SearchInit();
-                if (mapInfo.SearchCheck(testdata[ic++]) == -1)
+                if (mapscan == null)
                 {
-                    PathPoint.Items.Clear();
-                    PathPoint.Items.AddRange(mapInfo.getEndPoint().ToArray());
+                    mapscan = new Timer();
+                    mapscan.Interval = 100;
+                    mapscan.Tick += (object s, EventArgs ex) => {
+                        mapInfo.SetLastPathLenght(tsize += 3);
+                        MapBox.Image = mapInfo.Update();
+                        if (tcount == 0)
+                        {
+                            if (mapInfo.SearchCheck(testdata[ic]) == -1)
+                            {
+                                PathPoint.Items.Clear();
+                                PathPoint.Items.AddRange(mapInfo.getEndPoint().ToArray());
+                                mapscan.Stop();
+                            }
+                            if (!mapInfo.WayLenght)
+                            {
+                                tcount= mapInfo.GetLastPathLenght()/3;
+                            }
+                            else
+                                tcount = rand.Next(5, 20);
+                            tsize = 0;
+                            if (++ic == testdata.Length)
+                                ic = 0;
+                        }
+                        tcount--;
+                    };
                 }
-                MapBox.Image = mapInfo.Update();
-                if (ic == testdata.Length) ic = 0; ;
+                if (mapscan.Enabled)
+                {
+                    mapscan.Stop();
+                }
+                else
+                {
+                    mapInfo.SearchInit();
+                    tcount = rand.Next(5, 20);
+                    mapscan.Start();
+                }
+                
+                //if (ic++ == 0)
+                //{
+                //    mapInfo.SearchInit();
+                //    mapInfo.SetLastPathLenght(rand.Next(30, 80));
+                //    MapBox.Image = mapInfo.Update();
+                //    return;
+                //}
+                //if (mapInfo.SearchCheck(testdata[ic-2]) == -1)
+                //{
+                //    PathPoint.Items.Clear();
+                //    PathPoint.Items.AddRange(mapInfo.getEndPoint().ToArray());
+                //}
+                //mapInfo.SetLastPathLenght(rand.Next(30,80));
+                //MapBox.Image = mapInfo.Update();
+                //if (ic == testdata.Length+1) ic = 0; ;
                 return;
             }
             if (NodesSearch)
@@ -900,7 +1095,9 @@ namespace MagneticScanUI
                 NodesSearch = false;
                 return;
             }
+            PathRun = false;
             ((Control)sender).BackColor = Color.LightGreen;
+            lastMaxTick = 0x7fffffff;
             mapInfo.SearchInit();
             NodesSearch = true;
             dircmd = (int)PathType.Forward;
@@ -917,7 +1114,7 @@ namespace MagneticScanUI
             double dy;
             double dx;
             StatsDraw.Clear(Color.White);
-            for (int i = 0; i <9; i++)
+            for (int i = 0; i <MaxSensor; i++)
             {
                 dy = Math.Sin((i * 15 + -150) * Math.PI / 180) * 140 + 160;
                 dx = Math.Cos((i * 15 + -150) * Math.PI / 180) * 140 + 160;
@@ -931,6 +1128,11 @@ namespace MagneticScanUI
                 {
                     StatsDraw.DrawImage(LEDON, x - 16, y - 16, 24, 24);
                 }
+                dy = Math.Sin((i * 15 + -150) * Math.PI / 180) * 120 + 160;
+                dx = Math.Cos((i * 15 + -150) * Math.PI / 180) * 120 + 160;
+                x = (int)dx;
+                y = (int)dy;
+                StatsDraw.DrawString(lastCHVA[8-i].ToString("D4"), Font, Brushes.Black, x-16, y);
                 temp <<= 1;
             }
             Point[] ps = new Point[4];
@@ -964,6 +1166,8 @@ namespace MagneticScanUI
 
             LSpeed.Points.AddY(lspeed * 3.125);
             RSpeed.Points.AddY(rspeed * 3.125);
+
+            IDCardText.Text = string.Format("0x{0:X8}", lastIDCard);
 
             if (LSpeed.Points.Count >= 100)
             {

@@ -29,11 +29,14 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea1 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend1 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series1 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.MainTable = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.IDCardText = new System.Windows.Forms.TextBox();
+            this.label9 = new System.Windows.Forms.Label();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.SendPath = new System.Windows.Forms.Button();
             this.turnL = new System.Windows.Forms.Button();
@@ -44,6 +47,10 @@
             this.turnB = new System.Windows.Forms.Button();
             this.button1 = new System.Windows.Forms.Button();
             this.groupBox2 = new System.Windows.Forms.GroupBox();
+            this.rightdut = new System.Windows.Forms.Button();
+            this.leftbut = new System.Windows.Forms.Button();
+            this.downbut = new System.Windows.Forms.Button();
+            this.upbut = new System.Windows.Forms.Button();
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
@@ -91,12 +98,9 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.MapBox = new System.Windows.Forms.PictureBox();
             this.ImgList = new System.Windows.Forms.ImageList(this.components);
-            this.upbut = new System.Windows.Forms.Button();
-            this.downbut = new System.Windows.Forms.Button();
-            this.leftbut = new System.Windows.Forms.Button();
-            this.rightdut = new System.Windows.Forms.Button();
             this.MainTable.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBox10.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -129,6 +133,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.groupBox10);
             this.tabPage1.Controls.Add(this.groupBox9);
             this.tabPage1.Controls.Add(this.groupBox2);
             this.tabPage1.Controls.Add(this.groupBox8);
@@ -143,6 +148,33 @@
             this.tabPage1.Text = "状态";
             this.tabPage1.UseVisualStyleBackColor = true;
             // 
+            // groupBox10
+            // 
+            this.groupBox10.Controls.Add(this.IDCardText);
+            this.groupBox10.Controls.Add(this.label9);
+            this.groupBox10.Location = new System.Drawing.Point(580, 380);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(261, 145);
+            this.groupBox10.TabIndex = 11;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "路标";
+            // 
+            // IDCardText
+            // 
+            this.IDCardText.Location = new System.Drawing.Point(39, 18);
+            this.IDCardText.Name = "IDCardText";
+            this.IDCardText.Size = new System.Drawing.Size(98, 21);
+            this.IDCardText.TabIndex = 3;
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Location = new System.Drawing.Point(10, 22);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(23, 12);
+            this.label9.TabIndex = 4;
+            this.label9.Text = "ID:";
+            // 
             // groupBox9
             // 
             this.groupBox9.Controls.Add(this.SendPath);
@@ -153,7 +185,7 @@
             this.groupBox9.Controls.Add(this.turnF);
             this.groupBox9.Controls.Add(this.turnB);
             this.groupBox9.Controls.Add(this.button1);
-            this.groupBox9.Location = new System.Drawing.Point(452, 380);
+            this.groupBox9.Location = new System.Drawing.Point(277, 380);
             this.groupBox9.Name = "groupBox9";
             this.groupBox9.Size = new System.Drawing.Size(297, 145);
             this.groupBox9.TabIndex = 10;
@@ -259,6 +291,42 @@
             this.groupBox2.TabStop = false;
             this.groupBox2.Text = "超声波传感器";
             // 
+            // rightdut
+            // 
+            this.rightdut.Location = new System.Drawing.Point(107, 114);
+            this.rightdut.Name = "rightdut";
+            this.rightdut.Size = new System.Drawing.Size(42, 23);
+            this.rightdut.TabIndex = 12;
+            this.rightdut.Text = "Right";
+            this.rightdut.UseVisualStyleBackColor = true;
+            // 
+            // leftbut
+            // 
+            this.leftbut.Location = new System.Drawing.Point(11, 114);
+            this.leftbut.Name = "leftbut";
+            this.leftbut.Size = new System.Drawing.Size(42, 23);
+            this.leftbut.TabIndex = 11;
+            this.leftbut.Text = "Left";
+            this.leftbut.UseVisualStyleBackColor = true;
+            // 
+            // downbut
+            // 
+            this.downbut.Location = new System.Drawing.Point(59, 129);
+            this.downbut.Name = "downbut";
+            this.downbut.Size = new System.Drawing.Size(42, 23);
+            this.downbut.TabIndex = 10;
+            this.downbut.Text = "Down";
+            this.downbut.UseVisualStyleBackColor = true;
+            // 
+            // upbut
+            // 
+            this.upbut.Location = new System.Drawing.Point(59, 101);
+            this.upbut.Name = "upbut";
+            this.upbut.Size = new System.Drawing.Size(42, 23);
+            this.upbut.TabIndex = 9;
+            this.upbut.Text = "UP";
+            this.upbut.UseVisualStyleBackColor = true;
+            // 
             // label2
             // 
             this.label2.AutoSize = true;
@@ -315,14 +383,14 @@
             this.groupBox8.Controls.Add(this.send);
             this.groupBox8.Location = new System.Drawing.Point(6, 380);
             this.groupBox8.Name = "groupBox8";
-            this.groupBox8.Size = new System.Drawing.Size(440, 145);
+            this.groupBox8.Size = new System.Drawing.Size(265, 145);
             this.groupBox8.TabIndex = 9;
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "设备列表";
             // 
             // getdatabut
             // 
-            this.getdatabut.Location = new System.Drawing.Point(349, 111);
+            this.getdatabut.Location = new System.Drawing.Point(172, 113);
             this.getdatabut.Name = "getdatabut";
             this.getdatabut.Size = new System.Drawing.Size(85, 27);
             this.getdatabut.TabIndex = 4;
@@ -334,13 +402,13 @@
             // 
             this.listView1.Location = new System.Drawing.Point(1, 14);
             this.listView1.Name = "listView1";
-            this.listView1.Size = new System.Drawing.Size(342, 126);
+            this.listView1.Size = new System.Drawing.Size(165, 126);
             this.listView1.TabIndex = 3;
             this.listView1.UseCompatibleStateImageBehavior = false;
             // 
             // send
             // 
-            this.send.Location = new System.Drawing.Point(349, 14);
+            this.send.Location = new System.Drawing.Point(172, 14);
             this.send.Name = "send";
             this.send.Size = new System.Drawing.Size(85, 31);
             this.send.TabIndex = 2;
@@ -360,16 +428,16 @@
             // 
             // SpeedChart
             // 
-            chartArea1.Name = "ChartArea1";
-            this.SpeedChart.ChartAreas.Add(chartArea1);
-            legend1.Name = "Legend1";
-            this.SpeedChart.Legends.Add(legend1);
+            chartArea2.Name = "ChartArea1";
+            this.SpeedChart.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.SpeedChart.Legends.Add(legend2);
             this.SpeedChart.Location = new System.Drawing.Point(6, 15);
             this.SpeedChart.Name = "SpeedChart";
-            series1.ChartArea = "ChartArea1";
-            series1.Legend = "Legend1";
-            series1.Name = "Series1";
-            this.SpeedChart.Series.Add(series1);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.SpeedChart.Series.Add(series2);
             this.SpeedChart.Size = new System.Drawing.Size(489, 142);
             this.SpeedChart.TabIndex = 2;
             this.SpeedChart.Text = "chart1";
@@ -602,9 +670,9 @@
             // 
             // gotoNodeButton
             // 
-            this.gotoNodeButton.Location = new System.Drawing.Point(87, 392);
+            this.gotoNodeButton.Location = new System.Drawing.Point(515, 392);
             this.gotoNodeButton.Name = "gotoNodeButton";
-            this.gotoNodeButton.Size = new System.Drawing.Size(75, 23);
+            this.gotoNodeButton.Size = new System.Drawing.Size(82, 38);
             this.gotoNodeButton.TabIndex = 6;
             this.gotoNodeButton.Text = "前往节点";
             this.gotoNodeButton.UseVisualStyleBackColor = true;
@@ -614,7 +682,7 @@
             // 
             this.SearchButton.Location = new System.Drawing.Point(6, 392);
             this.SearchButton.Name = "SearchButton";
-            this.SearchButton.Size = new System.Drawing.Size(75, 23);
+            this.SearchButton.Size = new System.Drawing.Size(82, 38);
             this.SearchButton.TabIndex = 6;
             this.SearchButton.Text = "搜索路径";
             this.SearchButton.UseVisualStyleBackColor = true;
@@ -745,42 +813,6 @@
             this.ImgList.ImageSize = new System.Drawing.Size(32, 32);
             this.ImgList.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // upbut
-            // 
-            this.upbut.Location = new System.Drawing.Point(59, 101);
-            this.upbut.Name = "upbut";
-            this.upbut.Size = new System.Drawing.Size(42, 23);
-            this.upbut.TabIndex = 9;
-            this.upbut.Text = "UP";
-            this.upbut.UseVisualStyleBackColor = true;
-            // 
-            // downbut
-            // 
-            this.downbut.Location = new System.Drawing.Point(59, 129);
-            this.downbut.Name = "downbut";
-            this.downbut.Size = new System.Drawing.Size(42, 23);
-            this.downbut.TabIndex = 10;
-            this.downbut.Text = "Down";
-            this.downbut.UseVisualStyleBackColor = true;
-            // 
-            // leftbut
-            // 
-            this.leftbut.Location = new System.Drawing.Point(11, 114);
-            this.leftbut.Name = "leftbut";
-            this.leftbut.Size = new System.Drawing.Size(42, 23);
-            this.leftbut.TabIndex = 11;
-            this.leftbut.Text = "Left";
-            this.leftbut.UseVisualStyleBackColor = true;
-            // 
-            // rightdut
-            // 
-            this.rightdut.Location = new System.Drawing.Point(107, 114);
-            this.rightdut.Name = "rightdut";
-            this.rightdut.Size = new System.Drawing.Size(42, 23);
-            this.rightdut.TabIndex = 12;
-            this.rightdut.Text = "Right";
-            this.rightdut.UseVisualStyleBackColor = true;
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -795,6 +827,8 @@
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             this.MainTable.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.groupBox10.ResumeLayout(false);
+            this.groupBox10.PerformLayout();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -886,6 +920,9 @@
         private System.Windows.Forms.Button rightdut;
         private System.Windows.Forms.Button leftbut;
         private System.Windows.Forms.Button downbut;
+        private System.Windows.Forms.GroupBox groupBox10;
+        private System.Windows.Forms.TextBox IDCardText;
+        private System.Windows.Forms.Label label9;
     }
 }
 

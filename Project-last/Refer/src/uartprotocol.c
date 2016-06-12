@@ -258,7 +258,8 @@ static void Init(u8* databuff)
 	packbuff = databuff;
 
 	sendbuff = &databuff[RECV_BUFF_LEN];
-	outputbuff = sendbuff+SEND_BUFF_LEN/2; 
+	outputbuff = sendbuff+SEND_BUFF_LEN/2;
+	sendCount = 2;	
 	WriteDWord(0x55000000);
 	sendSum = 0;
 }
@@ -319,19 +320,31 @@ void aack(u8 stats)
 void ackpack(u8 cmd)
 {
 	//SendPack(recvcmd,buff,len);
-	u8* pdata = sendbuff+1;
-	*pdata++ = _16T8H(sendCount);
-	*pdata++ = _16T8L(sendCount);
+	u8* pdata = sendbuff;
+	u16 packlen=sendCount-6;
+	u8 ck=0;
+	*pdata++ = 0x55;
+	if(packlen==0)
+	{
+		packlen++;
+		WriteByte(0);
+	}
+	*pdata++ = _16T8H(packlen);
+	*pdata++ = _16T8L(packlen);
 	*pdata++ = cmd;
+	//while(packlen--)
+	//	ck+=*pdata++;
+	//if(ck!=sendSum)
+	//	sendSum=ck;
 	WriteByte(sendSum);
 	WriteByte(0xaa);
-	UART.SendBuff(sendbuff, sendCount);
+	UART.SendBuff(sendbuff, sendCount-2);
 	pdata=sendbuff;
 	sendbuff=outputbuff;
 	outputbuff=pdata;
 	sendPos=0;
 	sendSize=SEND_BUFF_LEN/2;
-	sendCount = 0;
+	sendCount = 2;
 	WriteDWord(0x55000000);
 	sendSum = 0;
 	AutoACK+=2;
@@ -339,7 +352,7 @@ void ackpack(u8 cmd)
 
 void sendackpacket(void)
 {
-	if(sendCount==0)
+	if(sendCount<=6)
 	{
 		WriteByte(0);
 	}
@@ -357,7 +370,7 @@ void UartCmd(void)
 		{
 			UartCmdEvent[recvcmd]((UartEvent)&UD);
 			if(AutoACK==1){
-				sendackpacket();// SendCmdPack(recvcmd);
+				ackpack(recvcmd);// SendCmdPack(recvcmd);
 			}
 			else{
 				AutoACK&=1;

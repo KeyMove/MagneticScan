@@ -37,7 +37,7 @@ static void init(){
 	switchCH(0);
 	for(i=0;i<MaxSensor;i++){
 		CHVA[i]=0;
-		CHTH[i]=1800;
+		CHTH[i]=1900;
 	}
 }
 

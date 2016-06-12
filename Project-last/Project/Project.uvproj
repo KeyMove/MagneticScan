@@ -515,6 +515,11 @@
               <FileType>1</FileType>
               <FilePath>..\Refer\src\ADC.c</FilePath>
             </File>
+            <File>
+              <FileName>RC522.c</FileName>
+              <FileType>1</FileType>
+              <FilePath>..\Refer\src\RC522.c</FilePath>
+            </File>
           </Files>
         </Group>
       </Groups>

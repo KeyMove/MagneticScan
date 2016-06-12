@@ -11,6 +11,8 @@
 #include "inv_mpu_dmp_motion_driver.h"
 #include "inv_mpu.h"
 #include "DetectionLogic.h"
+#include "RC522.h"
+#include "adc.h"
 
 float pitch,roll,yaw;
 
@@ -30,6 +32,44 @@ u16 flen=0xffff,blen=0xffff;
 //	while(time--)
 //		for(i=0;i<255;i++);
 //}
+
+void BatteryCheckInit(){
+	GPIO_AI(GPIOA,0,00000010);
+	SETBIT(GPIOA->ODR,BIT2);
+}
+
+
+#define ADCBit 12
+#define ADCVOP 3300
+#define ADCLsb (31-ADCBit)
+
+u16 toVoltage(u16 value) {
+	u32 v = value;
+    v <<=ADCLsb;
+	v /= (((u32)1<<(ADCBit+ADCLsb))/ADCVOP);
+	return v;
+}
+
+
+#define Lbattery (u32)10800 //电池最低电压
+#define Hbattery (u32)12600 //电池最高电压
+#define R1 (u32)995       //分压电阻阻值
+#define R2 (u32)196         
+#define RV(v) ((v * (R1+R2)) / R2)
+
+//获取电量0-100%
+u8 getBatteryValue() {
+	u32 v = toVoltage(ADC.getADCValue(1));
+	v = RV(v);
+	if (v < Lbattery)return 0;
+	if (v > Hbattery)v = Hbattery;
+	return (v - Lbattery) * 100 / (Hbattery - Lbattery);
+}
+
+u8 lastBatteryValue;
+void UpdateBatteryValue(){
+	lastBatteryValue=getBatteryValue();
+}
 
 void tick1()
 {
@@ -606,7 +646,10 @@ u8 pathbuff[1024];
 
 u16 lastAction;
 u16 lastCodeID;
-u16 lastTick;
+u8 EnableTime=0;
+u32 lastTick;
+u32 lastTime;
+u32 lastIDCard;
 void AliveEvent(UartEvent e)
 {
 	
@@ -630,7 +673,9 @@ void GetDataEvent(UartEvent e)
 	e->WriteByte(lastAction);
 	e->WriteByte(PathSelect);
 	e->WriteByte(lastCodeID);
-	e->WriteWord(lastTick);
+	if(EnableTime)lastTime=TimerTick-lastTick;
+	e->WriteWord(lastTime);
+	e->WriteDWord(lastIDCard);
 	for(i=0;i<MaxSensor;i++)
 	{
 		e->WriteWord(Sensor.GetCHValue(i));		
@@ -671,7 +716,14 @@ void SetDataEvent(UartEvent e)
 		case 4:
 			switch(e->ReadByte())
 			{
-				case 0:PathSelect|=PathType.Forward; DetectionLogic.Control->ActionRun(Forward,1);lastAction=Forward; break;
+				case 0:PathSelect|=PathType.Forward; DetectionLogic.Control->ActionRun(Forward,1);lastAction=Forward; 
+				EnableTime=1;
+				lastTick=TimerTick;
+				lastTime=0;
+				if(PathPos<PathLen&&PathLen!=0xffff){
+					PathPos++;
+				}
+				break;
 				case 1:PathSelect|=PathType.Left; DetectionLogic.Control->ActionRun(Left,1000);lastAction=Left;break;
 				case 2:PathSelect|=PathType.Right; DetectionLogic.Control->ActionRun(Right,1000);lastAction=Right;break;
 				case 3: DetectionLogic.Control->ActionRun(Back,1000);lastAction=Back;break;
@@ -681,7 +733,13 @@ void SetDataEvent(UartEvent e)
 			DetectionLogic.Control->StopRun();
 			PathSelect=PathType.Forward;
 			DetectionLogic.Control->ActionRun(Forward,1);
+			PathLen=0xffff;
+			PathPos=0;
 			lastAction=Forward;
+			DetectionLogic.Control->StopRun();
+			lastTick=TimerTick;
+			lastTime=0;
+			EnableTime=0;
 //			lastCodeID=255;
 			break;
 		case 6:
@@ -726,9 +784,16 @@ void led(void)
 
 void turndone(ActionData e)
 {
+	EnableTime=1;
 	lastTick=TimerTick;
-	if(PathPos<PathLen)
+	lastTime=0;
+	if(PathPos<PathLen&&PathLen!=0xffff)
 		PathPos++;
+	if(PathPos>=PathLen)
+	{
+		PathPos=0xffff;
+		PathLen=0xffff;
+	}
 }
 
 #define ModeTol 0
@@ -737,15 +802,19 @@ void turndone(ActionData e)
 #define ModeTob 3
 
 void inway(ActionData e){
-	lastTick=TimerTick-lastTick;
-	if(PathPos<PathLen)
+	EnableTime=0;
+	if(PathPos<PathLen&&PathLen!=0xffff)
 	{
 		switch (PathList[PathPos]) {
 		case ModeTof:
 			PathPos++;
-			if(PathPos>=PathLen)
+			EnableTime=0;
+			lastTick=TimerTick;
+			lastTime=0;
+			if(PathPos<PathLen&&PathLen!=0xffff)
 			{
-				PathPos=0;
+				PathPos=0xffff;
+				PathLen=0xffff;
 			}
 			if(!e->ActionRun(Forward, 1)){
 				e->StopRun();
@@ -775,19 +844,33 @@ void outway(ActionData e){
 
 void inPoint(ActionData e)
 {
-	if(PathPos<PathLen)
+	EnableTime=0;
+	if(PathPos<PathLen&&PathLen!=0xffff)
 	{
 		if (PathList[PathPos] == ModeTob) {
 			e->ActionRun(Back, 1000);
 		}
 		else {
-			e->ActionRun(Forward, 1);
+			PathPos=0xffff;
+			PathLen=0xffff;
+			e->StopRun();
 		}
 	}
 	else{
+		PathPos++;
+		if(PathPos>=PathLen)
+		{
+			PathLen=0xffff;
+		}
 		e->StopRun();
-	lastAction=0xff;
+		lastAction=0xff;
 	}
+}
+
+void ReadCard(u32 id)
+{
+	if(id!=0)
+		lastIDCard=id;
 }
 
 
@@ -798,6 +881,7 @@ int main(void)
 	Wave.init();
   Motor.Init();
   Sensor.Init();
+	BatteryCheckInit();
   Timer.Init(72);
   LED_Init();
 //  Timer.Run();
@@ -827,10 +911,13 @@ int main(void)
 	UART.SendByte(0xff);
 	UART.SendByte(0x55);
 	
+	RC522.Init();
+	RC522.SetCallBack(ReadCard);
+	
 	Timer.Start(0,UartProtocol.Check);
   Timer.Start(0,tick1);
   Timer.Start(10,DetectionLogic.LogicRun);
-	Timer.Start(2,Sensor.LoopScan);
+	Timer.Start(10,Sensor.LoopScan);
 	PathList=pathbuff;
 	DetectionLogic.Init();
 	DetectionLogic.RegisterEvent(ActionType.EnterWay,inway);
@@ -840,6 +927,8 @@ int main(void)
 	lastAction=0xff;
 	//DetectionLogic.LoadDefConfig(pathbuff );
   //Timer.Start(500,led);
+	Timer.Start(0,RC522.ReadLoop);
+	Timer.Start(500,UpdateBatteryValue);
 	
   UartProtocol.Init(buffdata);
 	UartProtocol.AutoAck(ENABLE);
