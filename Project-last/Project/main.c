@@ -650,6 +650,7 @@ u8 EnableTime=0;
 u32 lastTick;
 u32 lastTime;
 u32 lastIDCard;
+u8 RecvCode;
 void AliveEvent(UartEvent e)
 {
 	
@@ -673,6 +674,7 @@ void GetDataEvent(UartEvent e)
 	e->WriteByte(lastAction);
 	e->WriteByte(PathSelect);
 	e->WriteByte(lastCodeID);
+	e->WriteByte(RecvCode);
 	if(EnableTime)lastTime=TimerTick-lastTick;
 	e->WriteWord(lastTime);
 	e->WriteDWord(lastIDCard);
@@ -723,6 +725,7 @@ void SetDataEvent(UartEvent e)
 				if(PathPos<PathLen&&PathLen!=0xffff){
 					PathPos++;
 				}
+				RecvCode++;
 				break;
 				case 1:PathSelect|=PathType.Left; DetectionLogic.Control->ActionRun(Left,1000);lastAction=Left;break;
 				case 2:PathSelect|=PathType.Right; DetectionLogic.Control->ActionRun(Right,1000);lastAction=Right;break;
@@ -788,12 +791,15 @@ void turndone(ActionData e)
 	lastTick=TimerTick;
 	lastTime=0;
 	if(PathPos<PathLen&&PathLen!=0xffff)
+	{
 		PathPos++;
+	}
 	if(PathPos>=PathLen)
 	{
 		PathPos=0xffff;
 		PathLen=0xffff;
 	}
+	RecvCode++;
 }
 
 #define ModeTol 0
@@ -803,15 +809,19 @@ void turndone(ActionData e)
 
 void inway(ActionData e){
 	EnableTime=0;
+	RecvCode++;
 	if(PathPos<PathLen&&PathLen!=0xffff)
 	{
 		switch (PathList[PathPos]) {
 		case ModeTof:
-			PathPos++;
-			EnableTime=0;
+			EnableTime=1;
 			lastTick=TimerTick;
 			lastTime=0;
 			if(PathPos<PathLen&&PathLen!=0xffff)
+			{
+				PathPos++;
+			}
+			if(PathPos>=PathLen)
 			{
 				PathPos=0xffff;
 				PathLen=0xffff;
@@ -828,7 +838,7 @@ void inway(ActionData e){
 		case ModeTor:
 			if (!e->ActionRun(Right, 1000))
 				if (!e->ActionRun(Forward, 1))
-					e->StopRun();
+					e->StopRun();				
 			break;
 		}
 	}
@@ -845,6 +855,7 @@ void outway(ActionData e){
 void inPoint(ActionData e)
 {
 	EnableTime=0;
+	RecvCode++;
 	if(PathPos<PathLen&&PathLen!=0xffff)
 	{
 		if (PathList[PathPos] == ModeTob) {

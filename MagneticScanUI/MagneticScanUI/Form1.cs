@@ -257,6 +257,7 @@ namespace MagneticScanUI
                             lastAction = br.ReadByte();
                             lastPathSelect = br.ReadByte();
                             lastID = br.ReadByte();
+                            lastRecvID = br.ReadByte();
                             lastTick = readint16(br.BaseStream);
                             lastIDCard = readint32(br.BaseStream);
                             for (int i = 0; i < MaxSensor; i++)
@@ -303,35 +304,43 @@ namespace MagneticScanUI
                             }
                             while (PathRun)
                             {
-                                if (pathpos == 0xffff)
+                                if (lastRecvID != SaveRecvID)
                                 {
-                                    if (lastPathPos > 1)
+                                    SaveRecvID = lastRecvID;
+                                    if (pathpos > lastPathPos)
+                                    {
+                                        //lastMaxTick = lastTick;                                    
+                                        //if ((pathpos - lastPathPos) > 1)
+                                        //{
+                                        //    lastPathPos = pathpos;
+                                        //    mapInfo.setCarNode(lastPathRunNode[lastPathPos], lastPathRunNode[lastPathPos - 1]);
+                                        //}
+                                        //else
+                                        //{
+                                        //    lastPathPos = pathpos;
+                                        //    if (lastPathPos >= lastPathRunNode.Count)
+                                        //        mapInfo.setCarNode(lastPathRunNode[lastPathRunNode.Count - 1]);
+                                        //    else
+                                        //        mapInfo.setCarNode(lastPathRunNode[lastPathPos]);
+                                        //}
+                                        if (pathpos >= lastPathRunNode.Count)
+                                        {
+                                            PathRun = false;
+                                            mapInfo.SetLastPathLenght(lastMaxTick);
+                                            break;
+                                        }
+                                        lastPathPos = pathpos;
+                                        mapInfo.setCarNode(lastPathRunNode[lastPathPos]);
+                                    }
+                                    lastMaxTick = mapInfo.getlastTargetLenght();
+                                    if (pathpos == 0xffff)
                                     {
                                         PathRun = false;
                                         mapInfo.SetLastPathLenght(lastMaxTick); 
                                     }
                                     break;
                                 }
-                                if (pathpos>lastPathPos)
-                                {
-                                    //lastMaxTick = lastTick;                                    
-                                    //if ((pathpos - lastPathPos) > 1)
-                                    //{
-                                    //    lastPathPos = pathpos;
-                                    //    mapInfo.setCarNode(lastPathRunNode[lastPathPos], lastPathRunNode[lastPathPos - 1]);
-                                    //}
-                                    //else
-                                    //{
-                                    //    lastPathPos = pathpos;
-                                    //    if (lastPathPos >= lastPathRunNode.Count)
-                                    //        mapInfo.setCarNode(lastPathRunNode[lastPathRunNode.Count - 1]);
-                                    //    else
-                                    //        mapInfo.setCarNode(lastPathRunNode[lastPathPos]);
-                                    //}
-                                    mapInfo.setCarNode(lastPathRunNode[lastPathPos]);
-                                }
-                                if(pathpos>=lastPathPos)
-                                    lastMaxTick = mapInfo.getlastTargetLenght();
+                                    
                                 lastTick /= 100;
                                 lastTick++;
                                 if (lastTick > lastMaxTick)
@@ -844,6 +853,7 @@ namespace MagneticScanUI
                     mapInfo.setCarNode(lastPathRunNode[lastPathPos + 1], lastPathRunNode[lastPathPos]);
                     lastPathPos++;
                     lastMaxTick = 1;
+                    SaveRecvID = lastRecvID;
                     if (list[0] == PathType.Forward)
                     {
                         lastMaxTick = mapInfo.getlastTargetLenght();
@@ -1028,6 +1038,8 @@ namespace MagneticScanUI
         private int lastMaxTick;
         private bool PathRun;
         private int lastPathPos;
+        private int lastRecvID;
+        private int SaveRecvID;
 
         private void SearchButton_Click(object sender, EventArgs e)
         {
