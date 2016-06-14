@@ -670,6 +670,7 @@ void GetDataEvent(UartEvent e)
 	e->WriteByte(MotorLeftSpeed);//lspeed
 	e->WriteByte(MotorRightSpeed);//rspeed
   e->WriteWord(yawvalue);
+	e->WriteByte(lastBatteryValue);
 	e->WriteWord(PathPos);
 	e->WriteByte(lastAction);
 	e->WriteByte(PathSelect);

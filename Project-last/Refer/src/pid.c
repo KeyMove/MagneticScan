@@ -21,7 +21,13 @@ static s16 Update(PIDStruct *pid, s16 v1) {
 	//v2 += pid->last;
 	pid->pre = pid->last;
 	pid->last = v1;
-    v2/=100;
+	v1=v2;	
+  v2/=100;
+//	if(v1!=0&&v2==0)
+//	{
+//		if(v1<0)v2=-1;
+//		else v2=1;
+//	}
 	pid->sum = v2;
 	if(pid->sum>pid->max)pid->sum=pid->max;
 	else if(pid->sum<pid->min)pid->sum=pid->min;

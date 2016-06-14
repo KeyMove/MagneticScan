@@ -252,7 +252,8 @@ namespace MagneticScanUI
                             int ag = (br.ReadByte()<<8)|br.ReadByte();
                             if (ag > 0x7fff)
                                 ag -= 65536;
-                            accangle = -ag;
+                            accangle = -ag;                            
+                            lastBattery = br.ReadByte();
                             pathpos = readint16(br.BaseStream);
                             lastAction = br.ReadByte();
                             lastPathSelect = br.ReadByte();
@@ -373,6 +374,16 @@ namespace MagneticScanUI
             {
                 if (lasttarget == null) return;
                 Search.Send(GetData, GetData.Length, new IPEndPoint(lasttarget.Address | 0xff000000, 2333));
+
+                if (AutoRun&& !PathRun)
+                {
+                    int index = PathPoint.SelectedIndex;
+                    if((index=(rand.Next()%PathPoint.Items.Count))!= PathPoint.SelectedIndex)
+                    {
+                        PathPoint.SelectedIndex = index;
+                        gotoNodeButton_Click(null, null);
+                    }
+                }
 
                 for (int i = 0; i < sendarraydata.Length; i++)
                 {
@@ -853,6 +864,7 @@ namespace MagneticScanUI
                     mapInfo.setCarNode(lastPathRunNode[lastPathPos + 1], lastPathRunNode[lastPathPos]);
                     lastPathPos++;
                     lastMaxTick = 1;
+                    mapInfo.SetLastPathLenght(1);
                     SaveRecvID = lastRecvID;
                     if (list[0] == PathType.Forward)
                     {
@@ -860,7 +872,6 @@ namespace MagneticScanUI
                         //    list.RemoveAt(0);
 
                     }
-                    
                 }
                 MapBox.Image = mapInfo.Update();
                 
@@ -1040,6 +1051,14 @@ namespace MagneticScanUI
         private int lastPathPos;
         private int lastRecvID;
         private int SaveRecvID;
+        private bool AutoRun;
+        private int lastBattery;
+
+        private void TestMode_CheckedChanged(object sender, EventArgs e)
+        {
+            if(PathPoint.Items.Count!=0)
+                AutoRun = TestMode.Checked;
+        }
 
         private void SearchButton_Click(object sender, EventArgs e)
         {
@@ -1107,6 +1126,8 @@ namespace MagneticScanUI
                 NodesSearch = false;
                 return;
             }
+            PathPoint.Items.Clear();
+            AutoRun = false;
             PathRun = false;
             ((Control)sender).BackColor = Color.LightGreen;
             lastMaxTick = 0x7fffffff;
@@ -1178,6 +1199,8 @@ namespace MagneticScanUI
 
             LSpeed.Points.AddY(lspeed * 3.125);
             RSpeed.Points.AddY(rspeed * 3.125);
+
+            BatteryValue.Text = lastBattery + "%";
 
             IDCardText.Text = string.Format("0x{0:X8}", lastIDCard);
 

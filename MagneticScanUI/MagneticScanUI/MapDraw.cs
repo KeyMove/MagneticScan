@@ -387,7 +387,8 @@ namespace MagneticScanUI
                             ay = w;
                             break;
                     }
-
+                    node.paths[i].x = x + ax;
+                    node.paths[i].y = y + ay;
                     if (!node.paths[i].isDead)
                     {
                         Draw.DrawLine(norpen, x, y, x + ax, y + ay);
@@ -398,8 +399,8 @@ namespace MagneticScanUI
                     else if (node.paths[i].isNew)
                     {
                         Draw.DrawLine(newpen, x, y, x + ax, y + ay);
-                        node.paths[i].x = x + ax;
-                        node.paths[i].y = y + ay;
+                        //node.paths[i].x = x + ax;
+                        //node.paths[i].y = y + ay;
                     }
                     else
                     {
@@ -408,11 +409,10 @@ namespace MagneticScanUI
                         //if (lastNode == node.paths[i])
                         //    Draw.DrawEllipse(targetpen, new Rectangle(x + ax - 5, y + ay - 5, 10, 10));
                         Draw.DrawString(node.paths[i].pathName, strFont, Brushes.Black, x + ax + 5, y + ay + 5);
-                        node.paths[i].x = x + ax;
-                        node.paths[i].y = y + ay;
+                        //node.paths[i].x = x + ax;
+                        //node.paths[i].y = y + ay;
                         Points.Add(new Point(node.paths[i].x, node.paths[i].y));
                     }
-
                     nodes.Add(node.paths[i]);
                     DrawPathList(x + ax, y + ay, node.paths[i], nodes, Points);
                 }
@@ -730,7 +730,9 @@ namespace MagneticScanUI
         {
             nodes = node;
             UpdateEndPoint();
-            lastNode=(lastNode=node[PathType.Forward])!=null?lastNode:node;
+            lastNode=node;
+            TargetNode = lastNode;
+            LastDir.Reset();
         }
         public Stream toBin(Stream s)
         {

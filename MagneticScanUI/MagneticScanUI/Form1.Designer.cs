@@ -98,6 +98,10 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.MapBox = new System.Windows.Forms.PictureBox();
             this.ImgList = new System.Windows.Forms.ImageList(this.components);
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.BatteryValue = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.TestMode = new System.Windows.Forms.CheckBox();
             this.MainTable.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox10.SuspendLayout();
@@ -119,6 +123,7 @@
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MapBox)).BeginInit();
+            this.groupBox11.SuspendLayout();
             this.SuspendLayout();
             // 
             // MainTable
@@ -133,6 +138,7 @@
             // 
             // tabPage1
             // 
+            this.tabPage1.Controls.Add(this.groupBox11);
             this.tabPage1.Controls.Add(this.groupBox10);
             this.tabPage1.Controls.Add(this.groupBox9);
             this.tabPage1.Controls.Add(this.groupBox2);
@@ -154,7 +160,7 @@
             this.groupBox10.Controls.Add(this.label9);
             this.groupBox10.Location = new System.Drawing.Point(580, 380);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(261, 145);
+            this.groupBox10.Size = new System.Drawing.Size(261, 72);
             this.groupBox10.TabIndex = 11;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "路标";
@@ -633,6 +639,7 @@
             // 
             // tabPage2
             // 
+            this.tabPage2.Controls.Add(this.TestMode);
             this.tabPage2.Controls.Add(this.LoadMap);
             this.tabPage2.Controls.Add(this.SaveMap);
             this.tabPage2.Controls.Add(this.gotoNodeButton);
@@ -813,6 +820,44 @@
             this.ImgList.ImageSize = new System.Drawing.Size(32, 32);
             this.ImgList.TransparentColor = System.Drawing.Color.Transparent;
             // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.BatteryValue);
+            this.groupBox11.Controls.Add(this.label10);
+            this.groupBox11.Location = new System.Drawing.Point(580, 458);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(261, 65);
+            this.groupBox11.TabIndex = 11;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "电池";
+            // 
+            // BatteryValue
+            // 
+            this.BatteryValue.Location = new System.Drawing.Point(67, 19);
+            this.BatteryValue.Name = "BatteryValue";
+            this.BatteryValue.Size = new System.Drawing.Size(33, 21);
+            this.BatteryValue.TabIndex = 3;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(10, 22);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(59, 12);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "剩余电量:";
+            // 
+            // TestMode
+            // 
+            this.TestMode.AutoSize = true;
+            this.TestMode.Location = new System.Drawing.Point(603, 392);
+            this.TestMode.Name = "TestMode";
+            this.TestMode.Size = new System.Drawing.Size(72, 16);
+            this.TestMode.TabIndex = 3;
+            this.TestMode.Text = "测试模式";
+            this.TestMode.UseVisualStyleBackColor = true;
+            this.TestMode.CheckedChanged += new System.EventHandler(this.TestMode_CheckedChanged);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -846,11 +891,14 @@
             this.groupBox1.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.StatsImg)).EndInit();
             this.tabPage2.ResumeLayout(false);
+            this.tabPage2.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox6.ResumeLayout(false);
             this.groupBox6.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MapBox)).EndInit();
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -923,6 +971,10 @@
         private System.Windows.Forms.GroupBox groupBox10;
         private System.Windows.Forms.TextBox IDCardText;
         private System.Windows.Forms.Label label9;
+        private System.Windows.Forms.GroupBox groupBox11;
+        private System.Windows.Forms.TextBox BatteryValue;
+        private System.Windows.Forms.Label label10;
+        private System.Windows.Forms.CheckBox TestMode;
     }
 }
 
