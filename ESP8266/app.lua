@@ -1,5 +1,6 @@
 local init = false
-local cmd={alive=0,getdata=1,setdata=2}
+local idinit = false
+local cmd={alive=0,getdata=1,setdata=2,getipid=3}
 local s=net.createServer(net.UDP,5)
 local uartcall={}
 local user=nil
@@ -85,4 +86,13 @@ uartpacket(cmd.getdata,nil)
 uartcall[cmd.getdata]=function (t) if user==nil then return end user:send("Data:"..t2s(t)) end
 end
 uartpacket(cmd.getdata)
+end
+
+function GetIPID()
+if not idinit then
+idinit=true
+uartcall[cmd.getipid]=function (t) if user==nil then 
+return end user:send("ID:"..t) end
+end
+uartcall[cmd.getipid](node.chipid())
 end

@@ -29,11 +29,14 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.MainTable = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.BatteryValue = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
             this.IDCardText = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
@@ -82,6 +85,7 @@
             this.groupBox1 = new System.Windows.Forms.GroupBox();
             this.StatsImg = new System.Windows.Forms.PictureBox();
             this.tabPage2 = new System.Windows.Forms.TabPage();
+            this.TestMode = new System.Windows.Forms.CheckBox();
             this.LoadMap = new System.Windows.Forms.Button();
             this.SaveMap = new System.Windows.Forms.Button();
             this.gotoNodeButton = new System.Windows.Forms.Button();
@@ -98,12 +102,16 @@
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.MapBox = new System.Windows.Forms.PictureBox();
             this.ImgList = new System.Windows.Forms.ImageList(this.components);
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
-            this.BatteryValue = new System.Windows.Forms.TextBox();
-            this.label10 = new System.Windows.Forms.Label();
-            this.TestMode = new System.Windows.Forms.CheckBox();
+            this.tabPage3 = new System.Windows.Forms.TabPage();
+            this.dataGridView1 = new System.Windows.Forms.DataGridView();
+            this.编号 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.ID码 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.IP地址 = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.MAC = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.扫描But = new System.Windows.Forms.Button();
             this.MainTable.SuspendLayout();
             this.tabPage1.SuspendLayout();
+            this.groupBox11.SuspendLayout();
             this.groupBox10.SuspendLayout();
             this.groupBox9.SuspendLayout();
             this.groupBox2.SuspendLayout();
@@ -123,13 +131,15 @@
             this.groupBox6.SuspendLayout();
             this.groupBox4.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MapBox)).BeginInit();
-            this.groupBox11.SuspendLayout();
+            this.tabPage3.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).BeginInit();
             this.SuspendLayout();
             // 
             // MainTable
             // 
             this.MainTable.Controls.Add(this.tabPage1);
             this.MainTable.Controls.Add(this.tabPage2);
+            this.MainTable.Controls.Add(this.tabPage3);
             this.MainTable.Location = new System.Drawing.Point(12, 12);
             this.MainTable.Name = "MainTable";
             this.MainTable.SelectedIndex = 0;
@@ -153,6 +163,33 @@
             this.tabPage1.TabIndex = 0;
             this.tabPage1.Text = "状态";
             this.tabPage1.UseVisualStyleBackColor = true;
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.BatteryValue);
+            this.groupBox11.Controls.Add(this.label10);
+            this.groupBox11.Location = new System.Drawing.Point(580, 458);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(261, 65);
+            this.groupBox11.TabIndex = 11;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "电池";
+            // 
+            // BatteryValue
+            // 
+            this.BatteryValue.Location = new System.Drawing.Point(67, 19);
+            this.BatteryValue.Name = "BatteryValue";
+            this.BatteryValue.Size = new System.Drawing.Size(33, 21);
+            this.BatteryValue.TabIndex = 3;
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Location = new System.Drawing.Point(10, 22);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(59, 12);
+            this.label10.TabIndex = 4;
+            this.label10.Text = "剩余电量:";
             // 
             // groupBox10
             // 
@@ -434,16 +471,16 @@
             // 
             // SpeedChart
             // 
-            chartArea2.Name = "ChartArea1";
-            this.SpeedChart.ChartAreas.Add(chartArea2);
-            legend2.Name = "Legend1";
-            this.SpeedChart.Legends.Add(legend2);
+            chartArea3.Name = "ChartArea1";
+            this.SpeedChart.ChartAreas.Add(chartArea3);
+            legend3.Name = "Legend1";
+            this.SpeedChart.Legends.Add(legend3);
             this.SpeedChart.Location = new System.Drawing.Point(6, 15);
             this.SpeedChart.Name = "SpeedChart";
-            series2.ChartArea = "ChartArea1";
-            series2.Legend = "Legend1";
-            series2.Name = "Series1";
-            this.SpeedChart.Series.Add(series2);
+            series3.ChartArea = "ChartArea1";
+            series3.Legend = "Legend1";
+            series3.Name = "Series1";
+            this.SpeedChart.Series.Add(series3);
             this.SpeedChart.Size = new System.Drawing.Size(489, 142);
             this.SpeedChart.TabIndex = 2;
             this.SpeedChart.Text = "chart1";
@@ -655,6 +692,17 @@
             this.tabPage2.Text = "路径规划";
             this.tabPage2.UseVisualStyleBackColor = true;
             // 
+            // TestMode
+            // 
+            this.TestMode.AutoSize = true;
+            this.TestMode.Location = new System.Drawing.Point(603, 392);
+            this.TestMode.Name = "TestMode";
+            this.TestMode.Size = new System.Drawing.Size(72, 16);
+            this.TestMode.TabIndex = 3;
+            this.TestMode.Text = "测试模式";
+            this.TestMode.UseVisualStyleBackColor = true;
+            this.TestMode.CheckedChanged += new System.EventHandler(this.TestMode_CheckedChanged);
+            // 
             // LoadMap
             // 
             this.LoadMap.Location = new System.Drawing.Point(87, 472);
@@ -820,43 +868,62 @@
             this.ImgList.ImageSize = new System.Drawing.Size(32, 32);
             this.ImgList.TransparentColor = System.Drawing.Color.Transparent;
             // 
-            // groupBox11
+            // tabPage3
             // 
-            this.groupBox11.Controls.Add(this.BatteryValue);
-            this.groupBox11.Controls.Add(this.label10);
-            this.groupBox11.Location = new System.Drawing.Point(580, 458);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(261, 65);
-            this.groupBox11.TabIndex = 11;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "电池";
+            this.tabPage3.Controls.Add(this.dataGridView1);
+            this.tabPage3.Controls.Add(this.扫描But);
+            this.tabPage3.Location = new System.Drawing.Point(4, 22);
+            this.tabPage3.Name = "tabPage3";
+            this.tabPage3.Size = new System.Drawing.Size(849, 529);
+            this.tabPage3.TabIndex = 2;
+            this.tabPage3.Text = "扫描";
+            this.tabPage3.UseVisualStyleBackColor = true;
             // 
-            // BatteryValue
+            // dataGridView1
             // 
-            this.BatteryValue.Location = new System.Drawing.Point(67, 19);
-            this.BatteryValue.Name = "BatteryValue";
-            this.BatteryValue.Size = new System.Drawing.Size(33, 21);
-            this.BatteryValue.TabIndex = 3;
+            this.dataGridView1.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
+            this.dataGridView1.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.编号,
+            this.ID码,
+            this.IP地址,
+            this.MAC});
+            this.dataGridView1.Location = new System.Drawing.Point(3, 3);
+            this.dataGridView1.Name = "dataGridView1";
+            this.dataGridView1.RowTemplate.Height = 23;
+            this.dataGridView1.Size = new System.Drawing.Size(546, 208);
+            this.dataGridView1.TabIndex = 3;
             // 
-            // label10
+            // 编号
             // 
-            this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(10, 22);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(59, 12);
-            this.label10.TabIndex = 4;
-            this.label10.Text = "剩余电量:";
+            this.编号.HeaderText = "编码";
+            this.编号.Name = "编号";
             // 
-            // TestMode
+            // ID码
             // 
-            this.TestMode.AutoSize = true;
-            this.TestMode.Location = new System.Drawing.Point(603, 392);
-            this.TestMode.Name = "TestMode";
-            this.TestMode.Size = new System.Drawing.Size(72, 16);
-            this.TestMode.TabIndex = 3;
-            this.TestMode.Text = "测试模式";
-            this.TestMode.UseVisualStyleBackColor = true;
-            this.TestMode.CheckedChanged += new System.EventHandler(this.TestMode_CheckedChanged);
+            this.ID码.HeaderText = "ID码";
+            this.ID码.Name = "ID码";
+            this.ID码.Width = 150;
+            // 
+            // IP地址
+            // 
+            this.IP地址.HeaderText = "IP地址";
+            this.IP地址.Name = "IP地址";
+            this.IP地址.Width = 150;
+            // 
+            // MAC
+            // 
+            this.MAC.HeaderText = "MAC";
+            this.MAC.Name = "MAC";
+            // 
+            // 扫描But
+            // 
+            this.扫描But.Location = new System.Drawing.Point(555, 3);
+            this.扫描But.Name = "扫描But";
+            this.扫描But.Size = new System.Drawing.Size(75, 36);
+            this.扫描But.TabIndex = 2;
+            this.扫描But.Text = "扫描";
+            this.扫描But.UseVisualStyleBackColor = true;
+            this.扫描But.Click += new System.EventHandler(this.扫描But_Click);
             // 
             // Form1
             // 
@@ -872,6 +939,8 @@
             this.KeyUp += new System.Windows.Forms.KeyEventHandler(this.Form1_KeyUp);
             this.MainTable.ResumeLayout(false);
             this.tabPage1.ResumeLayout(false);
+            this.groupBox11.ResumeLayout(false);
+            this.groupBox11.PerformLayout();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
             this.groupBox9.ResumeLayout(false);
@@ -897,8 +966,8 @@
             this.groupBox6.PerformLayout();
             this.groupBox4.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.MapBox)).EndInit();
-            this.groupBox11.ResumeLayout(false);
-            this.groupBox11.PerformLayout();
+            this.tabPage3.ResumeLayout(false);
+            ((System.ComponentModel.ISupportInitialize)(this.dataGridView1)).EndInit();
             this.ResumeLayout(false);
 
         }
@@ -975,6 +1044,13 @@
         private System.Windows.Forms.TextBox BatteryValue;
         private System.Windows.Forms.Label label10;
         private System.Windows.Forms.CheckBox TestMode;
+        private System.Windows.Forms.TabPage tabPage3;
+        private System.Windows.Forms.DataGridView dataGridView1;
+        private System.Windows.Forms.DataGridViewTextBoxColumn 编号;
+        private System.Windows.Forms.DataGridViewTextBoxColumn ID码;
+        private System.Windows.Forms.DataGridViewTextBoxColumn IP地址;
+        private System.Windows.Forms.DataGridViewTextBoxColumn MAC;
+        private System.Windows.Forms.Button 扫描But;
     }
 }
 

@@ -16,13 +16,16 @@ using System.Windows.Forms.DataVisualization.Charting;
 
 namespace MagneticScanUI
 {
+    
     public partial class Form1 : Form
     {
         const int MaxSensor = 9;
         public Form1()
         {
             InitializeComponent();
+            
         }
+        bool getipidMode = false;
 
         Bitmap LEDON, LEDOFF;
         Bitmap StatsMap;
@@ -30,6 +33,7 @@ namespace MagneticScanUI
         UInt64 SensorStats = 0;
         UdpClient Search = new UdpClient(0);
         byte[] GetData;
+        byte[] GetIPID;
         IPAddress lasttarget;
         IPAddress[] ips;
         int[] WaveSensor;
@@ -189,7 +193,9 @@ namespace MagneticScanUI
             v |= s.ReadByte();
             return v;
         }
-
+        List<IPAddress> Areaipadd = new List<IPAddress>();
+        int ipcount = 0;
+        List<EquipmentData> equi = new List<EquipmentData>();
         private void Form1_Load(object sender, EventArgs e)
         {
             LEDON = Resources.LightOn;
@@ -216,7 +222,15 @@ namespace MagneticScanUI
             SpeedChart.ChartAreas[0].AxisY.Minimum = -100;
 
             GetData = Encoding.Default.GetBytes("GetData()");
-            ips = getIPAddress();
+            GetIPID = Encoding.Default.GetBytes("GetIPID()");
+
+            
+
+            //ips = getIPAddress();
+
+
+
+            
             new Task(() =>
             {
                 while (!this.IsDisposed)
@@ -226,6 +240,44 @@ namespace MagneticScanUI
                         byte[] buff = Search.Receive(ref p);
                         lasttarget = p.Address;
                         string value = Encoding.Default.GetString(buff);
+
+                        if(getipidMode==true)
+                        {
+                            int poss = value.IndexOf("ID:");
+                            if(poss!=-1)
+                            {
+                                poss += 3;
+                                string str = "";
+                                for(int i=0;i<value.Length; i++)
+                                {
+                                    if(char.IsDigit(value,i))
+                                    {
+                                        str += value[i];
+                                    }
+                                }
+                                EquipmentData equidata=new EquipmentData();
+                                equidata.id = str;
+                                equidata.ip = lasttarget;
+                                equidata.num = ipcount;
+                                ipcount++;
+                                equi.Add(equidata);
+                                
+                                Invoke(new MethodInvoker(() =>
+                                {
+
+                                    dataGridView1.Rows.Clear();
+                                    foreach(EquipmentData eq in equi)
+                                    {
+                                        dataGridView1.Rows.Add(eq.num, eq.id, eq.ip);
+                                    }
+                                    
+                                }));
+                                //textBox1.Text += lasttarget.ToString() + "    "+ str + "\r\n";
+                                
+                                
+                            }
+                        }
+
                         int pos = value.IndexOf("Data:");
                         if (pos != -1)
                         {
@@ -366,7 +418,7 @@ namespace MagneticScanUI
 
             }).Start();
 
-            FindDev();
+           // FindDev();
 
             //uint i=0;
             t.Interval = 100;
@@ -1060,6 +1112,17 @@ namespace MagneticScanUI
                 AutoRun = TestMode.Checked;
         }
 
+        private void 扫描But_Click(object sender, EventArgs e)
+        {
+            getipidMode = true;
+            ipcount = 0;
+            equi.Clear();
+            dataGridView1.Rows.Clear();
+            
+            Search.Send(GetIPID, GetIPID.Length, "255.255.255.255", 2333);
+
+        }
+
         private void SearchButton_Click(object sender, EventArgs e)
         {
             if (debug)
@@ -1220,9 +1283,18 @@ namespace MagneticScanUI
                 {
                     PathList.SelectedIndex = pathpos;
                 }
+            
         }
 
+        
+    }
 
+   
 
+    public partial class EquipmentData
+    {
+        public IPAddress ip;
+        public string id;
+        public int num;
     }
 }
