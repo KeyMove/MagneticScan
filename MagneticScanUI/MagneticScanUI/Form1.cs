@@ -425,7 +425,7 @@ namespace MagneticScanUI
             t.Tick += new EventHandler((object s, EventArgs ex) =>
             {
                 if (lasttarget == null) return;
-                Search.Send(GetData, GetData.Length, new IPEndPoint(lasttarget.Address | 0xff000000, 2333));
+                //Search.Send(GetData, GetData.Length, new IPEndPoint(lasttarget.Address | 0xff000000, 2333));
 
                 if (AutoRun&& !PathRun)
                 {
@@ -1030,8 +1030,8 @@ namespace MagneticScanUI
             if (bust)
             {
                 getdatabut.Text = "停止获取";
-                //Search.Send(GetData, GetData.Length, "255.255.255.255", 2333);
-                FindDev();
+                Search.Send(GetData, GetData.Length, "255.255.255.255", 2333);
+                //FindDev();
                 t.Start();
             }
             else

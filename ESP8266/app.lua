@@ -4,6 +4,7 @@ local cmd={alive=0,getdata=1,setdata=2,getipid=3}
 local s=net.createServer(net.UDP,5)
 local uartcall={}
 local user=nil
+
 s:listen(2333,nil)
 s:on("receive",function(c,d)
 user=c
@@ -83,7 +84,7 @@ if not init then
 init=true
 uart.on("data",uartdecode,0)
 uartpacket(cmd.getdata,nil)
-uartcall[cmd.getdata]=function (t) if user==nil then return end user:send("Data:"..t2s(t)) end
+uartcall[cmd.getdata]=function (t) if user==nil then return end user:send("Data:"..t2s(t)) tmr.alarm(0,30000,1,function() wifi.sta.connect() end) end
 end
 uartpacket(cmd.getdata)
 end
@@ -91,8 +92,7 @@ end
 function GetIPID()
 if not idinit then
 idinit=true
-uartcall[cmd.getipid]=function (t) if user==nil then 
-return end user:send("ID:"..t) end
+uartcall[cmd.getipid]=function (t) if user==nil then return end user:send("ID:"..t) tmr.alarm(0,30000,1,function() wifi.sta.connect() end) end
 end
 uartcall[cmd.getipid](node.chipid())
 end

@@ -7,8 +7,8 @@ if file.open("cfg") then
 msg=cjson.decode(file.readline())
 if not msg.ssid or not msg.pwd then return end
 wifi.sta.config(msg.ssid,msg.pwd)
-wifi.sta.connect()
 wifi.sta.autoconnect(1)
+wifi.sta.connect()
 end
 end
 
