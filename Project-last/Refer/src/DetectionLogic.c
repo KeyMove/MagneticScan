@@ -15,7 +15,7 @@ u16 PathLen;
 
 u8 waveLenght[2];
 u8 waveCount[2];
-u8 waveDisableLenght=10;//超声波探测距离(cm)
+u8 waveDisableLenght=12;//超声波探测距离(cm)
 
 s16 TargetYaw;
 s16 MinAngle;
@@ -25,6 +25,8 @@ s8 StatusCode[9] = { -70,-45,-37,-30,0,30,37,45,70 };
 
 s16 LeftValue;
 s16 RightValue;
+u8 RightCount;
+u8 LeftCount;
 s16 lastLeftValue;
 s16 lastRightValue;
 u8 LeftDt;
@@ -37,7 +39,7 @@ s8 MotorRightSpeed;
 u8 Statuscount;				//路径传感器数量
 u8 lastStatus;				//最后探测到的路径状态
 u8 DirectionThreshold=69;	//方向阈值
-u8 WayThreshold=10;			//路口阈值
+u8 WayThreshold=5;			//路口阈值
 u8 turnErrorAngle = 5;		//转向Yaw差值
 
 u8 StopTime;
@@ -177,7 +179,7 @@ u8 WaveDetection()
 		{
 			if (waveCount[i]++)
 			{
-				SETBIT(lastStatus, WaveStop);
+				//SETBIT(lastStatus, WaveStop);
 				return 0;
 			}
 			waveLenght[i] = waveDisableLenght;
@@ -217,7 +219,18 @@ static u8 ActionRun(u8 dir, u16 time) {
 		SetTargetYaw(-90);
 		break;
 	case Back:
-		runStatus = runStatusType.Back;
+		if (PathSelect&(StatusL|StatusR)){
+			runStatus = runStatusType.turnLeft;
+			time=2000;
+		}
+		else if(PathSelect&StatusL){
+			runStatus = runStatusType.turnRight;
+			time=1000;
+		}
+		else{
+			runStatus = runStatusType.turnLeft;
+			time=1000;
+		}
 		lastLeftValue=0xff;
 		SetTargetYaw(-180);
 		break;
@@ -392,6 +405,12 @@ s16 SensorDetection()
 			else if (LeftValue == lastLeftValue) {
 				LeftDt++;
 			}
+			else{
+				if(LeftDt > 10)
+					LeftDt-=10;
+				else
+					LeftDt=1;
+			}
 		}
 		if (RightValue){
 			if (RightValue>lastRightValue) {
@@ -399,12 +418,21 @@ s16 SensorDetection()
 				RightDt += 10;
 			}
 			else if (RightValue == lastRightValue)
+			{
 				RightDt++;
+			}
+			else{
+				if(RightDt>10)
+					RightDt-=10;
+				else
+					RightDt=1;
+			}
+				
 		}
 
 
 
-		if (((CheckStatus(StatusL) && LeftDt>20) || (CheckStatus(StatusR) && RightDt>20)))
+		if (((CheckStatus(StatusL) && LeftDt>15) || (CheckStatus(StatusR) && RightDt>15)))
 		{
 			lastPathSelect = PathSelect;
 			LeftSelect = RightSelect = MidSelect = 0;
@@ -413,6 +441,10 @@ s16 SensorDetection()
 			tick = 500;
 			mode = 1;//runStatus = RunPts;
 			lastRightValue = lastLeftValue = 0;
+			if(CheckStatus(StatusL))
+				LeftDt=0;
+			if(CheckStatus(StatusR))
+				RightDt=0;
 		}
 		else if (CheckStatusZero())
 		{
@@ -434,6 +466,12 @@ s16 SensorDetection()
 			else if (LeftValue == lastLeftValue) {
 				LeftDt++;
 			}
+			else{
+				if(LeftDt > 20)
+					LeftDt-=20;
+				else
+					LeftDt=1;
+			}
 		}
 		if (RightValue){
 			if (RightValue<lastRightValue) {
@@ -445,15 +483,22 @@ s16 SensorDetection()
 			}
 			else if (RightValue == lastRightValue)
 				RightDt++;
+			else{
+				if(RightDt>20)
+					RightDt-=20;
+				else
+					RightDt=1;
+			}
 		}
 		
 		if(runStatus==runStatusType.turnLeft||runStatus==runStatusType.Back)
 		{
 			v = turnLeftSpeed;
-			if(LeftDt>20&&(CheckStatus(StatusM)||CheckTargetYaw(turnErrorAngle)))
+			if(LeftDt>19&&(CheckStatus(StatusM)||CheckTargetYaw(turnErrorAngle)))
 			{
 				runStatus=runStatusType.Nop;
 				StatusTick=0;
+				LeftDt=0;
 				if (eventlist[ActionType.turnDone] != 0)
 					eventlist[ActionType.turnDone]((ActionData)&ActionInfo);
 			}
@@ -461,10 +506,11 @@ s16 SensorDetection()
 		if(runStatus==runStatusType.turnRight)
 		{
 			v = turnRightSpeed;
-			if(RightDt>20&&(CheckStatus(StatusM)||CheckTargetYaw(turnErrorAngle)))
+			if(RightDt>19&&(CheckStatus(StatusM)||CheckTargetYaw(turnErrorAngle)))
 			{
 				runStatus=runStatusType.Nop;
 				StatusTick=0;
+				RightDt=0;
 				if (eventlist[ActionType.turnDone] != 0)
 					eventlist[ActionType.turnDone]((ActionData)&ActionInfo);
 			}

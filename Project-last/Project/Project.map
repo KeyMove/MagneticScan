@@ -11,6 +11,10 @@ Section Cross References
     main.o(i.GetDataEvent) refers to main.o(.data) for yaw
     main.o(i.GetDataEvent) refers to detectionlogic.o(.data) for MotorLeftSpeed
     main.o(i.GetDataEvent) refers to timer.o(.data) for TimerTick
+    main.o(i.KeyLoad) refers to main.o(i.rsPath) for rsPath
+    main.o(i.KeyLoad) refers to main.o(.data) for keycount
+    main.o(i.KeyLoad) refers to detectionlogic.o(.data) for PathPos
+    main.o(i.KeyLoad) refers to detectionlogic.o(.constdata) for DetectionLogic
     main.o(i.ReadCard) refers to main.o(.data) for lastIDCard
     main.o(i.SetDataEvent) refers to main.o(.data) for lastCodeID
     main.o(i.SetDataEvent) refers to detectionlogic.o(.bss) for LeftSpeed
@@ -60,6 +64,8 @@ Section Cross References
     main.o(i.main) refers to main.o(i.AliveEvent) for AliveEvent
     main.o(i.main) refers to main.o(i.GetDataEvent) for GetDataEvent
     main.o(i.main) refers to main.o(i.SetDataEvent) for SetDataEvent
+    main.o(i.rsPath) refers to detectionlogic.o(.data) for PathList
+    main.o(i.rsPath) refers to main.o(.data) for savecount
     main.o(i.tick1) refers to delay.o(i.delay_us) for delay_us
     main.o(i.tick1) refers to ffltui.o(.text) for __aeabi_ui2f
     main.o(i.tick1) refers to f2d.o(.text) for __aeabi_f2d
@@ -68,6 +74,7 @@ Section Cross References
     main.o(i.tick1) refers to main.o(.data) for ch
     main.o(i.tick1) refers to timer.o(.constdata) for Timer
     main.o(i.tick1) refers to wave.o(.data) for TIM3CH3_CAPTURE_STA
+    main.o(i.tick1) refers to detectionlogic.o(.data) for waveLenght
     main.o(i.turndone) refers to main.o(.data) for EnableTime
     main.o(i.turndone) refers to timer.o(.data) for TimerTick
     main.o(i.turndone) refers to detectionlogic.o(.data) for PathPos
@@ -116,7 +123,7 @@ Section Cross References
     sensor.o(i.Loop) refers to sensor.o(.bss) for CHVA
     sensor.o(i.Loop) refers to sensor.o(.data) for count
     sensor.o(i.RTADC) refers to adc.o(.constdata) for ADC
-    sensor.o(i.ReadData) refers to sensor.o(.data) for Status
+    sensor.o(i.ReadData) refers to sensor.o(.data) for PutOut
     sensor.o(i.getCHVA) refers to sensor.o(.bss) for CHVA
     sensor.o(i.init) refers to sensor.o(i.switchCH) for switchCH
     sensor.o(i.init) refers to adc.o(.constdata) for ADC
@@ -1022,8 +1029,10 @@ Section Cross References
 
 Removing Unused input sections from the image.
 
+    Removing main.o(i.KeyLoad), (108 bytes).
     Removing main.o(i.led), (68 bytes).
     Removing main.o(i.outway), (2 bytes).
+    Removing main.o(i.rsPath), (64 bytes).
     Removing startup_stm32f10x_md.o(HEAP), (256 bytes).
     Removing wave.o(i.GetTime), (168 bytes).
     Removing wave.o(i.Time2Length), (64 bytes).
@@ -1077,7 +1086,7 @@ Removing Unused input sections from the image.
     Removing dsqrt.o(.text), (162 bytes).
     Removing cdcmple.o(.text), (40 bytes).
 
-54 unused section(s) (total 7178 bytes) removed from the image.
+56 unused section(s) (total 7350 bytes) removed from the image.
 
 ==============================================================================
 
@@ -1231,325 +1240,325 @@ Image Symbol Table
     i.Ack                                    0x080009d4   Section        0  iic.o(i.Ack)
     Ack                                      0x080009d5   Thumb Code    66  iic.o(i.Ack)
     i.ActionRun                              0x08000a24   Section        0  detectionlogic.o(i.ActionRun)
-    ActionRun                                0x08000a25   Thumb Code   158  detectionlogic.o(i.ActionRun)
-    i.AddDelay                               0x08000ae0   Section        0  timer.o(i.AddDelay)
-    i.AliveEvent                             0x08000b0c   Section        0  main.o(i.AliveEvent)
-    i.BatteryCheckInit                       0x08000b10   Section        0  main.o(i.BatteryCheckInit)
-    i.CallFun                                0x08000b3c   Section        0  timer.o(i.CallFun)
-    i.CheckSensor                            0x08000b44   Section        0  detectionlogic.o(i.CheckSensor)
-    i.CheckTargetYaw                         0x08000c80   Section        0  detectionlogic.o(i.CheckTargetYaw)
-    i.ClearBitMask                           0x08000d14   Section        0  rc522.o(i.ClearBitMask)
-    i.DefConfig                              0x08000d30   Section        0  detectionlogic.o(i.DefConfig)
-    i.Delay                                  0x08000d78   Section        0  timer.o(i.Delay)
-    i.GetDataEvent                           0x08000dbc   Section        0  main.o(i.GetDataEvent)
-    i.Get_Accelerometer                      0x08000ec4   Section        0  mpu6050.o(i.Get_Accelerometer)
-    Get_Accelerometer                        0x08000ec5   Thumb Code    84  mpu6050.o(i.Get_Accelerometer)
-    i.Get_Gyroscope                          0x08000f1c   Section        0  mpu6050.o(i.Get_Gyroscope)
-    Get_Gyroscope                            0x08000f1d   Thumb Code    84  mpu6050.o(i.Get_Gyroscope)
-    i.Get_Temperature                        0x08000f74   Section        0  mpu6050.o(i.Get_Temperature)
-    Get_Temperature                          0x08000f75   Thumb Code    88  mpu6050.o(i.Get_Temperature)
-    i.Init                                   0x08000fe0   Section        0  wave.o(i.Init)
-    Init                                     0x08000fe1   Thumb Code    76  wave.o(i.Init)
-    i.Init                                   0x0800103c   Section        0  pid.o(i.Init)
-    Init                                     0x0800103d   Thumb Code    20  pid.o(i.Init)
-    i.Init                                   0x08001050   Section        0  spi.o(i.Init)
-    Init                                     0x08001051   Thumb Code    80  spi.o(i.Init)
-    i.Init                                   0x080010b0   Section        0  uartprotocol.o(i.Init)
-    Init                                     0x080010b1   Thumb Code    84  uartprotocol.o(i.Init)
-    i.Init                                   0x0800111c   Section        0  iic.o(i.Init)
-    Init                                     0x0800111d   Thumb Code    52  iic.o(i.Init)
-    i.Init                                   0x08001158   Section        0  mpu6050.o(i.Init)
-    Init                                     0x08001159   Thumb Code   150  mpu6050.o(i.Init)
-    i.InitTimer                              0x080011f8   Section        0  timer.o(i.InitTimer)
-    i.JTAG_Set                               0x08001224   Section        0  sys.o(i.JTAG_Set)
-    i.KillThisTimer                          0x08001254   Section        0  timer.o(i.KillThisTimer)
-    i.KillTimer                              0x08001280   Section        0  timer.o(i.KillTimer)
-    i.LED_Init                               0x080012a4   Section        0  led.o(i.LED_Init)
-    i.LogicRun                               0x080012dc   Section        0  detectionlogic.o(i.LogicRun)
-    i.Loop                                   0x08001450   Section        0  sensor.o(i.Loop)
-    Loop                                     0x08001451   Thumb Code   112  sensor.o(i.Loop)
-    i.MYRCC_DeInit                           0x080014d0   Section        0  sys.o(i.MYRCC_DeInit)
-    i.MY_NVIC_Init                           0x08001538   Section        0  sys.o(i.MY_NVIC_Init)
-    i.MY_NVIC_PriorityGroupConfig            0x080015ac   Section        0  sys.o(i.MY_NVIC_PriorityGroupConfig)
-    i.MY_NVIC_SetVectorTable                 0x080015d4   Section        0  sys.o(i.MY_NVIC_SetVectorTable)
-    i.MotorRun                               0x080015e8   Section        0  detectionlogic.o(i.MotorRun)
-    MotorRun                                 0x080015e9   Thumb Code    18  detectionlogic.o(i.MotorRun)
-    i.NAck                                   0x0800160c   Section        0  iic.o(i.NAck)
-    NAck                                     0x0800160d   Thumb Code    66  iic.o(i.NAck)
-    i.OnRecvData                             0x0800165c   Section        0  uartprotocol.o(i.OnRecvData)
-    i.RTADC                                  0x08001754   Section        0  sensor.o(i.RTADC)
-    i.ReadBuff                               0x0800179c   Section        0  uartprotocol.o(i.ReadBuff)
-    ReadBuff                                 0x0800179d   Thumb Code    68  uartprotocol.o(i.ReadBuff)
-    i.ReadByte                               0x080017ec   Section        0  spi.o(i.ReadByte)
-    ReadByte                                 0x080017ed   Thumb Code    64  spi.o(i.ReadByte)
-    i.ReadByte                               0x08001830   Section        0  uartprotocol.o(i.ReadByte)
-    ReadByte                                 0x08001831   Thumb Code    38  uartprotocol.o(i.ReadByte)
-    i.ReadCard                               0x08001864   Section        0  main.o(i.ReadCard)
-    i.ReadDWord                              0x08001870   Section        0  uartprotocol.o(i.ReadDWord)
-    ReadDWord                                0x08001871   Thumb Code   106  uartprotocol.o(i.ReadDWord)
-    i.ReadData                               0x080018e8   Section        0  sensor.o(i.ReadData)
-    ReadData                                 0x080018e9   Thumb Code    10  sensor.o(i.ReadData)
-    i.ReadRawRC                              0x080018f8   Section        0  rc522.o(i.ReadRawRC)
-    i.ReadWord                               0x08001938   Section        0  uartprotocol.o(i.ReadWord)
-    ReadWord                                 0x08001939   Thumb Code    68  uartprotocol.o(i.ReadWord)
-    i.Read_Byte                              0x08001988   Section        0  iic.o(i.Read_Byte)
-    Read_Byte                                0x08001989   Thumb Code    98  iic.o(i.Read_Byte)
-    i.Read_Byte                              0x080019f8   Section        0  mpu6050.o(i.Read_Byte)
-    Read_Byte                                0x080019f9   Thumb Code    78  mpu6050.o(i.Read_Byte)
-    i.Read_Len                               0x08001a4c   Section        0  mpu6050.o(i.Read_Len)
-    Read_Len                                 0x08001a4d   Thumb Code   140  mpu6050.o(i.Read_Len)
-    i.RegisterCmdEvent                       0x08001adc   Section        0  uartprotocol.o(i.RegisterCmdEvent)
-    i.RegisterEvent                          0x08001ae8   Section        0  detectionlogic.o(i.RegisterEvent)
-    i.SendCmdPack                            0x08001af4   Section        0  uartprotocol.o(i.SendCmdPack)
-    i.SendPack                               0x08001b38   Section        0  uartprotocol.o(i.SendPack)
-    i.Send_Byte                              0x08001b9c   Section        0  iic.o(i.Send_Byte)
-    Send_Byte                                0x08001b9d   Thumb Code    90  iic.o(i.Send_Byte)
-    i.SensorDetection                        0x08001c04   Section        0  detectionlogic.o(i.SensorDetection)
-    i.SetBitMask                             0x0800219c   Section        0  rc522.o(i.SetBitMask)
-    i.SetCallBack                            0x080021b8   Section        0  rc522.o(i.SetCallBack)
-    i.SetDataEvent                           0x080021c4   Section        0  main.o(i.SetDataEvent)
-    i.SetDelay                               0x080024d0   Section        0  timer.o(i.SetDelay)
-    i.SetTargetYaw                           0x080024e8   Section        0  detectionlogic.o(i.SetTargetYaw)
-    i.SetTimer                               0x08002524   Section        0  timer.o(i.SetTimer)
-    i.Set_Accel_Fsr                          0x08002584   Section        0  mpu6050.o(i.Set_Accel_Fsr)
-    Set_Accel_Fsr                            0x08002585   Thumb Code    18  mpu6050.o(i.Set_Accel_Fsr)
-    i.Set_Gyro_Fsr                           0x0800259c   Section        0  mpu6050.o(i.Set_Gyro_Fsr)
-    Set_Gyro_Fsr                             0x0800259d   Thumb Code    18  mpu6050.o(i.Set_Gyro_Fsr)
-    i.Set_LPF                                0x080025b4   Section        0  mpu6050.o(i.Set_LPF)
-    Set_LPF                                  0x080025b5   Thumb Code    60  mpu6050.o(i.Set_LPF)
-    i.Set_Rate                               0x080025f4   Section        0  mpu6050.o(i.Set_Rate)
-    Set_Rate                                 0x080025f5   Thumb Code    62  mpu6050.o(i.Set_Rate)
-    i.Setoffset                              0x08002638   Section        0  uartprotocol.o(i.Setoffset)
-    Setoffset                                0x08002639   Thumb Code    20  uartprotocol.o(i.Setoffset)
-    i.Start                                  0x08002650   Section        0  iic.o(i.Start)
-    Start                                    0x08002651   Thumb Code    64  iic.o(i.Start)
-    i.StartFindCard                          0x0800269c   Section        0  rc522.o(i.StartFindCard)
-    i.Stm32_Clock_Init                       0x08002894   Section        0  sys.o(i.Stm32_Clock_Init)
-    i.Stop                                   0x08002924   Section        0  iic.o(i.Stop)
-    Stop                                     0x08002925   Thumb Code    62  iic.o(i.Stop)
-    i.StopRun                                0x08002970   Section        0  detectionlogic.o(i.StopRun)
-    i.StopRunAction                          0x080029e4   Section        0  detectionlogic.o(i.StopRunAction)
-    StopRunAction                            0x080029e5   Thumb Code    50  detectionlogic.o(i.StopRunAction)
-    i.SysTick_Handler                        0x08002a30   Section        0  timer.o(i.SysTick_Handler)
-    i.TIM3CapInit                            0x08002a78   Section        0  wave.o(i.TIM3CapInit)
-    TIM3CapInit                              0x08002a79   Thumb Code   260  wave.o(i.TIM3CapInit)
-    i.TIM3_IRQHandler                        0x08002b88   Section        0  wave.o(i.TIM3_IRQHandler)
-    i.TimerRun                               0x08002cfc   Section        0  timer.o(i.TimerRun)
-    i.UART_Init                              0x08002dd0   Section        0  uart.o(i.UART_Init)
-    i.UART_OnRecv                            0x08002e90   Section        0  uart.o(i.UART_OnRecv)
-    i.UART_ReSetBps                          0x08002e9c   Section        0  uart.o(i.UART_ReSetBps)
-    i.UART_SendBuff                          0x08002efc   Section        0  uart.o(i.UART_SendBuff)
-    i.UART_SendByte                          0x08002f20   Section        0  uart.o(i.UART_SendByte)
-    i.UART_SendString                        0x08002f3c   Section        0  uart.o(i.UART_SendString)
-    i.USART1_IRQHandler                      0x08002f5c   Section        0  uart.o(i.USART1_IRQHandler)
-    i.UartCmd                                0x08002f7c   Section        0  uartprotocol.o(i.UartCmd)
-    i.UnRegisterCmdEvent                     0x08002ffc   Section        0  uartprotocol.o(i.UnRegisterCmdEvent)
-    i.Update                                 0x08003028   Section        0  pid.o(i.Update)
-    Update                                   0x08003029   Thumb Code    92  pid.o(i.Update)
-    i.UpdateBatteryValue                     0x08003084   Section        0  main.o(i.UpdateBatteryValue)
-    i.Wait_Ack                               0x08003094   Section        0  iic.o(i.Wait_Ack)
-    Wait_Ack                                 0x08003095   Thumb Code    86  iic.o(i.Wait_Ack)
-    i.WaveDetection                          0x080030f8   Section        0  detectionlogic.o(i.WaveDetection)
-    i.WriteBuff                              0x08003160   Section        0  uartprotocol.o(i.WriteBuff)
-    WriteBuff                                0x08003161   Thumb Code    92  uartprotocol.o(i.WriteBuff)
-    i.WriteByte                              0x080031d0   Section        0  spi.o(i.WriteByte)
-    WriteByte                                0x080031d1   Thumb Code    82  spi.o(i.WriteByte)
-    i.WriteByte                              0x08003228   Section        0  uartprotocol.o(i.WriteByte)
-    WriteByte                                0x08003229   Thumb Code    80  uartprotocol.o(i.WriteByte)
-    i.WriteDWord                             0x0800328c   Section        0  uartprotocol.o(i.WriteDWord)
-    WriteDWord                               0x0800328d   Thumb Code   222  uartprotocol.o(i.WriteDWord)
-    i.WriteRawRC                             0x08003380   Section        0  rc522.o(i.WriteRawRC)
-    i.WriteWord                              0x080033bc   Section        0  uartprotocol.o(i.WriteWord)
-    WriteWord                                0x080033bd   Thumb Code   130  uartprotocol.o(i.WriteWord)
-    i.Write_Byte                             0x08003454   Section        0  mpu6050.o(i.Write_Byte)
-    Write_Byte                               0x08003455   Thumb Code    88  mpu6050.o(i.Write_Byte)
-    i.Write_Len                              0x080034b0   Section        0  mpu6050.o(i.Write_Len)
-    Write_Len                                0x080034b1   Thumb Code   116  mpu6050.o(i.Write_Len)
-    i.Writestr                               0x08003528   Section        0  uartprotocol.o(i.Writestr)
-    Writestr                                 0x08003529   Thumb Code    94  uartprotocol.o(i.Writestr)
-    i.ZeroDelay                              0x0800359c   Section        0  timer.o(i.ZeroDelay)
-    i.__0printf$8                            0x080035b8   Section        0  printf8.o(i.__0printf$8)
-    i.__scatterload_copy                     0x080035d8   Section       14  handlers.o(i.__scatterload_copy)
-    i.__scatterload_null                     0x080035e6   Section        2  handlers.o(i.__scatterload_null)
-    i.__scatterload_zeroinit                 0x080035e8   Section       14  handlers.o(i.__scatterload_zeroinit)
-    i._printf_core                           0x080035f8   Section        0  printf8.o(i._printf_core)
-    _printf_core                             0x080035f9   Thumb Code   988  printf8.o(i._printf_core)
-    i._printf_post_padding                   0x08003a00   Section        0  printf8.o(i._printf_post_padding)
-    _printf_post_padding                     0x08003a01   Thumb Code    36  printf8.o(i._printf_post_padding)
-    i._printf_pre_padding                    0x08003a24   Section        0  printf8.o(i._printf_pre_padding)
-    _printf_pre_padding                      0x08003a25   Thumb Code    46  printf8.o(i._printf_pre_padding)
-    i.aack                                   0x08003a54   Section        0  uartprotocol.o(i.aack)
-    i.accel_self_test                        0x08003a60   Section        0  inv_mpu.o(i.accel_self_test)
-    accel_self_test                          0x08003a61   Thumb Code   164  inv_mpu.o(i.accel_self_test)
-    i.ackpack                                0x08003b08   Section        0  uartprotocol.o(i.ackpack)
-    i.delay_ms                               0x08003bc8   Section        0  delay.o(i.delay_ms)
-    i.delay_us                               0x08003be0   Section        0  delay.o(i.delay_us)
-    i.dmp_enable_6x_lp_quat                  0x08003c28   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_enable_6x_lp_quat)
-    i.dmp_enable_feature                     0x08003c64   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_enable_feature)
-    i.dmp_enable_gyro_cal                    0x08003e80   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_enable_gyro_cal)
-    i.dmp_enable_lp_quat                     0x08003ed8   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_enable_lp_quat)
-    i.dmp_load_motion_driver_firmware        0x08003f14   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_load_motion_driver_firmware)
-    i.dmp_set_accel_bias                     0x08003f2c   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_set_accel_bias)
-    i.dmp_set_fifo_rate                      0x0800405c   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_set_fifo_rate)
-    i.dmp_set_gyro_bias                      0x080040cc   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_set_gyro_bias)
-    i.dmp_set_orientation                    0x080041fc   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_set_orientation)
-    i.dmp_set_shake_reject_thresh            0x08004334   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_set_shake_reject_thresh)
-    i.dmp_set_shake_reject_time              0x0800436c   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_set_shake_reject_time)
-    i.dmp_set_shake_reject_timeout           0x08004392   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_set_shake_reject_timeout)
-    i.dmp_set_tap_axes                       0x080043b8   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_set_tap_axes)
-    i.dmp_set_tap_count                      0x080043fe   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_set_tap_count)
-    i.dmp_set_tap_thresh                     0x08004424   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_set_tap_thresh)
-    i.dmp_set_tap_time                       0x080045c4   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_set_tap_time)
-    i.dmp_set_tap_time_multi                 0x080045ea   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_set_tap_time_multi)
-    i.fputc                                  0x08004610   Section        0  fputc.o(i.fputc)
-    i.getADCValue                            0x08004624   Section        0  adc.o(i.getADCValue)
-    getADCValue                              0x08004625   Thumb Code    70  adc.o(i.getADCValue)
-    i.getBatteryValue                        0x08004670   Section        0  main.o(i.getBatteryValue)
-    i.getCHVA                                0x080046c0   Section        0  sensor.o(i.getCHVA)
-    getCHVA                                  0x080046c1   Thumb Code    10  sensor.o(i.getCHVA)
-    i.getLastError                           0x080046d0   Section        0  detectionlogic.o(i.getLastError)
-    getLastError                             0x080046d1   Thumb Code     6  detectionlogic.o(i.getLastError)
-    i.getLastPath                            0x080046dc   Section        0  detectionlogic.o(i.getLastPath)
-    getLastPath                              0x080046dd   Thumb Code    18  detectionlogic.o(i.getLastPath)
-    i.getPathCount                           0x080046f4   Section        0  detectionlogic.o(i.getPathCount)
-    getPathCount                             0x080046f5   Thumb Code    30  detectionlogic.o(i.getPathCount)
-    i.getTime                                0x08004718   Section        0  detectionlogic.o(i.getTime)
-    getTime                                  0x08004719   Thumb Code     6  detectionlogic.o(i.getTime)
-    i.get_accel_prod_shift                   0x08004724   Section        0  inv_mpu.o(i.get_accel_prod_shift)
-    get_accel_prod_shift                     0x08004725   Thumb Code   170  inv_mpu.o(i.get_accel_prod_shift)
-    i.get_st_biases                          0x080047e0   Section        0  inv_mpu.o(i.get_st_biases)
-    get_st_biases                            0x080047e1   Thumb Code  1170  inv_mpu.o(i.get_st_biases)
-    i.getbuff                                0x08004c78   Section        0  uartprotocol.o(i.getbuff)
-    getbuff                                  0x08004c79   Thumb Code    12  uartprotocol.o(i.getbuff)
-    i.getcmd                                 0x08004c8c   Section        0  uartprotocol.o(i.getcmd)
-    getcmd                                   0x08004c8d   Thumb Code     6  uartprotocol.o(i.getcmd)
-    i.getdir                                 0x08004c98   Section        0  detectionlogic.o(i.getdir)
-    getdir                                   0x08004c99   Thumb Code     6  detectionlogic.o(i.getdir)
-    i.getlen                                 0x08004ca4   Section        0  uartprotocol.o(i.getlen)
-    getlen                                   0x08004ca5   Thumb Code     6  uartprotocol.o(i.getlen)
-    i.getsendbuff                            0x08004cb0   Section        0  uartprotocol.o(i.getsendbuff)
-    getsendbuff                              0x08004cb1   Thumb Code    12  uartprotocol.o(i.getsendbuff)
-    i.gyro_self_test                         0x08004cc4   Section        0  inv_mpu.o(i.gyro_self_test)
-    gyro_self_test                           0x08004cc5   Thumb Code   260  inv_mpu.o(i.gyro_self_test)
-    i.inPoint                                0x08004ddc   Section        0  main.o(i.inPoint)
-    i.inPoint                                0x08004e74   Section        0  detectionlogic.o(i.inPoint)
-    inPoint                                  0x08004e75   Thumb Code    34  detectionlogic.o(i.inPoint)
-    i.init                                   0x08004ea0   Section        0  motor.o(i.init)
-    init                                     0x08004ea1   Thumb Code   172  motor.o(i.init)
-    i.init                                   0x08004f5c   Section        0  sensor.o(i.init)
-    init                                     0x08004f5d   Thumb Code   130  sensor.o(i.init)
-    i.init                                   0x08004ff8   Section        0  detectionlogic.o(i.init)
-    init                                     0x08004ff9   Thumb Code    58  detectionlogic.o(i.init)
-    i.init                                   0x08005040   Section        0  adc.o(i.init)
-    init                                     0x08005041   Thumb Code   134  adc.o(i.init)
-    i.init                                   0x080050d0   Section        0  rc522.o(i.init)
-    init                                     0x080050d1   Thumb Code   270  rc522.o(i.init)
-    i.inturndone                             0x080051ec   Section        0  detectionlogic.o(i.inturndone)
-    inturndone                               0x080051ed   Thumb Code    30  detectionlogic.o(i.inturndone)
-    i.inv_orientation_matrix_to_scalar       0x08005214   Section        0  inv_mpu.o(i.inv_orientation_matrix_to_scalar)
-    i.inv_row_2_scale                        0x0800523c   Section        0  inv_mpu.o(i.inv_row_2_scale)
-    i.inway                                  0x0800528c   Section        0  main.o(i.inway)
-    i.inway                                  0x08005398   Section        0  detectionlogic.o(i.inway)
-    inway                                    0x08005399   Thumb Code   128  detectionlogic.o(i.inway)
-    i.isLink                                 0x08005424   Section        0  uartprotocol.o(i.isLink)
-    i.isUse                                  0x08005438   Section        0  timer.o(i.isUse)
-    i.main                                   0x08005454   Section        0  main.o(i.main)
-    i.mpu_configure_fifo                     0x080055f8   Section        0  inv_mpu.o(i.mpu_configure_fifo)
-    i.mpu_dmp_init                           0x08005668   Section        0  inv_mpu.o(i.mpu_dmp_init)
-    i.mpu_get_accel_fsr                      0x08005708   Section        0  inv_mpu.o(i.mpu_get_accel_fsr)
-    i.mpu_get_accel_sens                     0x08005754   Section        0  inv_mpu.o(i.mpu_get_accel_sens)
-    i.mpu_get_fifo_config                    0x080057a8   Section        0  inv_mpu.o(i.mpu_get_fifo_config)
-    i.mpu_get_gyro_fsr                       0x080057b8   Section        0  inv_mpu.o(i.mpu_get_gyro_fsr)
-    i.mpu_get_gyro_sens                      0x080057fc   Section        0  inv_mpu.o(i.mpu_get_gyro_sens)
-    i.mpu_get_lpf                            0x0800584c   Section        0  inv_mpu.o(i.mpu_get_lpf)
-    i.mpu_get_sample_rate                    0x0800589c   Section        0  inv_mpu.o(i.mpu_get_sample_rate)
-    i.mpu_init                               0x080058bc   Section        0  inv_mpu.o(i.mpu_init)
-    i.mpu_load_firmware                      0x08005ab8   Section        0  inv_mpu.o(i.mpu_load_firmware)
-    i.mpu_lp_accel_mode                      0x08005b78   Section        0  inv_mpu.o(i.mpu_lp_accel_mode)
-    i.mpu_read_mem                           0x08005c60   Section        0  inv_mpu.o(i.mpu_read_mem)
-    i.mpu_reset_fifo                         0x08005ce8   Section        0  inv_mpu.o(i.mpu_reset_fifo)
-    i.mpu_run_self_test                      0x08005ec8   Section        0  inv_mpu.o(i.mpu_run_self_test)
-    i.mpu_set_accel_fsr                      0x08005fe4   Section        0  inv_mpu.o(i.mpu_set_accel_fsr)
-    i.mpu_set_bypass                         0x0800606c   Section        0  inv_mpu.o(i.mpu_set_bypass)
-    i.mpu_set_dmp_state                      0x080061c8   Section        0  inv_mpu.o(i.mpu_set_dmp_state)
-    i.mpu_set_gyro_fsr                       0x08006260   Section        0  inv_mpu.o(i.mpu_set_gyro_fsr)
-    i.mpu_set_int_latched                    0x080062f0   Section        0  inv_mpu.o(i.mpu_set_int_latched)
-    i.mpu_set_lpf                            0x08006360   Section        0  inv_mpu.o(i.mpu_set_lpf)
-    i.mpu_set_sample_rate                    0x080063e8   Section        0  inv_mpu.o(i.mpu_set_sample_rate)
-    i.mpu_set_sensors                        0x0800648c   Section        0  inv_mpu.o(i.mpu_set_sensors)
-    i.mpu_write_mem                          0x08006564   Section        0  inv_mpu.o(i.mpu_write_mem)
-    i.run_self_test                          0x080065ec   Section        0  inv_mpu.o(i.run_self_test)
-    i.sendackpacket                          0x08006680   Section        0  uartprotocol.o(i.sendackpacket)
-    i.setCHTH                                0x080066a4   Section        0  sensor.o(i.setCHTH)
-    setCHTH                                  0x080066a5   Thumb Code     8  sensor.o(i.setCHTH)
-    i.setDuty                                0x080066b0   Section        0  motor.o(i.setDuty)
-    setDuty                                  0x080066b1   Thumb Code    16  motor.o(i.setDuty)
-    i.setLenghtData                          0x080066c4   Section        0  wave.o(i.setLenghtData)
-    i.setSpeed                               0x080066d8   Section        0  motor.o(i.setSpeed)
-    setSpeed                                 0x080066d9   Thumb Code   442  motor.o(i.setSpeed)
-    i.set_int_enable                         0x080068a0   Section        0  inv_mpu.o(i.set_int_enable)
-    set_int_enable                           0x080068a1   Thumb Code   142  inv_mpu.o(i.set_int_enable)
-    i.switchCH                               0x08006938   Section        0  sensor.o(i.switchCH)
-    switchCH                                 0x08006939   Thumb Code   130  sensor.o(i.switchCH)
-    i.tick1                                  0x080069c4   Section        0  main.o(i.tick1)
-    i.toVoltage                              0x08006ae4   Section        0  main.o(i.toVoltage)
-    i.turndone                               0x08006af8   Section        0  main.o(i.turndone)
-    i.wait                                   0x08006b70   Section        0  rc522.o(i.wait)
-    .constdata                               0x08006b88   Section        8  wave.o(.constdata)
-    .constdata                               0x08006b90   Section        8  motor.o(.constdata)
-    .constdata                               0x08006b98   Section        8  pid.o(.constdata)
-    .constdata                               0x08006ba0   Section       20  sensor.o(.constdata)
-    .constdata                               0x08006bb4   Section       12  spi.o(.constdata)
-    .constdata                               0x08006bc0   Section       24  uart.o(.constdata)
-    .constdata                               0x08006bd8   Section       92  uartprotocol.o(.constdata)
-    UD                                       0x08006bd8   Data          60  uartprotocol.o(.constdata)
-    .constdata                               0x08006c34   Section       40  timer.o(.constdata)
-    .constdata                               0x08006c5c   Section       32  iic.o(.constdata)
-    .constdata                               0x08006c7c   Section       48  mpu6050.o(.constdata)
-    .constdata                               0x08006cac   Section     3062  inv_mpu_dmp_motion_driver.o(.constdata)
-    dmp_memory                               0x08006cac   Data        3062  inv_mpu_dmp_motion_driver.o(.constdata)
-    .constdata                               0x080078a4   Section       80  inv_mpu.o(.constdata)
-    .constdata                               0x080078f4   Section       76  detectionlogic.o(.constdata)
-    .constdata                               0x08007940   Section        8  adc.o(.constdata)
-    .constdata                               0x08007948   Section       20  rc522.o(.constdata)
-    .conststring                             0x0800795c   Section       77  inv_mpu.o(.conststring)
-    .data                                    0x20000000   Section       41  main.o(.data)
-    ch                                       0x20000028   Data           1  main.o(.data)
-    .data                                    0x2000002c   Section       17  wave.o(.data)
-    ch                                       0x2000003c   Data           1  wave.o(.data)
-    .data                                    0x2000003e   Section        4  delay.o(.data)
-    fac_us                                   0x2000003e   Data           1  delay.o(.data)
-    fac_ms                                   0x20000040   Data           2  delay.o(.data)
-    .data                                    0x20000042   Section        2  motor.o(.data)
-    motorstats                               0x20000042   Data           1  motor.o(.data)
-    motorstop                                0x20000043   Data           1  motor.o(.data)
-    .data                                    0x20000044   Section        3  sensor.o(.data)
-    count                                    0x20000046   Data           1  sensor.o(.data)
-    .data                                    0x20000048   Section        8  uart.o(.data)
-    f                                        0x2000004c   Data           4  uart.o(.data)
-    .data                                    0x20000050   Section       42  uartprotocol.o(.data)
-    count                                    0x20000078   Data           2  uartprotocol.o(.data)
-    .data                                    0x2000007c   Section       13  timer.o(.data)
-    BIT                                      0x20000088   Data           1  timer.o(.data)
-    .data                                    0x2000008c   Section       53  inv_mpu.o(.data)
-    st                                       0x2000008c   Data          44  inv_mpu.o(.data)
-    gyro_orientation                         0x200000b8   Data           9  inv_mpu.o(.data)
-    .data                                    0x200000c4   Section       68  detectionlogic.o(.data)
-    mode                                     0x20000104   Data           1  detectionlogic.o(.data)
-    tick                                     0x20000106   Data           2  detectionlogic.o(.data)
-    .data                                    0x20000108   Section       10  rc522.o(.data)
-    ID                                       0x2000010c   Data           4  rc522.o(.data)
-    Loop                                     0x20000110   Data           1  rc522.o(.data)
-    mode                                     0x20000111   Data           1  rc522.o(.data)
-    .data                                    0x20000114   Section        4  stdout.o(.data)
-    .bss                                     0x20000118   Section     1216  main.o(.bss)
-    .bss                                     0x200005d8   Section       36  sensor.o(.bss)
-    .bss                                     0x200005fc   Section       64  uartprotocol.o(.bss)
-    .bss                                     0x2000063c   Section       96  timer.o(.bss)
-    .bss                                     0x2000069c   Section       16  inv_mpu_dmp_motion_driver.o(.bss)
-    dmp                                      0x2000069c   Data          16  inv_mpu_dmp_motion_driver.o(.bss)
-    .bss                                     0x200006ac   Section       84  detectionlogic.o(.bss)
-    STACK                                    0x20000700   Section     2048  startup_stm32f10x_md.o(STACK)
+    ActionRun                                0x08000a25   Thumb Code   210  detectionlogic.o(i.ActionRun)
+    i.AddDelay                               0x08000b14   Section        0  timer.o(i.AddDelay)
+    i.AliveEvent                             0x08000b40   Section        0  main.o(i.AliveEvent)
+    i.BatteryCheckInit                       0x08000b44   Section        0  main.o(i.BatteryCheckInit)
+    i.CallFun                                0x08000b70   Section        0  timer.o(i.CallFun)
+    i.CheckSensor                            0x08000b78   Section        0  detectionlogic.o(i.CheckSensor)
+    i.CheckTargetYaw                         0x08000cb4   Section        0  detectionlogic.o(i.CheckTargetYaw)
+    i.ClearBitMask                           0x08000d48   Section        0  rc522.o(i.ClearBitMask)
+    i.DefConfig                              0x08000d64   Section        0  detectionlogic.o(i.DefConfig)
+    i.Delay                                  0x08000dac   Section        0  timer.o(i.Delay)
+    i.GetDataEvent                           0x08000df0   Section        0  main.o(i.GetDataEvent)
+    i.Get_Accelerometer                      0x08000ef8   Section        0  mpu6050.o(i.Get_Accelerometer)
+    Get_Accelerometer                        0x08000ef9   Thumb Code    84  mpu6050.o(i.Get_Accelerometer)
+    i.Get_Gyroscope                          0x08000f50   Section        0  mpu6050.o(i.Get_Gyroscope)
+    Get_Gyroscope                            0x08000f51   Thumb Code    84  mpu6050.o(i.Get_Gyroscope)
+    i.Get_Temperature                        0x08000fa8   Section        0  mpu6050.o(i.Get_Temperature)
+    Get_Temperature                          0x08000fa9   Thumb Code    88  mpu6050.o(i.Get_Temperature)
+    i.Init                                   0x08001014   Section        0  wave.o(i.Init)
+    Init                                     0x08001015   Thumb Code    76  wave.o(i.Init)
+    i.Init                                   0x08001070   Section        0  pid.o(i.Init)
+    Init                                     0x08001071   Thumb Code    20  pid.o(i.Init)
+    i.Init                                   0x08001084   Section        0  spi.o(i.Init)
+    Init                                     0x08001085   Thumb Code    80  spi.o(i.Init)
+    i.Init                                   0x080010e4   Section        0  uartprotocol.o(i.Init)
+    Init                                     0x080010e5   Thumb Code    84  uartprotocol.o(i.Init)
+    i.Init                                   0x08001150   Section        0  iic.o(i.Init)
+    Init                                     0x08001151   Thumb Code    52  iic.o(i.Init)
+    i.Init                                   0x0800118c   Section        0  mpu6050.o(i.Init)
+    Init                                     0x0800118d   Thumb Code   150  mpu6050.o(i.Init)
+    i.InitTimer                              0x0800122c   Section        0  timer.o(i.InitTimer)
+    i.JTAG_Set                               0x08001258   Section        0  sys.o(i.JTAG_Set)
+    i.KillThisTimer                          0x08001288   Section        0  timer.o(i.KillThisTimer)
+    i.KillTimer                              0x080012b4   Section        0  timer.o(i.KillTimer)
+    i.LED_Init                               0x080012d8   Section        0  led.o(i.LED_Init)
+    i.LogicRun                               0x08001310   Section        0  detectionlogic.o(i.LogicRun)
+    i.Loop                                   0x08001484   Section        0  sensor.o(i.Loop)
+    Loop                                     0x08001485   Thumb Code   120  sensor.o(i.Loop)
+    i.MYRCC_DeInit                           0x08001510   Section        0  sys.o(i.MYRCC_DeInit)
+    i.MY_NVIC_Init                           0x08001578   Section        0  sys.o(i.MY_NVIC_Init)
+    i.MY_NVIC_PriorityGroupConfig            0x080015ec   Section        0  sys.o(i.MY_NVIC_PriorityGroupConfig)
+    i.MY_NVIC_SetVectorTable                 0x08001614   Section        0  sys.o(i.MY_NVIC_SetVectorTable)
+    i.MotorRun                               0x08001628   Section        0  detectionlogic.o(i.MotorRun)
+    MotorRun                                 0x08001629   Thumb Code    18  detectionlogic.o(i.MotorRun)
+    i.NAck                                   0x0800164c   Section        0  iic.o(i.NAck)
+    NAck                                     0x0800164d   Thumb Code    66  iic.o(i.NAck)
+    i.OnRecvData                             0x0800169c   Section        0  uartprotocol.o(i.OnRecvData)
+    i.RTADC                                  0x08001794   Section        0  sensor.o(i.RTADC)
+    i.ReadBuff                               0x080017dc   Section        0  uartprotocol.o(i.ReadBuff)
+    ReadBuff                                 0x080017dd   Thumb Code    68  uartprotocol.o(i.ReadBuff)
+    i.ReadByte                               0x0800182c   Section        0  spi.o(i.ReadByte)
+    ReadByte                                 0x0800182d   Thumb Code    64  spi.o(i.ReadByte)
+    i.ReadByte                               0x08001870   Section        0  uartprotocol.o(i.ReadByte)
+    ReadByte                                 0x08001871   Thumb Code    38  uartprotocol.o(i.ReadByte)
+    i.ReadCard                               0x080018a4   Section        0  main.o(i.ReadCard)
+    i.ReadDWord                              0x080018b0   Section        0  uartprotocol.o(i.ReadDWord)
+    ReadDWord                                0x080018b1   Thumb Code   106  uartprotocol.o(i.ReadDWord)
+    i.ReadData                               0x08001928   Section        0  sensor.o(i.ReadData)
+    ReadData                                 0x08001929   Thumb Code    10  sensor.o(i.ReadData)
+    i.ReadRawRC                              0x08001938   Section        0  rc522.o(i.ReadRawRC)
+    i.ReadWord                               0x08001978   Section        0  uartprotocol.o(i.ReadWord)
+    ReadWord                                 0x08001979   Thumb Code    68  uartprotocol.o(i.ReadWord)
+    i.Read_Byte                              0x080019c8   Section        0  iic.o(i.Read_Byte)
+    Read_Byte                                0x080019c9   Thumb Code    98  iic.o(i.Read_Byte)
+    i.Read_Byte                              0x08001a38   Section        0  mpu6050.o(i.Read_Byte)
+    Read_Byte                                0x08001a39   Thumb Code    78  mpu6050.o(i.Read_Byte)
+    i.Read_Len                               0x08001a8c   Section        0  mpu6050.o(i.Read_Len)
+    Read_Len                                 0x08001a8d   Thumb Code   140  mpu6050.o(i.Read_Len)
+    i.RegisterCmdEvent                       0x08001b1c   Section        0  uartprotocol.o(i.RegisterCmdEvent)
+    i.RegisterEvent                          0x08001b28   Section        0  detectionlogic.o(i.RegisterEvent)
+    i.SendCmdPack                            0x08001b34   Section        0  uartprotocol.o(i.SendCmdPack)
+    i.SendPack                               0x08001b78   Section        0  uartprotocol.o(i.SendPack)
+    i.Send_Byte                              0x08001bdc   Section        0  iic.o(i.Send_Byte)
+    Send_Byte                                0x08001bdd   Thumb Code    90  iic.o(i.Send_Byte)
+    i.SensorDetection                        0x08001c44   Section        0  detectionlogic.o(i.SensorDetection)
+    i.SetBitMask                             0x08002278   Section        0  rc522.o(i.SetBitMask)
+    i.SetCallBack                            0x08002294   Section        0  rc522.o(i.SetCallBack)
+    i.SetDataEvent                           0x080022a0   Section        0  main.o(i.SetDataEvent)
+    i.SetDelay                               0x080025b8   Section        0  timer.o(i.SetDelay)
+    i.SetTargetYaw                           0x080025d0   Section        0  detectionlogic.o(i.SetTargetYaw)
+    i.SetTimer                               0x0800260c   Section        0  timer.o(i.SetTimer)
+    i.Set_Accel_Fsr                          0x0800266c   Section        0  mpu6050.o(i.Set_Accel_Fsr)
+    Set_Accel_Fsr                            0x0800266d   Thumb Code    18  mpu6050.o(i.Set_Accel_Fsr)
+    i.Set_Gyro_Fsr                           0x08002684   Section        0  mpu6050.o(i.Set_Gyro_Fsr)
+    Set_Gyro_Fsr                             0x08002685   Thumb Code    18  mpu6050.o(i.Set_Gyro_Fsr)
+    i.Set_LPF                                0x0800269c   Section        0  mpu6050.o(i.Set_LPF)
+    Set_LPF                                  0x0800269d   Thumb Code    60  mpu6050.o(i.Set_LPF)
+    i.Set_Rate                               0x080026dc   Section        0  mpu6050.o(i.Set_Rate)
+    Set_Rate                                 0x080026dd   Thumb Code    62  mpu6050.o(i.Set_Rate)
+    i.Setoffset                              0x08002720   Section        0  uartprotocol.o(i.Setoffset)
+    Setoffset                                0x08002721   Thumb Code    20  uartprotocol.o(i.Setoffset)
+    i.Start                                  0x08002738   Section        0  iic.o(i.Start)
+    Start                                    0x08002739   Thumb Code    64  iic.o(i.Start)
+    i.StartFindCard                          0x08002784   Section        0  rc522.o(i.StartFindCard)
+    i.Stm32_Clock_Init                       0x0800297c   Section        0  sys.o(i.Stm32_Clock_Init)
+    i.Stop                                   0x08002a0c   Section        0  iic.o(i.Stop)
+    Stop                                     0x08002a0d   Thumb Code    62  iic.o(i.Stop)
+    i.StopRun                                0x08002a58   Section        0  detectionlogic.o(i.StopRun)
+    i.StopRunAction                          0x08002acc   Section        0  detectionlogic.o(i.StopRunAction)
+    StopRunAction                            0x08002acd   Thumb Code    50  detectionlogic.o(i.StopRunAction)
+    i.SysTick_Handler                        0x08002b18   Section        0  timer.o(i.SysTick_Handler)
+    i.TIM3CapInit                            0x08002b60   Section        0  wave.o(i.TIM3CapInit)
+    TIM3CapInit                              0x08002b61   Thumb Code   260  wave.o(i.TIM3CapInit)
+    i.TIM3_IRQHandler                        0x08002c70   Section        0  wave.o(i.TIM3_IRQHandler)
+    i.TimerRun                               0x08002de4   Section        0  timer.o(i.TimerRun)
+    i.UART_Init                              0x08002eb8   Section        0  uart.o(i.UART_Init)
+    i.UART_OnRecv                            0x08002f78   Section        0  uart.o(i.UART_OnRecv)
+    i.UART_ReSetBps                          0x08002f84   Section        0  uart.o(i.UART_ReSetBps)
+    i.UART_SendBuff                          0x08002fe4   Section        0  uart.o(i.UART_SendBuff)
+    i.UART_SendByte                          0x08003008   Section        0  uart.o(i.UART_SendByte)
+    i.UART_SendString                        0x08003024   Section        0  uart.o(i.UART_SendString)
+    i.USART1_IRQHandler                      0x08003044   Section        0  uart.o(i.USART1_IRQHandler)
+    i.UartCmd                                0x08003064   Section        0  uartprotocol.o(i.UartCmd)
+    i.UnRegisterCmdEvent                     0x080030e4   Section        0  uartprotocol.o(i.UnRegisterCmdEvent)
+    i.Update                                 0x08003110   Section        0  pid.o(i.Update)
+    Update                                   0x08003111   Thumb Code    92  pid.o(i.Update)
+    i.UpdateBatteryValue                     0x0800316c   Section        0  main.o(i.UpdateBatteryValue)
+    i.Wait_Ack                               0x0800317c   Section        0  iic.o(i.Wait_Ack)
+    Wait_Ack                                 0x0800317d   Thumb Code    86  iic.o(i.Wait_Ack)
+    i.WaveDetection                          0x080031e0   Section        0  detectionlogic.o(i.WaveDetection)
+    i.WriteBuff                              0x0800323c   Section        0  uartprotocol.o(i.WriteBuff)
+    WriteBuff                                0x0800323d   Thumb Code    92  uartprotocol.o(i.WriteBuff)
+    i.WriteByte                              0x080032ac   Section        0  spi.o(i.WriteByte)
+    WriteByte                                0x080032ad   Thumb Code    82  spi.o(i.WriteByte)
+    i.WriteByte                              0x08003304   Section        0  uartprotocol.o(i.WriteByte)
+    WriteByte                                0x08003305   Thumb Code    80  uartprotocol.o(i.WriteByte)
+    i.WriteDWord                             0x08003368   Section        0  uartprotocol.o(i.WriteDWord)
+    WriteDWord                               0x08003369   Thumb Code   222  uartprotocol.o(i.WriteDWord)
+    i.WriteRawRC                             0x0800345c   Section        0  rc522.o(i.WriteRawRC)
+    i.WriteWord                              0x08003498   Section        0  uartprotocol.o(i.WriteWord)
+    WriteWord                                0x08003499   Thumb Code   130  uartprotocol.o(i.WriteWord)
+    i.Write_Byte                             0x08003530   Section        0  mpu6050.o(i.Write_Byte)
+    Write_Byte                               0x08003531   Thumb Code    88  mpu6050.o(i.Write_Byte)
+    i.Write_Len                              0x0800358c   Section        0  mpu6050.o(i.Write_Len)
+    Write_Len                                0x0800358d   Thumb Code   116  mpu6050.o(i.Write_Len)
+    i.Writestr                               0x08003604   Section        0  uartprotocol.o(i.Writestr)
+    Writestr                                 0x08003605   Thumb Code    94  uartprotocol.o(i.Writestr)
+    i.ZeroDelay                              0x08003678   Section        0  timer.o(i.ZeroDelay)
+    i.__0printf$8                            0x08003694   Section        0  printf8.o(i.__0printf$8)
+    i.__scatterload_copy                     0x080036b4   Section       14  handlers.o(i.__scatterload_copy)
+    i.__scatterload_null                     0x080036c2   Section        2  handlers.o(i.__scatterload_null)
+    i.__scatterload_zeroinit                 0x080036c4   Section       14  handlers.o(i.__scatterload_zeroinit)
+    i._printf_core                           0x080036d4   Section        0  printf8.o(i._printf_core)
+    _printf_core                             0x080036d5   Thumb Code   988  printf8.o(i._printf_core)
+    i._printf_post_padding                   0x08003adc   Section        0  printf8.o(i._printf_post_padding)
+    _printf_post_padding                     0x08003add   Thumb Code    36  printf8.o(i._printf_post_padding)
+    i._printf_pre_padding                    0x08003b00   Section        0  printf8.o(i._printf_pre_padding)
+    _printf_pre_padding                      0x08003b01   Thumb Code    46  printf8.o(i._printf_pre_padding)
+    i.aack                                   0x08003b30   Section        0  uartprotocol.o(i.aack)
+    i.accel_self_test                        0x08003b3c   Section        0  inv_mpu.o(i.accel_self_test)
+    accel_self_test                          0x08003b3d   Thumb Code   164  inv_mpu.o(i.accel_self_test)
+    i.ackpack                                0x08003be4   Section        0  uartprotocol.o(i.ackpack)
+    i.delay_ms                               0x08003ca4   Section        0  delay.o(i.delay_ms)
+    i.delay_us                               0x08003cbc   Section        0  delay.o(i.delay_us)
+    i.dmp_enable_6x_lp_quat                  0x08003d04   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_enable_6x_lp_quat)
+    i.dmp_enable_feature                     0x08003d40   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_enable_feature)
+    i.dmp_enable_gyro_cal                    0x08003f5c   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_enable_gyro_cal)
+    i.dmp_enable_lp_quat                     0x08003fb4   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_enable_lp_quat)
+    i.dmp_load_motion_driver_firmware        0x08003ff0   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_load_motion_driver_firmware)
+    i.dmp_set_accel_bias                     0x08004008   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_set_accel_bias)
+    i.dmp_set_fifo_rate                      0x08004138   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_set_fifo_rate)
+    i.dmp_set_gyro_bias                      0x080041a8   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_set_gyro_bias)
+    i.dmp_set_orientation                    0x080042d8   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_set_orientation)
+    i.dmp_set_shake_reject_thresh            0x08004410   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_set_shake_reject_thresh)
+    i.dmp_set_shake_reject_time              0x08004448   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_set_shake_reject_time)
+    i.dmp_set_shake_reject_timeout           0x0800446e   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_set_shake_reject_timeout)
+    i.dmp_set_tap_axes                       0x08004494   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_set_tap_axes)
+    i.dmp_set_tap_count                      0x080044da   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_set_tap_count)
+    i.dmp_set_tap_thresh                     0x08004500   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_set_tap_thresh)
+    i.dmp_set_tap_time                       0x080046a0   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_set_tap_time)
+    i.dmp_set_tap_time_multi                 0x080046c6   Section        0  inv_mpu_dmp_motion_driver.o(i.dmp_set_tap_time_multi)
+    i.fputc                                  0x080046ec   Section        0  fputc.o(i.fputc)
+    i.getADCValue                            0x08004700   Section        0  adc.o(i.getADCValue)
+    getADCValue                              0x08004701   Thumb Code    70  adc.o(i.getADCValue)
+    i.getBatteryValue                        0x0800474c   Section        0  main.o(i.getBatteryValue)
+    i.getCHVA                                0x0800479c   Section        0  sensor.o(i.getCHVA)
+    getCHVA                                  0x0800479d   Thumb Code    10  sensor.o(i.getCHVA)
+    i.getLastError                           0x080047ac   Section        0  detectionlogic.o(i.getLastError)
+    getLastError                             0x080047ad   Thumb Code     6  detectionlogic.o(i.getLastError)
+    i.getLastPath                            0x080047b8   Section        0  detectionlogic.o(i.getLastPath)
+    getLastPath                              0x080047b9   Thumb Code    18  detectionlogic.o(i.getLastPath)
+    i.getPathCount                           0x080047d0   Section        0  detectionlogic.o(i.getPathCount)
+    getPathCount                             0x080047d1   Thumb Code    30  detectionlogic.o(i.getPathCount)
+    i.getTime                                0x080047f4   Section        0  detectionlogic.o(i.getTime)
+    getTime                                  0x080047f5   Thumb Code     6  detectionlogic.o(i.getTime)
+    i.get_accel_prod_shift                   0x08004800   Section        0  inv_mpu.o(i.get_accel_prod_shift)
+    get_accel_prod_shift                     0x08004801   Thumb Code   170  inv_mpu.o(i.get_accel_prod_shift)
+    i.get_st_biases                          0x080048bc   Section        0  inv_mpu.o(i.get_st_biases)
+    get_st_biases                            0x080048bd   Thumb Code  1170  inv_mpu.o(i.get_st_biases)
+    i.getbuff                                0x08004d54   Section        0  uartprotocol.o(i.getbuff)
+    getbuff                                  0x08004d55   Thumb Code    12  uartprotocol.o(i.getbuff)
+    i.getcmd                                 0x08004d68   Section        0  uartprotocol.o(i.getcmd)
+    getcmd                                   0x08004d69   Thumb Code     6  uartprotocol.o(i.getcmd)
+    i.getdir                                 0x08004d74   Section        0  detectionlogic.o(i.getdir)
+    getdir                                   0x08004d75   Thumb Code     6  detectionlogic.o(i.getdir)
+    i.getlen                                 0x08004d80   Section        0  uartprotocol.o(i.getlen)
+    getlen                                   0x08004d81   Thumb Code     6  uartprotocol.o(i.getlen)
+    i.getsendbuff                            0x08004d8c   Section        0  uartprotocol.o(i.getsendbuff)
+    getsendbuff                              0x08004d8d   Thumb Code    12  uartprotocol.o(i.getsendbuff)
+    i.gyro_self_test                         0x08004da0   Section        0  inv_mpu.o(i.gyro_self_test)
+    gyro_self_test                           0x08004da1   Thumb Code   260  inv_mpu.o(i.gyro_self_test)
+    i.inPoint                                0x08004eb8   Section        0  main.o(i.inPoint)
+    i.inPoint                                0x08004f50   Section        0  detectionlogic.o(i.inPoint)
+    inPoint                                  0x08004f51   Thumb Code    34  detectionlogic.o(i.inPoint)
+    i.init                                   0x08004f7c   Section        0  motor.o(i.init)
+    init                                     0x08004f7d   Thumb Code   172  motor.o(i.init)
+    i.init                                   0x08005038   Section        0  sensor.o(i.init)
+    init                                     0x08005039   Thumb Code   130  sensor.o(i.init)
+    i.init                                   0x080050d4   Section        0  detectionlogic.o(i.init)
+    init                                     0x080050d5   Thumb Code    58  detectionlogic.o(i.init)
+    i.init                                   0x0800511c   Section        0  adc.o(i.init)
+    init                                     0x0800511d   Thumb Code   154  adc.o(i.init)
+    i.init                                   0x080051c4   Section        0  rc522.o(i.init)
+    init                                     0x080051c5   Thumb Code   270  rc522.o(i.init)
+    i.inturndone                             0x080052e0   Section        0  detectionlogic.o(i.inturndone)
+    inturndone                               0x080052e1   Thumb Code    30  detectionlogic.o(i.inturndone)
+    i.inv_orientation_matrix_to_scalar       0x08005308   Section        0  inv_mpu.o(i.inv_orientation_matrix_to_scalar)
+    i.inv_row_2_scale                        0x08005330   Section        0  inv_mpu.o(i.inv_row_2_scale)
+    i.inway                                  0x08005380   Section        0  main.o(i.inway)
+    i.inway                                  0x0800548c   Section        0  detectionlogic.o(i.inway)
+    inway                                    0x0800548d   Thumb Code   128  detectionlogic.o(i.inway)
+    i.isLink                                 0x08005518   Section        0  uartprotocol.o(i.isLink)
+    i.isUse                                  0x0800552c   Section        0  timer.o(i.isUse)
+    i.main                                   0x08005548   Section        0  main.o(i.main)
+    i.mpu_configure_fifo                     0x080056ec   Section        0  inv_mpu.o(i.mpu_configure_fifo)
+    i.mpu_dmp_init                           0x0800575c   Section        0  inv_mpu.o(i.mpu_dmp_init)
+    i.mpu_get_accel_fsr                      0x080057fc   Section        0  inv_mpu.o(i.mpu_get_accel_fsr)
+    i.mpu_get_accel_sens                     0x08005848   Section        0  inv_mpu.o(i.mpu_get_accel_sens)
+    i.mpu_get_fifo_config                    0x0800589c   Section        0  inv_mpu.o(i.mpu_get_fifo_config)
+    i.mpu_get_gyro_fsr                       0x080058ac   Section        0  inv_mpu.o(i.mpu_get_gyro_fsr)
+    i.mpu_get_gyro_sens                      0x080058f0   Section        0  inv_mpu.o(i.mpu_get_gyro_sens)
+    i.mpu_get_lpf                            0x08005940   Section        0  inv_mpu.o(i.mpu_get_lpf)
+    i.mpu_get_sample_rate                    0x08005990   Section        0  inv_mpu.o(i.mpu_get_sample_rate)
+    i.mpu_init                               0x080059b0   Section        0  inv_mpu.o(i.mpu_init)
+    i.mpu_load_firmware                      0x08005bac   Section        0  inv_mpu.o(i.mpu_load_firmware)
+    i.mpu_lp_accel_mode                      0x08005c6c   Section        0  inv_mpu.o(i.mpu_lp_accel_mode)
+    i.mpu_read_mem                           0x08005d54   Section        0  inv_mpu.o(i.mpu_read_mem)
+    i.mpu_reset_fifo                         0x08005ddc   Section        0  inv_mpu.o(i.mpu_reset_fifo)
+    i.mpu_run_self_test                      0x08005fbc   Section        0  inv_mpu.o(i.mpu_run_self_test)
+    i.mpu_set_accel_fsr                      0x080060d8   Section        0  inv_mpu.o(i.mpu_set_accel_fsr)
+    i.mpu_set_bypass                         0x08006160   Section        0  inv_mpu.o(i.mpu_set_bypass)
+    i.mpu_set_dmp_state                      0x080062bc   Section        0  inv_mpu.o(i.mpu_set_dmp_state)
+    i.mpu_set_gyro_fsr                       0x08006354   Section        0  inv_mpu.o(i.mpu_set_gyro_fsr)
+    i.mpu_set_int_latched                    0x080063e4   Section        0  inv_mpu.o(i.mpu_set_int_latched)
+    i.mpu_set_lpf                            0x08006454   Section        0  inv_mpu.o(i.mpu_set_lpf)
+    i.mpu_set_sample_rate                    0x080064dc   Section        0  inv_mpu.o(i.mpu_set_sample_rate)
+    i.mpu_set_sensors                        0x08006580   Section        0  inv_mpu.o(i.mpu_set_sensors)
+    i.mpu_write_mem                          0x08006658   Section        0  inv_mpu.o(i.mpu_write_mem)
+    i.run_self_test                          0x080066e0   Section        0  inv_mpu.o(i.run_self_test)
+    i.sendackpacket                          0x08006774   Section        0  uartprotocol.o(i.sendackpacket)
+    i.setCHTH                                0x08006798   Section        0  sensor.o(i.setCHTH)
+    setCHTH                                  0x08006799   Thumb Code     8  sensor.o(i.setCHTH)
+    i.setDuty                                0x080067a4   Section        0  motor.o(i.setDuty)
+    setDuty                                  0x080067a5   Thumb Code    16  motor.o(i.setDuty)
+    i.setLenghtData                          0x080067b8   Section        0  wave.o(i.setLenghtData)
+    i.setSpeed                               0x080067cc   Section        0  motor.o(i.setSpeed)
+    setSpeed                                 0x080067cd   Thumb Code   442  motor.o(i.setSpeed)
+    i.set_int_enable                         0x08006994   Section        0  inv_mpu.o(i.set_int_enable)
+    set_int_enable                           0x08006995   Thumb Code   142  inv_mpu.o(i.set_int_enable)
+    i.switchCH                               0x08006a2c   Section        0  sensor.o(i.switchCH)
+    switchCH                                 0x08006a2d   Thumb Code   130  sensor.o(i.switchCH)
+    i.tick1                                  0x08006ab8   Section        0  main.o(i.tick1)
+    i.toVoltage                              0x08006bec   Section        0  main.o(i.toVoltage)
+    i.turndone                               0x08006c00   Section        0  main.o(i.turndone)
+    i.wait                                   0x08006c78   Section        0  rc522.o(i.wait)
+    .constdata                               0x08006c90   Section        8  wave.o(.constdata)
+    .constdata                               0x08006c98   Section        8  motor.o(.constdata)
+    .constdata                               0x08006ca0   Section        8  pid.o(.constdata)
+    .constdata                               0x08006ca8   Section       20  sensor.o(.constdata)
+    .constdata                               0x08006cbc   Section       12  spi.o(.constdata)
+    .constdata                               0x08006cc8   Section       24  uart.o(.constdata)
+    .constdata                               0x08006ce0   Section       92  uartprotocol.o(.constdata)
+    UD                                       0x08006ce0   Data          60  uartprotocol.o(.constdata)
+    .constdata                               0x08006d3c   Section       40  timer.o(.constdata)
+    .constdata                               0x08006d64   Section       32  iic.o(.constdata)
+    .constdata                               0x08006d84   Section       48  mpu6050.o(.constdata)
+    .constdata                               0x08006db4   Section     3062  inv_mpu_dmp_motion_driver.o(.constdata)
+    dmp_memory                               0x08006db4   Data        3062  inv_mpu_dmp_motion_driver.o(.constdata)
+    .constdata                               0x080079ac   Section       80  inv_mpu.o(.constdata)
+    .constdata                               0x080079fc   Section       76  detectionlogic.o(.constdata)
+    .constdata                               0x08007a48   Section        8  adc.o(.constdata)
+    .constdata                               0x08007a50   Section       20  rc522.o(.constdata)
+    .conststring                             0x08007a64   Section       77  inv_mpu.o(.conststring)
+    .data                                    0x20000000   Section       45  main.o(.data)
+    ch                                       0x2000002c   Data           1  main.o(.data)
+    .data                                    0x20000030   Section       17  wave.o(.data)
+    ch                                       0x20000040   Data           1  wave.o(.data)
+    .data                                    0x20000042   Section        4  delay.o(.data)
+    fac_us                                   0x20000042   Data           1  delay.o(.data)
+    fac_ms                                   0x20000044   Data           2  delay.o(.data)
+    .data                                    0x20000046   Section        2  motor.o(.data)
+    motorstats                               0x20000046   Data           1  motor.o(.data)
+    motorstop                                0x20000047   Data           1  motor.o(.data)
+    .data                                    0x20000048   Section        5  sensor.o(.data)
+    count                                    0x2000004c   Data           1  sensor.o(.data)
+    .data                                    0x20000050   Section        8  uart.o(.data)
+    f                                        0x20000054   Data           4  uart.o(.data)
+    .data                                    0x20000058   Section       42  uartprotocol.o(.data)
+    count                                    0x20000080   Data           2  uartprotocol.o(.data)
+    .data                                    0x20000084   Section       13  timer.o(.data)
+    BIT                                      0x20000090   Data           1  timer.o(.data)
+    .data                                    0x20000094   Section       53  inv_mpu.o(.data)
+    st                                       0x20000094   Data          44  inv_mpu.o(.data)
+    gyro_orientation                         0x200000c0   Data           9  inv_mpu.o(.data)
+    .data                                    0x200000cc   Section       70  detectionlogic.o(.data)
+    mode                                     0x2000010e   Data           1  detectionlogic.o(.data)
+    tick                                     0x20000110   Data           2  detectionlogic.o(.data)
+    .data                                    0x20000114   Section       10  rc522.o(.data)
+    ID                                       0x20000118   Data           4  rc522.o(.data)
+    Loop                                     0x2000011c   Data           1  rc522.o(.data)
+    mode                                     0x2000011d   Data           1  rc522.o(.data)
+    .data                                    0x20000120   Section        4  stdout.o(.data)
+    .bss                                     0x20000124   Section     1216  main.o(.bss)
+    .bss                                     0x200005e4   Section       36  sensor.o(.bss)
+    .bss                                     0x20000608   Section       64  uartprotocol.o(.bss)
+    .bss                                     0x20000648   Section       96  timer.o(.bss)
+    .bss                                     0x200006a8   Section       16  inv_mpu_dmp_motion_driver.o(.bss)
+    dmp                                      0x200006a8   Data          16  inv_mpu_dmp_motion_driver.o(.bss)
+    .bss                                     0x200006b8   Section       84  detectionlogic.o(.bss)
+    STACK                                    0x20000710   Section     2048  startup_stm32f10x_md.o(STACK)
 
     Global Symbols
 
@@ -1713,245 +1722,250 @@ Image Symbol Table
     __scatterload_rt2                        0x080009b1   Thumb Code     0  init.o(.text)
     __I$use$semihosting$fputc                0x080009d5   Thumb Code     0  iusesemip.o(.text)
     __semihosting_library_function           0x080009d5   Thumb Code     0  semi.o(.text)
-    AddDelay                                 0x08000ae1   Thumb Code    36  timer.o(i.AddDelay)
-    AliveEvent                               0x08000b0d   Thumb Code     2  main.o(i.AliveEvent)
-    BatteryCheckInit                         0x08000b11   Thumb Code    38  main.o(i.BatteryCheckInit)
-    CallFun                                  0x08000b3d   Thumb Code     8  timer.o(i.CallFun)
-    CheckSensor                              0x08000b45   Thumb Code   288  detectionlogic.o(i.CheckSensor)
-    CheckTargetYaw                           0x08000c81   Thumb Code   116  detectionlogic.o(i.CheckTargetYaw)
-    ClearBitMask                             0x08000d15   Thumb Code    28  rc522.o(i.ClearBitMask)
-    DefConfig                                0x08000d31   Thumb Code    46  detectionlogic.o(i.DefConfig)
-    Delay                                    0x08000d79   Thumb Code    58  timer.o(i.Delay)
-    GetDataEvent                             0x08000dbd   Thumb Code   194  main.o(i.GetDataEvent)
-    InitTimer                                0x080011f9   Thumb Code    44  timer.o(i.InitTimer)
-    JTAG_Set                                 0x08001225   Thumb Code    38  sys.o(i.JTAG_Set)
-    KillThisTimer                            0x08001255   Thumb Code    34  timer.o(i.KillThisTimer)
-    KillTimer                                0x08001281   Thumb Code    32  timer.o(i.KillTimer)
-    LED_Init                                 0x080012a5   Thumb Code    42  led.o(i.LED_Init)
-    LogicRun                                 0x080012dd   Thumb Code   304  detectionlogic.o(i.LogicRun)
-    MYRCC_DeInit                             0x080014d1   Thumb Code    90  sys.o(i.MYRCC_DeInit)
-    MY_NVIC_Init                             0x08001539   Thumb Code   106  sys.o(i.MY_NVIC_Init)
-    MY_NVIC_PriorityGroupConfig              0x080015ad   Thumb Code    32  sys.o(i.MY_NVIC_PriorityGroupConfig)
-    MY_NVIC_SetVectorTable                   0x080015d5   Thumb Code    12  sys.o(i.MY_NVIC_SetVectorTable)
-    OnRecvData                               0x0800165d   Thumb Code   216  uartprotocol.o(i.OnRecvData)
-    RTADC                                    0x08001755   Thumb Code    66  sensor.o(i.RTADC)
-    ReadCard                                 0x08001865   Thumb Code     8  main.o(i.ReadCard)
-    ReadRawRC                                0x080018f9   Thumb Code    56  rc522.o(i.ReadRawRC)
-    RegisterCmdEvent                         0x08001add   Thumb Code     8  uartprotocol.o(i.RegisterCmdEvent)
-    RegisterEvent                            0x08001ae9   Thumb Code     8  detectionlogic.o(i.RegisterEvent)
-    SendCmdPack                              0x08001af5   Thumb Code    62  uartprotocol.o(i.SendCmdPack)
-    SendPack                                 0x08001b39   Thumb Code    94  uartprotocol.o(i.SendPack)
-    SensorDetection                          0x08001c05   Thumb Code  1350  detectionlogic.o(i.SensorDetection)
-    SetBitMask                               0x0800219d   Thumb Code    28  rc522.o(i.SetBitMask)
-    SetCallBack                              0x080021b9   Thumb Code     6  rc522.o(i.SetCallBack)
-    SetDataEvent                             0x080021c5   Thumb Code   694  main.o(i.SetDataEvent)
-    SetDelay                                 0x080024d1   Thumb Code    16  timer.o(i.SetDelay)
-    SetTargetYaw                             0x080024e9   Thumb Code    48  detectionlogic.o(i.SetTargetYaw)
-    SetTimer                                 0x08002525   Thumb Code    86  timer.o(i.SetTimer)
-    StartFindCard                            0x0800269d   Thumb Code   484  rc522.o(i.StartFindCard)
-    Stm32_Clock_Init                         0x08002895   Thumb Code   134  sys.o(i.Stm32_Clock_Init)
-    StopRun                                  0x08002971   Thumb Code    70  detectionlogic.o(i.StopRun)
-    SysTick_Handler                          0x08002a31   Thumb Code    62  timer.o(i.SysTick_Handler)
-    TIM3_IRQHandler                          0x08002b89   Thumb Code   352  wave.o(i.TIM3_IRQHandler)
-    TimerRun                                 0x08002cfd   Thumb Code   190  timer.o(i.TimerRun)
-    UART_Init                                0x08002dd1   Thumb Code   160  uart.o(i.UART_Init)
-    UART_OnRecv                              0x08002e91   Thumb Code     6  uart.o(i.UART_OnRecv)
-    UART_ReSetBps                            0x08002e9d   Thumb Code    86  uart.o(i.UART_ReSetBps)
-    UART_SendBuff                            0x08002efd   Thumb Code    34  uart.o(i.UART_SendBuff)
-    UART_SendByte                            0x08002f21   Thumb Code    22  uart.o(i.UART_SendByte)
-    UART_SendString                          0x08002f3d   Thumb Code    30  uart.o(i.UART_SendString)
-    USART1_IRQHandler                        0x08002f5d   Thumb Code    24  uart.o(i.USART1_IRQHandler)
-    UartCmd                                  0x08002f7d   Thumb Code    94  uartprotocol.o(i.UartCmd)
-    UnRegisterCmdEvent                       0x08002ffd   Thumb Code    38  uartprotocol.o(i.UnRegisterCmdEvent)
-    UpdateBatteryValue                       0x08003085   Thumb Code    12  main.o(i.UpdateBatteryValue)
-    WaveDetection                            0x080030f9   Thumb Code    86  detectionlogic.o(i.WaveDetection)
-    WriteRawRC                               0x08003381   Thumb Code    52  rc522.o(i.WriteRawRC)
-    ZeroDelay                                0x0800359d   Thumb Code    20  timer.o(i.ZeroDelay)
-    __0printf$8                              0x080035b9   Thumb Code    22  printf8.o(i.__0printf$8)
-    __1printf$8                              0x080035b9   Thumb Code     0  printf8.o(i.__0printf$8)
-    __2printf                                0x080035b9   Thumb Code     0  printf8.o(i.__0printf$8)
-    __scatterload_copy                       0x080035d9   Thumb Code    14  handlers.o(i.__scatterload_copy)
-    __scatterload_null                       0x080035e7   Thumb Code     2  handlers.o(i.__scatterload_null)
-    __scatterload_zeroinit                   0x080035e9   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
-    aack                                     0x08003a55   Thumb Code     6  uartprotocol.o(i.aack)
-    ackpack                                  0x08003b09   Thumb Code   160  uartprotocol.o(i.ackpack)
-    delay_ms                                 0x08003bc9   Thumb Code    24  delay.o(i.delay_ms)
-    delay_us                                 0x08003be1   Thumb Code    68  delay.o(i.delay_us)
-    dmp_enable_6x_lp_quat                    0x08003c29   Thumb Code    60  inv_mpu_dmp_motion_driver.o(i.dmp_enable_6x_lp_quat)
-    dmp_enable_feature                       0x08003c65   Thumb Code   530  inv_mpu_dmp_motion_driver.o(i.dmp_enable_feature)
-    dmp_enable_gyro_cal                      0x08003e81   Thumb Code    62  inv_mpu_dmp_motion_driver.o(i.dmp_enable_gyro_cal)
-    dmp_enable_lp_quat                       0x08003ed9   Thumb Code    60  inv_mpu_dmp_motion_driver.o(i.dmp_enable_lp_quat)
-    dmp_load_motion_driver_firmware          0x08003f15   Thumb Code    20  inv_mpu_dmp_motion_driver.o(i.dmp_load_motion_driver_firmware)
-    dmp_set_accel_bias                       0x08003f2d   Thumb Code   300  inv_mpu_dmp_motion_driver.o(i.dmp_set_accel_bias)
-    dmp_set_fifo_rate                        0x0800405d   Thumb Code    96  inv_mpu_dmp_motion_driver.o(i.dmp_set_fifo_rate)
-    dmp_set_gyro_bias                        0x080040cd   Thumb Code   294  inv_mpu_dmp_motion_driver.o(i.dmp_set_gyro_bias)
-    dmp_set_orientation                      0x080041fd   Thumb Code   290  inv_mpu_dmp_motion_driver.o(i.dmp_set_orientation)
-    dmp_set_shake_reject_thresh              0x08004335   Thumb Code    56  inv_mpu_dmp_motion_driver.o(i.dmp_set_shake_reject_thresh)
-    dmp_set_shake_reject_time                0x0800436d   Thumb Code    38  inv_mpu_dmp_motion_driver.o(i.dmp_set_shake_reject_time)
-    dmp_set_shake_reject_timeout             0x08004393   Thumb Code    38  inv_mpu_dmp_motion_driver.o(i.dmp_set_shake_reject_timeout)
-    dmp_set_tap_axes                         0x080043b9   Thumb Code    70  inv_mpu_dmp_motion_driver.o(i.dmp_set_tap_axes)
-    dmp_set_tap_count                        0x080043ff   Thumb Code    38  inv_mpu_dmp_motion_driver.o(i.dmp_set_tap_count)
-    dmp_set_tap_thresh                       0x08004425   Thumb Code   396  inv_mpu_dmp_motion_driver.o(i.dmp_set_tap_thresh)
-    dmp_set_tap_time                         0x080045c5   Thumb Code    38  inv_mpu_dmp_motion_driver.o(i.dmp_set_tap_time)
-    dmp_set_tap_time_multi                   0x080045eb   Thumb Code    38  inv_mpu_dmp_motion_driver.o(i.dmp_set_tap_time_multi)
-    fputc                                    0x08004611   Thumb Code    18  fputc.o(i.fputc)
-    getBatteryValue                          0x08004671   Thumb Code    74  main.o(i.getBatteryValue)
-    inPoint                                  0x08004ddd   Thumb Code   128  main.o(i.inPoint)
-    inv_orientation_matrix_to_scalar         0x08005215   Thumb Code    40  inv_mpu.o(i.inv_orientation_matrix_to_scalar)
-    inv_row_2_scale                          0x0800523d   Thumb Code    78  inv_mpu.o(i.inv_row_2_scale)
-    inway                                    0x0800528d   Thumb Code   230  main.o(i.inway)
-    isLink                                   0x08005425   Thumb Code    14  uartprotocol.o(i.isLink)
-    isUse                                    0x08005439   Thumb Code    22  timer.o(i.isUse)
-    main                                     0x08005455   Thumb Code   318  main.o(i.main)
-    mpu_configure_fifo                       0x080055f9   Thumb Code   106  inv_mpu.o(i.mpu_configure_fifo)
-    mpu_dmp_init                             0x08005669   Thumb Code   152  inv_mpu.o(i.mpu_dmp_init)
-    mpu_get_accel_fsr                        0x08005709   Thumb Code    72  inv_mpu.o(i.mpu_get_accel_fsr)
-    mpu_get_accel_sens                       0x08005755   Thumb Code    78  inv_mpu.o(i.mpu_get_accel_sens)
-    mpu_get_fifo_config                      0x080057a9   Thumb Code    12  inv_mpu.o(i.mpu_get_fifo_config)
-    mpu_get_gyro_fsr                         0x080057b9   Thumb Code    64  inv_mpu.o(i.mpu_get_gyro_fsr)
-    mpu_get_gyro_sens                        0x080057fd   Thumb Code    58  inv_mpu.o(i.mpu_get_gyro_sens)
-    mpu_get_lpf                              0x0800584d   Thumb Code    74  inv_mpu.o(i.mpu_get_lpf)
-    mpu_get_sample_rate                      0x0800589d   Thumb Code    26  inv_mpu.o(i.mpu_get_sample_rate)
-    mpu_init                                 0x080058bd   Thumb Code   424  inv_mpu.o(i.mpu_init)
-    mpu_load_firmware                        0x08005ab9   Thumb Code   184  inv_mpu.o(i.mpu_load_firmware)
-    mpu_lp_accel_mode                        0x08005b79   Thumb Code   222  inv_mpu.o(i.mpu_lp_accel_mode)
-    mpu_read_mem                             0x08005c61   Thumb Code   126  inv_mpu.o(i.mpu_read_mem)
-    mpu_reset_fifo                           0x08005ce9   Thumb Code   472  inv_mpu.o(i.mpu_reset_fifo)
-    mpu_run_self_test                        0x08005ec9   Thumb Code   278  inv_mpu.o(i.mpu_run_self_test)
-    mpu_set_accel_fsr                        0x08005fe5   Thumb Code   128  inv_mpu.o(i.mpu_set_accel_fsr)
-    mpu_set_bypass                           0x0800606d   Thumb Code   340  inv_mpu.o(i.mpu_set_bypass)
-    mpu_set_dmp_state                        0x080061c9   Thumb Code   142  inv_mpu.o(i.mpu_set_dmp_state)
-    mpu_set_gyro_fsr                         0x08006261   Thumb Code   134  inv_mpu.o(i.mpu_set_gyro_fsr)
-    mpu_set_int_latched                      0x080062f1   Thumb Code   104  inv_mpu.o(i.mpu_set_int_latched)
-    mpu_set_lpf                              0x08006361   Thumb Code   128  inv_mpu.o(i.mpu_set_lpf)
-    mpu_set_sample_rate                      0x080063e9   Thumb Code   154  inv_mpu.o(i.mpu_set_sample_rate)
-    mpu_set_sensors                          0x0800648d   Thumb Code   206  inv_mpu.o(i.mpu_set_sensors)
-    mpu_write_mem                            0x08006565   Thumb Code   126  inv_mpu.o(i.mpu_write_mem)
-    run_self_test                            0x080065ed   Thumb Code   148  inv_mpu.o(i.run_self_test)
-    sendackpacket                            0x08006681   Thumb Code    26  uartprotocol.o(i.sendackpacket)
-    setLenghtData                            0x080066c5   Thumb Code    10  wave.o(i.setLenghtData)
-    tick1                                    0x080069c5   Thumb Code   238  main.o(i.tick1)
-    toVoltage                                0x08006ae5   Thumb Code    16  main.o(i.toVoltage)
-    turndone                                 0x08006af9   Thumb Code    90  main.o(i.turndone)
-    wait                                     0x08006b71   Thumb Code    22  rc522.o(i.wait)
-    Wave                                     0x08006b88   Data           8  wave.o(.constdata)
-    Motor                                    0x08006b90   Data           8  motor.o(.constdata)
-    PID                                      0x08006b98   Data           8  pid.o(.constdata)
-    Sensor                                   0x08006ba0   Data          20  sensor.o(.constdata)
-    SPI                                      0x08006bb4   Data          12  spi.o(.constdata)
-    UART                                     0x08006bc0   Data          24  uart.o(.constdata)
-    UartProtocol                             0x08006c14   Data          32  uartprotocol.o(.constdata)
-    Timer                                    0x08006c34   Data          40  timer.o(.constdata)
-    IIC                                      0x08006c5c   Data          32  iic.o(.constdata)
-    MPU                                      0x08006c7c   Data          48  mpu6050.o(.constdata)
-    reg                                      0x080078a4   Data          27  inv_mpu.o(.constdata)
-    hw                                       0x080078c0   Data          12  inv_mpu.o(.constdata)
-    test                                     0x080078cc   Data          40  inv_mpu.o(.constdata)
-    PathType                                 0x080078f4   Data           3  detectionlogic.o(.constdata)
-    runStatusType                            0x080078f7   Data           8  detectionlogic.o(.constdata)
-    FailType                                 0x080078ff   Data           2  detectionlogic.o(.constdata)
-    ActionType                               0x08007901   Data           7  detectionlogic.o(.constdata)
-    ActionInfo                               0x08007908   Data          36  detectionlogic.o(.constdata)
-    DetectionLogic                           0x0800792c   Data          20  detectionlogic.o(.constdata)
-    ADC                                      0x08007940   Data           8  adc.o(.constdata)
-    RC522                                    0x08007948   Data          20  rc522.o(.constdata)
-    Region$$Table$$Base                      0x080079ac   Number         0  anon$$obj.o(Region$$Table)
-    Region$$Table$$Limit                     0x080079cc   Number         0  anon$$obj.o(Region$$Table)
+    AddDelay                                 0x08000b15   Thumb Code    36  timer.o(i.AddDelay)
+    AliveEvent                               0x08000b41   Thumb Code     2  main.o(i.AliveEvent)
+    BatteryCheckInit                         0x08000b45   Thumb Code    38  main.o(i.BatteryCheckInit)
+    CallFun                                  0x08000b71   Thumb Code     8  timer.o(i.CallFun)
+    CheckSensor                              0x08000b79   Thumb Code   288  detectionlogic.o(i.CheckSensor)
+    CheckTargetYaw                           0x08000cb5   Thumb Code   116  detectionlogic.o(i.CheckTargetYaw)
+    ClearBitMask                             0x08000d49   Thumb Code    28  rc522.o(i.ClearBitMask)
+    DefConfig                                0x08000d65   Thumb Code    46  detectionlogic.o(i.DefConfig)
+    Delay                                    0x08000dad   Thumb Code    58  timer.o(i.Delay)
+    GetDataEvent                             0x08000df1   Thumb Code   194  main.o(i.GetDataEvent)
+    InitTimer                                0x0800122d   Thumb Code    44  timer.o(i.InitTimer)
+    JTAG_Set                                 0x08001259   Thumb Code    38  sys.o(i.JTAG_Set)
+    KillThisTimer                            0x08001289   Thumb Code    34  timer.o(i.KillThisTimer)
+    KillTimer                                0x080012b5   Thumb Code    32  timer.o(i.KillTimer)
+    LED_Init                                 0x080012d9   Thumb Code    42  led.o(i.LED_Init)
+    LogicRun                                 0x08001311   Thumb Code   304  detectionlogic.o(i.LogicRun)
+    MYRCC_DeInit                             0x08001511   Thumb Code    90  sys.o(i.MYRCC_DeInit)
+    MY_NVIC_Init                             0x08001579   Thumb Code   106  sys.o(i.MY_NVIC_Init)
+    MY_NVIC_PriorityGroupConfig              0x080015ed   Thumb Code    32  sys.o(i.MY_NVIC_PriorityGroupConfig)
+    MY_NVIC_SetVectorTable                   0x08001615   Thumb Code    12  sys.o(i.MY_NVIC_SetVectorTable)
+    OnRecvData                               0x0800169d   Thumb Code   216  uartprotocol.o(i.OnRecvData)
+    RTADC                                    0x08001795   Thumb Code    66  sensor.o(i.RTADC)
+    ReadCard                                 0x080018a5   Thumb Code     8  main.o(i.ReadCard)
+    ReadRawRC                                0x08001939   Thumb Code    56  rc522.o(i.ReadRawRC)
+    RegisterCmdEvent                         0x08001b1d   Thumb Code     8  uartprotocol.o(i.RegisterCmdEvent)
+    RegisterEvent                            0x08001b29   Thumb Code     8  detectionlogic.o(i.RegisterEvent)
+    SendCmdPack                              0x08001b35   Thumb Code    62  uartprotocol.o(i.SendCmdPack)
+    SendPack                                 0x08001b79   Thumb Code    94  uartprotocol.o(i.SendPack)
+    SensorDetection                          0x08001c45   Thumb Code  1508  detectionlogic.o(i.SensorDetection)
+    SetBitMask                               0x08002279   Thumb Code    28  rc522.o(i.SetBitMask)
+    SetCallBack                              0x08002295   Thumb Code     6  rc522.o(i.SetCallBack)
+    SetDataEvent                             0x080022a1   Thumb Code   702  main.o(i.SetDataEvent)
+    SetDelay                                 0x080025b9   Thumb Code    16  timer.o(i.SetDelay)
+    SetTargetYaw                             0x080025d1   Thumb Code    48  detectionlogic.o(i.SetTargetYaw)
+    SetTimer                                 0x0800260d   Thumb Code    86  timer.o(i.SetTimer)
+    StartFindCard                            0x08002785   Thumb Code   484  rc522.o(i.StartFindCard)
+    Stm32_Clock_Init                         0x0800297d   Thumb Code   134  sys.o(i.Stm32_Clock_Init)
+    StopRun                                  0x08002a59   Thumb Code    70  detectionlogic.o(i.StopRun)
+    SysTick_Handler                          0x08002b19   Thumb Code    62  timer.o(i.SysTick_Handler)
+    TIM3_IRQHandler                          0x08002c71   Thumb Code   352  wave.o(i.TIM3_IRQHandler)
+    TimerRun                                 0x08002de5   Thumb Code   190  timer.o(i.TimerRun)
+    UART_Init                                0x08002eb9   Thumb Code   160  uart.o(i.UART_Init)
+    UART_OnRecv                              0x08002f79   Thumb Code     6  uart.o(i.UART_OnRecv)
+    UART_ReSetBps                            0x08002f85   Thumb Code    86  uart.o(i.UART_ReSetBps)
+    UART_SendBuff                            0x08002fe5   Thumb Code    34  uart.o(i.UART_SendBuff)
+    UART_SendByte                            0x08003009   Thumb Code    22  uart.o(i.UART_SendByte)
+    UART_SendString                          0x08003025   Thumb Code    30  uart.o(i.UART_SendString)
+    USART1_IRQHandler                        0x08003045   Thumb Code    24  uart.o(i.USART1_IRQHandler)
+    UartCmd                                  0x08003065   Thumb Code    94  uartprotocol.o(i.UartCmd)
+    UnRegisterCmdEvent                       0x080030e5   Thumb Code    38  uartprotocol.o(i.UnRegisterCmdEvent)
+    UpdateBatteryValue                       0x0800316d   Thumb Code    12  main.o(i.UpdateBatteryValue)
+    WaveDetection                            0x080031e1   Thumb Code    74  detectionlogic.o(i.WaveDetection)
+    WriteRawRC                               0x0800345d   Thumb Code    52  rc522.o(i.WriteRawRC)
+    ZeroDelay                                0x08003679   Thumb Code    20  timer.o(i.ZeroDelay)
+    __0printf$8                              0x08003695   Thumb Code    22  printf8.o(i.__0printf$8)
+    __1printf$8                              0x08003695   Thumb Code     0  printf8.o(i.__0printf$8)
+    __2printf                                0x08003695   Thumb Code     0  printf8.o(i.__0printf$8)
+    __scatterload_copy                       0x080036b5   Thumb Code    14  handlers.o(i.__scatterload_copy)
+    __scatterload_null                       0x080036c3   Thumb Code     2  handlers.o(i.__scatterload_null)
+    __scatterload_zeroinit                   0x080036c5   Thumb Code    14  handlers.o(i.__scatterload_zeroinit)
+    aack                                     0x08003b31   Thumb Code     6  uartprotocol.o(i.aack)
+    ackpack                                  0x08003be5   Thumb Code   160  uartprotocol.o(i.ackpack)
+    delay_ms                                 0x08003ca5   Thumb Code    24  delay.o(i.delay_ms)
+    delay_us                                 0x08003cbd   Thumb Code    68  delay.o(i.delay_us)
+    dmp_enable_6x_lp_quat                    0x08003d05   Thumb Code    60  inv_mpu_dmp_motion_driver.o(i.dmp_enable_6x_lp_quat)
+    dmp_enable_feature                       0x08003d41   Thumb Code   530  inv_mpu_dmp_motion_driver.o(i.dmp_enable_feature)
+    dmp_enable_gyro_cal                      0x08003f5d   Thumb Code    62  inv_mpu_dmp_motion_driver.o(i.dmp_enable_gyro_cal)
+    dmp_enable_lp_quat                       0x08003fb5   Thumb Code    60  inv_mpu_dmp_motion_driver.o(i.dmp_enable_lp_quat)
+    dmp_load_motion_driver_firmware          0x08003ff1   Thumb Code    20  inv_mpu_dmp_motion_driver.o(i.dmp_load_motion_driver_firmware)
+    dmp_set_accel_bias                       0x08004009   Thumb Code   300  inv_mpu_dmp_motion_driver.o(i.dmp_set_accel_bias)
+    dmp_set_fifo_rate                        0x08004139   Thumb Code    96  inv_mpu_dmp_motion_driver.o(i.dmp_set_fifo_rate)
+    dmp_set_gyro_bias                        0x080041a9   Thumb Code   294  inv_mpu_dmp_motion_driver.o(i.dmp_set_gyro_bias)
+    dmp_set_orientation                      0x080042d9   Thumb Code   290  inv_mpu_dmp_motion_driver.o(i.dmp_set_orientation)
+    dmp_set_shake_reject_thresh              0x08004411   Thumb Code    56  inv_mpu_dmp_motion_driver.o(i.dmp_set_shake_reject_thresh)
+    dmp_set_shake_reject_time                0x08004449   Thumb Code    38  inv_mpu_dmp_motion_driver.o(i.dmp_set_shake_reject_time)
+    dmp_set_shake_reject_timeout             0x0800446f   Thumb Code    38  inv_mpu_dmp_motion_driver.o(i.dmp_set_shake_reject_timeout)
+    dmp_set_tap_axes                         0x08004495   Thumb Code    70  inv_mpu_dmp_motion_driver.o(i.dmp_set_tap_axes)
+    dmp_set_tap_count                        0x080044db   Thumb Code    38  inv_mpu_dmp_motion_driver.o(i.dmp_set_tap_count)
+    dmp_set_tap_thresh                       0x08004501   Thumb Code   396  inv_mpu_dmp_motion_driver.o(i.dmp_set_tap_thresh)
+    dmp_set_tap_time                         0x080046a1   Thumb Code    38  inv_mpu_dmp_motion_driver.o(i.dmp_set_tap_time)
+    dmp_set_tap_time_multi                   0x080046c7   Thumb Code    38  inv_mpu_dmp_motion_driver.o(i.dmp_set_tap_time_multi)
+    fputc                                    0x080046ed   Thumb Code    18  fputc.o(i.fputc)
+    getBatteryValue                          0x0800474d   Thumb Code    74  main.o(i.getBatteryValue)
+    inPoint                                  0x08004eb9   Thumb Code   128  main.o(i.inPoint)
+    inv_orientation_matrix_to_scalar         0x08005309   Thumb Code    40  inv_mpu.o(i.inv_orientation_matrix_to_scalar)
+    inv_row_2_scale                          0x08005331   Thumb Code    78  inv_mpu.o(i.inv_row_2_scale)
+    inway                                    0x08005381   Thumb Code   230  main.o(i.inway)
+    isLink                                   0x08005519   Thumb Code    14  uartprotocol.o(i.isLink)
+    isUse                                    0x0800552d   Thumb Code    22  timer.o(i.isUse)
+    main                                     0x08005549   Thumb Code   318  main.o(i.main)
+    mpu_configure_fifo                       0x080056ed   Thumb Code   106  inv_mpu.o(i.mpu_configure_fifo)
+    mpu_dmp_init                             0x0800575d   Thumb Code   152  inv_mpu.o(i.mpu_dmp_init)
+    mpu_get_accel_fsr                        0x080057fd   Thumb Code    72  inv_mpu.o(i.mpu_get_accel_fsr)
+    mpu_get_accel_sens                       0x08005849   Thumb Code    78  inv_mpu.o(i.mpu_get_accel_sens)
+    mpu_get_fifo_config                      0x0800589d   Thumb Code    12  inv_mpu.o(i.mpu_get_fifo_config)
+    mpu_get_gyro_fsr                         0x080058ad   Thumb Code    64  inv_mpu.o(i.mpu_get_gyro_fsr)
+    mpu_get_gyro_sens                        0x080058f1   Thumb Code    58  inv_mpu.o(i.mpu_get_gyro_sens)
+    mpu_get_lpf                              0x08005941   Thumb Code    74  inv_mpu.o(i.mpu_get_lpf)
+    mpu_get_sample_rate                      0x08005991   Thumb Code    26  inv_mpu.o(i.mpu_get_sample_rate)
+    mpu_init                                 0x080059b1   Thumb Code   424  inv_mpu.o(i.mpu_init)
+    mpu_load_firmware                        0x08005bad   Thumb Code   184  inv_mpu.o(i.mpu_load_firmware)
+    mpu_lp_accel_mode                        0x08005c6d   Thumb Code   222  inv_mpu.o(i.mpu_lp_accel_mode)
+    mpu_read_mem                             0x08005d55   Thumb Code   126  inv_mpu.o(i.mpu_read_mem)
+    mpu_reset_fifo                           0x08005ddd   Thumb Code   472  inv_mpu.o(i.mpu_reset_fifo)
+    mpu_run_self_test                        0x08005fbd   Thumb Code   278  inv_mpu.o(i.mpu_run_self_test)
+    mpu_set_accel_fsr                        0x080060d9   Thumb Code   128  inv_mpu.o(i.mpu_set_accel_fsr)
+    mpu_set_bypass                           0x08006161   Thumb Code   340  inv_mpu.o(i.mpu_set_bypass)
+    mpu_set_dmp_state                        0x080062bd   Thumb Code   142  inv_mpu.o(i.mpu_set_dmp_state)
+    mpu_set_gyro_fsr                         0x08006355   Thumb Code   134  inv_mpu.o(i.mpu_set_gyro_fsr)
+    mpu_set_int_latched                      0x080063e5   Thumb Code   104  inv_mpu.o(i.mpu_set_int_latched)
+    mpu_set_lpf                              0x08006455   Thumb Code   128  inv_mpu.o(i.mpu_set_lpf)
+    mpu_set_sample_rate                      0x080064dd   Thumb Code   154  inv_mpu.o(i.mpu_set_sample_rate)
+    mpu_set_sensors                          0x08006581   Thumb Code   206  inv_mpu.o(i.mpu_set_sensors)
+    mpu_write_mem                            0x08006659   Thumb Code   126  inv_mpu.o(i.mpu_write_mem)
+    run_self_test                            0x080066e1   Thumb Code   148  inv_mpu.o(i.run_self_test)
+    sendackpacket                            0x08006775   Thumb Code    26  uartprotocol.o(i.sendackpacket)
+    setLenghtData                            0x080067b9   Thumb Code    10  wave.o(i.setLenghtData)
+    tick1                                    0x08006ab9   Thumb Code   254  main.o(i.tick1)
+    toVoltage                                0x08006bed   Thumb Code    16  main.o(i.toVoltage)
+    turndone                                 0x08006c01   Thumb Code    90  main.o(i.turndone)
+    wait                                     0x08006c79   Thumb Code    22  rc522.o(i.wait)
+    Wave                                     0x08006c90   Data           8  wave.o(.constdata)
+    Motor                                    0x08006c98   Data           8  motor.o(.constdata)
+    PID                                      0x08006ca0   Data           8  pid.o(.constdata)
+    Sensor                                   0x08006ca8   Data          20  sensor.o(.constdata)
+    SPI                                      0x08006cbc   Data          12  spi.o(.constdata)
+    UART                                     0x08006cc8   Data          24  uart.o(.constdata)
+    UartProtocol                             0x08006d1c   Data          32  uartprotocol.o(.constdata)
+    Timer                                    0x08006d3c   Data          40  timer.o(.constdata)
+    IIC                                      0x08006d64   Data          32  iic.o(.constdata)
+    MPU                                      0x08006d84   Data          48  mpu6050.o(.constdata)
+    reg                                      0x080079ac   Data          27  inv_mpu.o(.constdata)
+    hw                                       0x080079c8   Data          12  inv_mpu.o(.constdata)
+    test                                     0x080079d4   Data          40  inv_mpu.o(.constdata)
+    PathType                                 0x080079fc   Data           3  detectionlogic.o(.constdata)
+    runStatusType                            0x080079ff   Data           8  detectionlogic.o(.constdata)
+    FailType                                 0x08007a07   Data           2  detectionlogic.o(.constdata)
+    ActionType                               0x08007a09   Data           7  detectionlogic.o(.constdata)
+    ActionInfo                               0x08007a10   Data          36  detectionlogic.o(.constdata)
+    DetectionLogic                           0x08007a34   Data          20  detectionlogic.o(.constdata)
+    ADC                                      0x08007a48   Data           8  adc.o(.constdata)
+    RC522                                    0x08007a50   Data          20  rc522.o(.constdata)
+    Region$$Table$$Base                      0x08007ab4   Number         0  anon$$obj.o(Region$$Table)
+    Region$$Table$$Limit                     0x08007ad4   Number         0  anon$$obj.o(Region$$Table)
     pitch                                    0x20000000   Data           4  main.o(.data)
     roll                                     0x20000004   Data           4  main.o(.data)
     yaw                                      0x20000008   Data           4  main.o(.data)
     flen                                     0x2000000c   Data           2  main.o(.data)
     blen                                     0x2000000e   Data           2  main.o(.data)
     lastBatteryValue                         0x20000010   Data           1  main.o(.data)
-    lastAction                               0x20000012   Data           2  main.o(.data)
-    lastCodeID                               0x20000014   Data           2  main.o(.data)
-    EnableTime                               0x20000016   Data           1  main.o(.data)
-    lastTick                                 0x20000018   Data           4  main.o(.data)
-    lastTime                                 0x2000001c   Data           4  main.o(.data)
-    lastIDCard                               0x20000020   Data           4  main.o(.data)
-    RecvCode                                 0x20000024   Data           1  main.o(.data)
-    AveSpeedL                                0x20000025   Data           1  main.o(.data)
-    AveSpeedR                                0x20000026   Data           1  main.o(.data)
-    statusRL                                 0x20000027   Data           1  main.o(.data)
-    len1                                     0x2000002c   Data           4  wave.o(.data)
-    len2                                     0x20000030   Data           4  wave.o(.data)
-    TIM3CH3_CAPTURE_STA                      0x20000034   Data           1  wave.o(.data)
-    TIM3CH3_CAPTURE_VAL                      0x20000036   Data           2  wave.o(.data)
-    TIM3CH4_CAPTURE_STA                      0x20000038   Data           1  wave.o(.data)
-    TIM3CH4_CAPTURE_VAL                      0x2000003a   Data           2  wave.o(.data)
-    Status                                   0x20000044   Data           2  sensor.o(.data)
-    OnRecv                                   0x20000048   Data           4  uart.o(.data)
-    recvmode                                 0x20000050   Data           1  uartprotocol.o(.data)
-    RecvFlag                                 0x20000051   Data           1  uartprotocol.o(.data)
-    RecvCheck                                0x20000052   Data           1  uartprotocol.o(.data)
-    TimeOut                                  0x20000053   Data           1  uartprotocol.o(.data)
-    LinkTimeOut                              0x20000054   Data           2  uartprotocol.o(.data)
-    recvcmd                                  0x20000056   Data           1  uartprotocol.o(.data)
-    savecmd                                  0x20000057   Data           1  uartprotocol.o(.data)
-    sendSize                                 0x20000058   Data           2  uartprotocol.o(.data)
-    sendCount                                0x2000005a   Data           2  uartprotocol.o(.data)
-    sendPos                                  0x2000005c   Data           2  uartprotocol.o(.data)
-    sendbuff                                 0x20000060   Data           4  uartprotocol.o(.data)
-    outputbuff                               0x20000064   Data           4  uartprotocol.o(.data)
-    lastSendCount                            0x20000068   Data           2  uartprotocol.o(.data)
-    sendSum                                  0x2000006a   Data           1  uartprotocol.o(.data)
-    recvPos                                  0x2000006c   Data           2  uartprotocol.o(.data)
-    packbuff                                 0x20000070   Data           4  uartprotocol.o(.data)
-    packlen                                  0x20000074   Data           2  uartprotocol.o(.data)
-    AutoACK                                  0x20000076   Data           1  uartprotocol.o(.data)
-    this                                     0x2000007c   Data           1  timer.o(.data)
-    TimerUse                                 0x2000007d   Data           1  timer.o(.data)
-    InputSP                                  0x20000080   Data           4  timer.o(.data)
-    TimerTick                                0x20000084   Data           4  timer.o(.data)
-    PathList                                 0x200000c4   Data           4  detectionlogic.o(.data)
-    PathPos                                  0x200000c8   Data           2  detectionlogic.o(.data)
-    PathLen                                  0x200000ca   Data           2  detectionlogic.o(.data)
-    waveLenght                               0x200000cc   Data           2  detectionlogic.o(.data)
-    waveCount                                0x200000ce   Data           2  detectionlogic.o(.data)
-    waveDisableLenght                        0x200000d0   Data           1  detectionlogic.o(.data)
-    TargetYaw                                0x200000d2   Data           2  detectionlogic.o(.data)
-    MinAngle                                 0x200000d4   Data           2  detectionlogic.o(.data)
-    Yaw                                      0x200000d6   Data           2  detectionlogic.o(.data)
-    StatusCode                               0x200000d8   Data           9  detectionlogic.o(.data)
-    LeftValue                                0x200000e2   Data           2  detectionlogic.o(.data)
-    RightValue                               0x200000e4   Data           2  detectionlogic.o(.data)
-    lastLeftValue                            0x200000e6   Data           2  detectionlogic.o(.data)
-    lastRightValue                           0x200000e8   Data           2  detectionlogic.o(.data)
-    LeftDt                                   0x200000ea   Data           1  detectionlogic.o(.data)
-    RightDt                                  0x200000eb   Data           1  detectionlogic.o(.data)
-    MotorLeftSpeed                           0x200000ec   Data           1  detectionlogic.o(.data)
-    MotorRightSpeed                          0x200000ed   Data           1  detectionlogic.o(.data)
-    Statuscount                              0x200000ee   Data           1  detectionlogic.o(.data)
-    lastStatus                               0x200000ef   Data           1  detectionlogic.o(.data)
-    DirectionThreshold                       0x200000f0   Data           1  detectionlogic.o(.data)
-    WayThreshold                             0x200000f1   Data           1  detectionlogic.o(.data)
-    turnErrorAngle                           0x200000f2   Data           1  detectionlogic.o(.data)
-    StopTime                                 0x200000f3   Data           1  detectionlogic.o(.data)
-    PathSelect                               0x200000f4   Data           1  detectionlogic.o(.data)
-    lastPathSelect                           0x200000f5   Data           1  detectionlogic.o(.data)
-    LeftSelect                               0x200000f6   Data           1  detectionlogic.o(.data)
-    MidSelect                                0x200000f7   Data           1  detectionlogic.o(.data)
-    RightSelect                              0x200000f8   Data           1  detectionlogic.o(.data)
-    turnLeftSpeed                            0x200000f9   Data           1  detectionlogic.o(.data)
-    turnRightSpeed                           0x200000fa   Data           1  detectionlogic.o(.data)
-    runStatus                                0x200000fb   Data           1  detectionlogic.o(.data)
-    lastrunStatus                            0x200000fc   Data           1  detectionlogic.o(.data)
-    RunDir                                   0x200000fd   Data           1  detectionlogic.o(.data)
-    StatusTick                               0x200000fe   Data           2  detectionlogic.o(.data)
-    lastError                                0x20000100   Data           1  detectionlogic.o(.data)
-    Speed                                    0x20000102   Data           2  detectionlogic.o(.data)
-    LoopRead                                 0x20000108   Data           4  rc522.o(.data)
-    __stdout                                 0x20000114   Data           4  stdout.o(.data)
-    buffdata                                 0x20000118   Data         192  main.o(.bss)
-    pathbuff                                 0x200001d8   Data        1024  main.o(.bss)
-    CHTH                                     0x200005d8   Data          18  sensor.o(.bss)
-    CHVA                                     0x200005ea   Data          18  sensor.o(.bss)
-    UartCmdEvent                             0x200005fc   Data          64  uartprotocol.o(.bss)
-    TimerList                                0x2000063c   Data          96  timer.o(.bss)
-    LeftSpeed                                0x200006ac   Data          28  detectionlogic.o(.bss)
-    RightSpeed                               0x200006c8   Data          28  detectionlogic.o(.bss)
-    eventlist                                0x200006e4   Data          28  detectionlogic.o(.bss)
-    __initial_sp                             0x20000f00   Data           0  startup_stm32f10x_md.o(STACK)
+    savecount                                0x20000011   Data           1  main.o(.data)
+    keycount                                 0x20000012   Data           1  main.o(.data)
+    lastAction                               0x20000014   Data           2  main.o(.data)
+    lastCodeID                               0x20000016   Data           2  main.o(.data)
+    EnableTime                               0x20000018   Data           1  main.o(.data)
+    lastTick                                 0x2000001c   Data           4  main.o(.data)
+    lastTime                                 0x20000020   Data           4  main.o(.data)
+    lastIDCard                               0x20000024   Data           4  main.o(.data)
+    RecvCode                                 0x20000028   Data           1  main.o(.data)
+    AveSpeedL                                0x20000029   Data           1  main.o(.data)
+    AveSpeedR                                0x2000002a   Data           1  main.o(.data)
+    statusRL                                 0x2000002b   Data           1  main.o(.data)
+    len1                                     0x20000030   Data           4  wave.o(.data)
+    len2                                     0x20000034   Data           4  wave.o(.data)
+    TIM3CH3_CAPTURE_STA                      0x20000038   Data           1  wave.o(.data)
+    TIM3CH3_CAPTURE_VAL                      0x2000003a   Data           2  wave.o(.data)
+    TIM3CH4_CAPTURE_STA                      0x2000003c   Data           1  wave.o(.data)
+    TIM3CH4_CAPTURE_VAL                      0x2000003e   Data           2  wave.o(.data)
+    Status                                   0x20000048   Data           2  sensor.o(.data)
+    PutOut                                   0x2000004a   Data           2  sensor.o(.data)
+    OnRecv                                   0x20000050   Data           4  uart.o(.data)
+    recvmode                                 0x20000058   Data           1  uartprotocol.o(.data)
+    RecvFlag                                 0x20000059   Data           1  uartprotocol.o(.data)
+    RecvCheck                                0x2000005a   Data           1  uartprotocol.o(.data)
+    TimeOut                                  0x2000005b   Data           1  uartprotocol.o(.data)
+    LinkTimeOut                              0x2000005c   Data           2  uartprotocol.o(.data)
+    recvcmd                                  0x2000005e   Data           1  uartprotocol.o(.data)
+    savecmd                                  0x2000005f   Data           1  uartprotocol.o(.data)
+    sendSize                                 0x20000060   Data           2  uartprotocol.o(.data)
+    sendCount                                0x20000062   Data           2  uartprotocol.o(.data)
+    sendPos                                  0x20000064   Data           2  uartprotocol.o(.data)
+    sendbuff                                 0x20000068   Data           4  uartprotocol.o(.data)
+    outputbuff                               0x2000006c   Data           4  uartprotocol.o(.data)
+    lastSendCount                            0x20000070   Data           2  uartprotocol.o(.data)
+    sendSum                                  0x20000072   Data           1  uartprotocol.o(.data)
+    recvPos                                  0x20000074   Data           2  uartprotocol.o(.data)
+    packbuff                                 0x20000078   Data           4  uartprotocol.o(.data)
+    packlen                                  0x2000007c   Data           2  uartprotocol.o(.data)
+    AutoACK                                  0x2000007e   Data           1  uartprotocol.o(.data)
+    this                                     0x20000084   Data           1  timer.o(.data)
+    TimerUse                                 0x20000085   Data           1  timer.o(.data)
+    InputSP                                  0x20000088   Data           4  timer.o(.data)
+    TimerTick                                0x2000008c   Data           4  timer.o(.data)
+    PathList                                 0x200000cc   Data           4  detectionlogic.o(.data)
+    PathPos                                  0x200000d0   Data           2  detectionlogic.o(.data)
+    PathLen                                  0x200000d2   Data           2  detectionlogic.o(.data)
+    waveLenght                               0x200000d4   Data           2  detectionlogic.o(.data)
+    waveCount                                0x200000d6   Data           2  detectionlogic.o(.data)
+    waveDisableLenght                        0x200000d8   Data           1  detectionlogic.o(.data)
+    TargetYaw                                0x200000da   Data           2  detectionlogic.o(.data)
+    MinAngle                                 0x200000dc   Data           2  detectionlogic.o(.data)
+    Yaw                                      0x200000de   Data           2  detectionlogic.o(.data)
+    StatusCode                               0x200000e0   Data           9  detectionlogic.o(.data)
+    LeftValue                                0x200000ea   Data           2  detectionlogic.o(.data)
+    RightValue                               0x200000ec   Data           2  detectionlogic.o(.data)
+    RightCount                               0x200000ee   Data           1  detectionlogic.o(.data)
+    LeftCount                                0x200000ef   Data           1  detectionlogic.o(.data)
+    lastLeftValue                            0x200000f0   Data           2  detectionlogic.o(.data)
+    lastRightValue                           0x200000f2   Data           2  detectionlogic.o(.data)
+    LeftDt                                   0x200000f4   Data           1  detectionlogic.o(.data)
+    RightDt                                  0x200000f5   Data           1  detectionlogic.o(.data)
+    MotorLeftSpeed                           0x200000f6   Data           1  detectionlogic.o(.data)
+    MotorRightSpeed                          0x200000f7   Data           1  detectionlogic.o(.data)
+    Statuscount                              0x200000f8   Data           1  detectionlogic.o(.data)
+    lastStatus                               0x200000f9   Data           1  detectionlogic.o(.data)
+    DirectionThreshold                       0x200000fa   Data           1  detectionlogic.o(.data)
+    WayThreshold                             0x200000fb   Data           1  detectionlogic.o(.data)
+    turnErrorAngle                           0x200000fc   Data           1  detectionlogic.o(.data)
+    StopTime                                 0x200000fd   Data           1  detectionlogic.o(.data)
+    PathSelect                               0x200000fe   Data           1  detectionlogic.o(.data)
+    lastPathSelect                           0x200000ff   Data           1  detectionlogic.o(.data)
+    LeftSelect                               0x20000100   Data           1  detectionlogic.o(.data)
+    MidSelect                                0x20000101   Data           1  detectionlogic.o(.data)
+    RightSelect                              0x20000102   Data           1  detectionlogic.o(.data)
+    turnLeftSpeed                            0x20000103   Data           1  detectionlogic.o(.data)
+    turnRightSpeed                           0x20000104   Data           1  detectionlogic.o(.data)
+    runStatus                                0x20000105   Data           1  detectionlogic.o(.data)
+    lastrunStatus                            0x20000106   Data           1  detectionlogic.o(.data)
+    RunDir                                   0x20000107   Data           1  detectionlogic.o(.data)
+    StatusTick                               0x20000108   Data           2  detectionlogic.o(.data)
+    lastError                                0x2000010a   Data           1  detectionlogic.o(.data)
+    Speed                                    0x2000010c   Data           2  detectionlogic.o(.data)
+    LoopRead                                 0x20000114   Data           4  rc522.o(.data)
+    __stdout                                 0x20000120   Data           4  stdout.o(.data)
+    buffdata                                 0x20000124   Data         192  main.o(.bss)
+    pathbuff                                 0x200001e4   Data        1024  main.o(.bss)
+    CHTH                                     0x200005e4   Data          18  sensor.o(.bss)
+    CHVA                                     0x200005f6   Data          18  sensor.o(.bss)
+    UartCmdEvent                             0x20000608   Data          64  uartprotocol.o(.bss)
+    TimerList                                0x20000648   Data          96  timer.o(.bss)
+    LeftSpeed                                0x200006b8   Data          28  detectionlogic.o(.bss)
+    RightSpeed                               0x200006d4   Data          28  detectionlogic.o(.bss)
+    eventlist                                0x200006f0   Data          28  detectionlogic.o(.bss)
+    __initial_sp                             0x20000f10   Data           0  startup_stm32f10x_md.o(STACK)
 
 
 
@@ -1961,305 +1975,307 @@ Memory Map of the image
 
   Image Entry point : 0x080000ed
 
-  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00007ae4, Max: 0x00010000, ABSOLUTE)
+  Load Region LR_IROM1 (Base: 0x08000000, Size: 0x00007bf8, Max: 0x00010000, ABSOLUTE)
 
-    Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x000079cc, Max: 0x00010000, ABSOLUTE)
-
-    Base Addr    Size         Type   Attr      Idx    E Section Name        Object
-
-    0x08000000   0x000000ec   Data   RO          185    RESET               startup_stm32f10x_md.o
-    0x080000ec   0x00000000   Code   RO         1720  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
-    0x080000ec   0x00000004   Code   RO         2047    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
-    0x080000f0   0x00000004   Code   RO         2050    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
-    0x080000f4   0x00000000   Code   RO         2052    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
-    0x080000f4   0x00000000   Code   RO         2054    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
-    0x080000f4   0x00000008   Code   RO         2055    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
-    0x080000fc   0x00000000   Code   RO         2057    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
-    0x080000fc   0x00000000   Code   RO         2059    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
-    0x080000fc   0x00000004   Code   RO         2048    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
-    0x08000100   0x00000024   Code   RO          705    .emb_text           timer.o
-    0x08000124   0x0000001c   Code   RO          186    .text               startup_stm32f10x_md.o
-    0x08000140   0x0000005a   Code   RO         1723    .text               mc_w.l(ldiv.o)
-    0x0800019a   0x00000024   Code   RO         1725    .text               mc_w.l(memseta.o)
-    0x080001be   0x0000001a   Code   RO         1727    .text               mc_w.l(memcmp.o)
-    0x080001d8   0x000000b0   Code   RO         1990    .text               mf_w.l(fadd.o)
-    0x08000288   0x00000064   Code   RO         1992    .text               mf_w.l(fmul.o)
-    0x080002ec   0x0000007c   Code   RO         1994    .text               mf_w.l(fdiv.o)
-    0x08000368   0x0000014e   Code   RO         1996    .text               mf_w.l(dadd.o)
-    0x080004b6   0x000000e4   Code   RO         1998    .text               mf_w.l(dmul.o)
-    0x0800059a   0x000000de   Code   RO         2000    .text               mf_w.l(ddiv.o)
-    0x08000678   0x00000012   Code   RO         2002    .text               mf_w.l(fflti.o)
-    0x0800068a   0x0000000a   Code   RO         2004    .text               mf_w.l(ffltui.o)
-    0x08000694   0x00000022   Code   RO         2006    .text               mf_w.l(dflti.o)
-    0x080006b6   0x00000032   Code   RO         2008    .text               mf_w.l(ffixi.o)
-    0x080006e8   0x00000028   Code   RO         2010    .text               mf_w.l(ffixui.o)
-    0x08000710   0x00000032   Code   RO         2012    .text               mf_w.l(dfixui.o)
-    0x08000742   0x00000026   Code   RO         2014    .text               mf_w.l(f2d.o)
-    0x08000768   0x00000038   Code   RO         2016    .text               mf_w.l(d2f.o)
-    0x080007a0   0x00000014   Code   RO         2018    .text               mf_w.l(cfcmple.o)
-    0x080007b4   0x00000014   Code   RO         2020    .text               mf_w.l(cfrcmple.o)
-    0x080007c8   0x00000062   Code   RO         2066    .text               mc_w.l(uldiv.o)
-    0x0800082a   0x0000001e   Code   RO         2068    .text               mc_w.l(llshl.o)
-    0x08000848   0x00000020   Code   RO         2070    .text               mc_w.l(llushr.o)
-    0x08000868   0x00000024   Code   RO         2072    .text               mc_w.l(llsshr.o)
-    0x0800088c   0x00000000   Code   RO         2081    .text               mc_w.l(iusefp.o)
-    0x0800088c   0x0000006e   Code   RO         2082    .text               mf_w.l(fepilogue.o)
-    0x080008fa   0x000000b6   Code   RO         2084    .text               mf_w.l(depilogue.o)
-    0x080009b0   0x00000024   Code   RO         2092    .text               mc_w.l(init.o)
-    0x080009d4   0x00000000   Code   RO         2094    .text               mc_w.l(semi.o)
-    0x080009d4   0x00000000   Code   RO         2095    .text               mc_w.l(iusesemip.o)
-    0x080009d4   0x00000050   Code   RO          795    i.Ack               iic.o
-    0x08000a24   0x000000bc   Code   RO         1452    i.ActionRun         detectionlogic.o
-    0x08000ae0   0x0000002c   Code   RO          706    i.AddDelay          timer.o
-    0x08000b0c   0x00000002   Code   RO            1    i.AliveEvent        main.o
-    0x08000b0e   0x00000002   PAD
-    0x08000b10   0x0000002c   Code   RO            2    i.BatteryCheckInit  main.o
-    0x08000b3c   0x00000008   Code   RO          707    i.CallFun           timer.o
-    0x08000b44   0x0000013c   Code   RO         1453    i.CheckSensor       detectionlogic.o
-    0x08000c80   0x00000094   Code   RO         1454    i.CheckTargetYaw    detectionlogic.o
-    0x08000d14   0x0000001c   Code   RO         1616    i.ClearBitMask      rc522.o
-    0x08000d30   0x00000048   Code   RO         1455    i.DefConfig         detectionlogic.o
-    0x08000d78   0x00000044   Code   RO          708    i.Delay             timer.o
-    0x08000dbc   0x00000108   Code   RO            3    i.GetDataEvent      main.o
-    0x08000ec4   0x00000058   Code   RO          847    i.Get_Accelerometer  mpu6050.o
-    0x08000f1c   0x00000058   Code   RO          848    i.Get_Gyroscope     mpu6050.o
-    0x08000f74   0x0000006c   Code   RO          849    i.Get_Temperature   mpu6050.o
-    0x08000fe0   0x0000005c   Code   RO          204    i.Init              wave.o
-    0x0800103c   0x00000014   Code   RO          378    i.Init              pid.o
-    0x08001050   0x00000060   Code   RO          454    i.Init              spi.o
-    0x080010b0   0x0000006c   Code   RO          546    i.Init              uartprotocol.o
-    0x0800111c   0x0000003c   Code   RO          796    i.Init              iic.o
-    0x08001158   0x000000a0   Code   RO          850    i.Init              mpu6050.o
-    0x080011f8   0x0000002c   Code   RO          709    i.InitTimer         timer.o
-    0x08001224   0x00000030   Code   RO          288    i.JTAG_Set          sys.o
-    0x08001254   0x0000002c   Code   RO          710    i.KillThisTimer     timer.o
-    0x08001280   0x00000024   Code   RO          711    i.KillTimer         timer.o
-    0x080012a4   0x00000038   Code   RO          191    i.LED_Init          led.o
-    0x080012dc   0x00000174   Code   RO         1456    i.LogicRun          detectionlogic.o
-    0x08001450   0x00000080   Code   RO          400    i.Loop              sensor.o
-    0x080014d0   0x00000068   Code   RO          289    i.MYRCC_DeInit      sys.o
-    0x08001538   0x00000074   Code   RO          290    i.MY_NVIC_Init      sys.o
-    0x080015ac   0x00000028   Code   RO          291    i.MY_NVIC_PriorityGroupConfig  sys.o
-    0x080015d4   0x00000014   Code   RO          292    i.MY_NVIC_SetVectorTable  sys.o
-    0x080015e8   0x00000024   Code   RO         1458    i.MotorRun          detectionlogic.o
-    0x0800160c   0x00000050   Code   RO          797    i.NAck              iic.o
-    0x0800165c   0x000000f8   Code   RO          547    i.OnRecvData        uartprotocol.o
-    0x08001754   0x00000048   Code   RO          401    i.RTADC             sensor.o
-    0x0800179c   0x00000050   Code   RO          548    i.ReadBuff          uartprotocol.o
-    0x080017ec   0x00000044   Code   RO          455    i.ReadByte          spi.o
-    0x08001830   0x00000034   Code   RO          549    i.ReadByte          uartprotocol.o
-    0x08001864   0x0000000c   Code   RO            4    i.ReadCard          main.o
-    0x08001870   0x00000078   Code   RO          550    i.ReadDWord         uartprotocol.o
-    0x080018e8   0x00000010   Code   RO          402    i.ReadData          sensor.o
-    0x080018f8   0x00000040   Code   RO         1620    i.ReadRawRC         rc522.o
-    0x08001938   0x00000050   Code   RO          551    i.ReadWord          uartprotocol.o
-    0x08001988   0x00000070   Code   RO          798    i.Read_Byte         iic.o
-    0x080019f8   0x00000054   Code   RO          851    i.Read_Byte         mpu6050.o
-    0x08001a4c   0x00000090   Code   RO          852    i.Read_Len          mpu6050.o
-    0x08001adc   0x0000000c   Code   RO          552    i.RegisterCmdEvent  uartprotocol.o
-    0x08001ae8   0x0000000c   Code   RO         1459    i.RegisterEvent     detectionlogic.o
-    0x08001af4   0x00000044   Code   RO          553    i.SendCmdPack       uartprotocol.o
-    0x08001b38   0x00000064   Code   RO          554    i.SendPack          uartprotocol.o
-    0x08001b9c   0x00000068   Code   RO          799    i.Send_Byte         iic.o
-    0x08001c04   0x00000598   Code   RO         1460    i.SensorDetection   detectionlogic.o
-    0x0800219c   0x0000001c   Code   RO         1621    i.SetBitMask        rc522.o
-    0x080021b8   0x0000000c   Code   RO         1622    i.SetCallBack       rc522.o
-    0x080021c4   0x0000030c   Code   RO            5    i.SetDataEvent      main.o
-    0x080024d0   0x00000018   Code   RO          712    i.SetDelay          timer.o
-    0x080024e8   0x0000003c   Code   RO         1461    i.SetTargetYaw      detectionlogic.o
-    0x08002524   0x00000060   Code   RO          713    i.SetTimer          timer.o
-    0x08002584   0x00000018   Code   RO          853    i.Set_Accel_Fsr     mpu6050.o
-    0x0800259c   0x00000018   Code   RO          854    i.Set_Gyro_Fsr      mpu6050.o
-    0x080025b4   0x00000040   Code   RO          855    i.Set_LPF           mpu6050.o
-    0x080025f4   0x00000044   Code   RO          856    i.Set_Rate          mpu6050.o
-    0x08002638   0x00000018   Code   RO          555    i.Setoffset         uartprotocol.o
-    0x08002650   0x0000004c   Code   RO          800    i.Start             iic.o
-    0x0800269c   0x000001f8   Code   RO         1623    i.StartFindCard     rc522.o
-    0x08002894   0x00000090   Code   RO          293    i.Stm32_Clock_Init  sys.o
-    0x08002924   0x0000004c   Code   RO          801    i.Stop              iic.o
-    0x08002970   0x00000074   Code   RO         1462    i.StopRun           detectionlogic.o
-    0x080029e4   0x0000004c   Code   RO         1463    i.StopRunAction     detectionlogic.o
-    0x08002a30   0x00000048   Code   RO          714    i.SysTick_Handler   timer.o
-    0x08002a78   0x00000110   Code   RO          205    i.TIM3CapInit       wave.o
-    0x08002b88   0x00000174   Code   RO          206    i.TIM3_IRQHandler   wave.o
-    0x08002cfc   0x000000d4   Code   RO          715    i.TimerRun          timer.o
-    0x08002dd0   0x000000c0   Code   RO          481    i.UART_Init         uart.o
-    0x08002e90   0x0000000c   Code   RO          482    i.UART_OnRecv       uart.o
-    0x08002e9c   0x00000060   Code   RO          483    i.UART_ReSetBps     uart.o
-    0x08002efc   0x00000022   Code   RO          484    i.UART_SendBuff     uart.o
-    0x08002f1e   0x00000002   PAD
-    0x08002f20   0x0000001c   Code   RO          485    i.UART_SendByte     uart.o
-    0x08002f3c   0x0000001e   Code   RO          486    i.UART_SendString   uart.o
-    0x08002f5a   0x00000002   PAD
-    0x08002f5c   0x00000020   Code   RO          488    i.USART1_IRQHandler  uart.o
-    0x08002f7c   0x00000080   Code   RO          557    i.UartCmd           uartprotocol.o
-    0x08002ffc   0x0000002c   Code   RO          558    i.UnRegisterCmdEvent  uartprotocol.o
-    0x08003028   0x0000005c   Code   RO          379    i.Update            pid.o
-    0x08003084   0x00000010   Code   RO            6    i.UpdateBatteryValue  main.o
-    0x08003094   0x00000064   Code   RO          802    i.Wait_Ack          iic.o
-    0x080030f8   0x00000068   Code   RO         1464    i.WaveDetection     detectionlogic.o
-    0x08003160   0x00000070   Code   RO          559    i.WriteBuff         uartprotocol.o
-    0x080031d0   0x00000058   Code   RO          456    i.WriteByte         spi.o
-    0x08003228   0x00000064   Code   RO          560    i.WriteByte         uartprotocol.o
-    0x0800328c   0x000000f4   Code   RO          561    i.WriteDWord        uartprotocol.o
-    0x08003380   0x0000003c   Code   RO         1624    i.WriteRawRC        rc522.o
-    0x080033bc   0x00000098   Code   RO          562    i.WriteWord         uartprotocol.o
-    0x08003454   0x0000005c   Code   RO          857    i.Write_Byte        mpu6050.o
-    0x080034b0   0x00000078   Code   RO          858    i.Write_Len         mpu6050.o
-    0x08003528   0x00000074   Code   RO          563    i.Writestr          uartprotocol.o
-    0x0800359c   0x0000001c   Code   RO          716    i.ZeroDelay         timer.o
-    0x080035b8   0x00000020   Code   RO         1936    i.__0printf$8       mc_w.l(printf8.o)
-    0x080035d8   0x0000000e   Code   RO         2102    i.__scatterload_copy  mc_w.l(handlers.o)
-    0x080035e6   0x00000002   Code   RO         2103    i.__scatterload_null  mc_w.l(handlers.o)
-    0x080035e8   0x0000000e   Code   RO         2104    i.__scatterload_zeroinit  mc_w.l(handlers.o)
-    0x080035f6   0x00000002   PAD
-    0x080035f8   0x00000408   Code   RO         1943    i._printf_core      mc_w.l(printf8.o)
-    0x08003a00   0x00000024   Code   RO         1944    i._printf_post_padding  mc_w.l(printf8.o)
-    0x08003a24   0x0000002e   Code   RO         1945    i._printf_pre_padding  mc_w.l(printf8.o)
-    0x08003a52   0x00000002   PAD
-    0x08003a54   0x0000000c   Code   RO          564    i.aack              uartprotocol.o
-    0x08003a60   0x000000a8   Code   RO         1123    i.accel_self_test   inv_mpu.o
-    0x08003b08   0x000000c0   Code   RO          565    i.ackpack           uartprotocol.o
-    0x08003bc8   0x00000018   Code   RO          255    i.delay_ms          delay.o
-    0x08003be0   0x00000048   Code   RO          257    i.delay_us          delay.o
-    0x08003c28   0x0000003c   Code   RO          924    i.dmp_enable_6x_lp_quat  inv_mpu_dmp_motion_driver.o
-    0x08003c64   0x0000021c   Code   RO          925    i.dmp_enable_feature  inv_mpu_dmp_motion_driver.o
-    0x08003e80   0x00000058   Code   RO          926    i.dmp_enable_gyro_cal  inv_mpu_dmp_motion_driver.o
-    0x08003ed8   0x0000003c   Code   RO          927    i.dmp_enable_lp_quat  inv_mpu_dmp_motion_driver.o
-    0x08003f14   0x00000018   Code   RO          932    i.dmp_load_motion_driver_firmware  inv_mpu_dmp_motion_driver.o
-    0x08003f2c   0x00000130   Code   RO          936    i.dmp_set_accel_bias  inv_mpu_dmp_motion_driver.o
-    0x0800405c   0x00000070   Code   RO          937    i.dmp_set_fifo_rate  inv_mpu_dmp_motion_driver.o
-    0x080040cc   0x00000130   Code   RO          938    i.dmp_set_gyro_bias  inv_mpu_dmp_motion_driver.o
-    0x080041fc   0x00000138   Code   RO          940    i.dmp_set_orientation  inv_mpu_dmp_motion_driver.o
-    0x08004334   0x00000038   Code   RO          943    i.dmp_set_shake_reject_thresh  inv_mpu_dmp_motion_driver.o
-    0x0800436c   0x00000026   Code   RO          944    i.dmp_set_shake_reject_time  inv_mpu_dmp_motion_driver.o
-    0x08004392   0x00000026   Code   RO          945    i.dmp_set_shake_reject_timeout  inv_mpu_dmp_motion_driver.o
-    0x080043b8   0x00000046   Code   RO          946    i.dmp_set_tap_axes  inv_mpu_dmp_motion_driver.o
-    0x080043fe   0x00000026   Code   RO          947    i.dmp_set_tap_count  inv_mpu_dmp_motion_driver.o
-    0x08004424   0x000001a0   Code   RO          948    i.dmp_set_tap_thresh  inv_mpu_dmp_motion_driver.o
-    0x080045c4   0x00000026   Code   RO          949    i.dmp_set_tap_time  inv_mpu_dmp_motion_driver.o
-    0x080045ea   0x00000026   Code   RO          950    i.dmp_set_tap_time_multi  inv_mpu_dmp_motion_driver.o
-    0x08004610   0x00000012   Code   RO         2061    i.fputc             mc_w.l(fputc.o)
-    0x08004622   0x00000002   PAD
-    0x08004624   0x0000004c   Code   RO         1594    i.getADCValue       adc.o
-    0x08004670   0x00000050   Code   RO            7    i.getBatteryValue   main.o
-    0x080046c0   0x00000010   Code   RO          403    i.getCHVA           sensor.o
-    0x080046d0   0x0000000c   Code   RO         1465    i.getLastError      detectionlogic.o
-    0x080046dc   0x00000018   Code   RO         1466    i.getLastPath       detectionlogic.o
-    0x080046f4   0x00000024   Code   RO         1467    i.getPathCount      detectionlogic.o
-    0x08004718   0x0000000c   Code   RO         1468    i.getTime           detectionlogic.o
-    0x08004724   0x000000bc   Code   RO         1124    i.get_accel_prod_shift  inv_mpu.o
-    0x080047e0   0x00000498   Code   RO         1125    i.get_st_biases     inv_mpu.o
-    0x08004c78   0x00000014   Code   RO          566    i.getbuff           uartprotocol.o
-    0x08004c8c   0x0000000c   Code   RO          567    i.getcmd            uartprotocol.o
-    0x08004c98   0x0000000c   Code   RO         1469    i.getdir            detectionlogic.o
-    0x08004ca4   0x0000000c   Code   RO          568    i.getlen            uartprotocol.o
-    0x08004cb0   0x00000014   Code   RO          569    i.getsendbuff       uartprotocol.o
-    0x08004cc4   0x00000118   Code   RO         1126    i.gyro_self_test    inv_mpu.o
-    0x08004ddc   0x00000098   Code   RO            8    i.inPoint           main.o
-    0x08004e74   0x0000002c   Code   RO         1470    i.inPoint           detectionlogic.o
-    0x08004ea0   0x000000bc   Code   RO          350    i.init              motor.o
-    0x08004f5c   0x0000009c   Code   RO          404    i.init              sensor.o
-    0x08004ff8   0x00000048   Code   RO         1471    i.init              detectionlogic.o
-    0x08005040   0x00000090   Code   RO         1595    i.init              adc.o
-    0x080050d0   0x0000011c   Code   RO         1625    i.init              rc522.o
-    0x080051ec   0x00000028   Code   RO         1472    i.inturndone        detectionlogic.o
-    0x08005214   0x00000028   Code   RO         1127    i.inv_orientation_matrix_to_scalar  inv_mpu.o
-    0x0800523c   0x0000004e   Code   RO         1128    i.inv_row_2_scale   inv_mpu.o
-    0x0800528a   0x00000002   PAD
-    0x0800528c   0x0000010c   Code   RO            9    i.inway             main.o
-    0x08005398   0x0000008c   Code   RO         1473    i.inway             detectionlogic.o
-    0x08005424   0x00000014   Code   RO          570    i.isLink            uartprotocol.o
-    0x08005438   0x0000001c   Code   RO          717    i.isUse             timer.o
-    0x08005454   0x000001a4   Code   RO           11    i.main              main.o
-    0x080055f8   0x00000070   Code   RO         1130    i.mpu_configure_fifo  inv_mpu.o
-    0x08005668   0x000000a0   Code   RO         1132    i.mpu_dmp_init      inv_mpu.o
-    0x08005708   0x0000004c   Code   RO         1133    i.mpu_get_accel_fsr  inv_mpu.o
-    0x08005754   0x00000054   Code   RO         1135    i.mpu_get_accel_sens  inv_mpu.o
-    0x080057a8   0x00000010   Code   RO         1140    i.mpu_get_fifo_config  inv_mpu.o
-    0x080057b8   0x00000044   Code   RO         1141    i.mpu_get_gyro_fsr  inv_mpu.o
-    0x080057fc   0x00000050   Code   RO         1143    i.mpu_get_gyro_sens  inv_mpu.o
-    0x0800584c   0x00000050   Code   RO         1145    i.mpu_get_lpf       inv_mpu.o
-    0x0800589c   0x00000020   Code   RO         1147    i.mpu_get_sample_rate  inv_mpu.o
-    0x080058bc   0x000001fc   Code   RO         1149    i.mpu_init          inv_mpu.o
-    0x08005ab8   0x000000c0   Code   RO         1150    i.mpu_load_firmware  inv_mpu.o
-    0x08005b78   0x000000e8   Code   RO         1151    i.mpu_lp_accel_mode  inv_mpu.o
-    0x08005c60   0x00000088   Code   RO         1155    i.mpu_read_mem      inv_mpu.o
-    0x08005ce8   0x000001e0   Code   RO         1158    i.mpu_reset_fifo    inv_mpu.o
-    0x08005ec8   0x0000011c   Code   RO         1159    i.mpu_run_self_test  inv_mpu.o
-    0x08005fe4   0x00000088   Code   RO         1161    i.mpu_set_accel_fsr  inv_mpu.o
-    0x0800606c   0x0000015c   Code   RO         1162    i.mpu_set_bypass    inv_mpu.o
-    0x080061c8   0x00000098   Code   RO         1164    i.mpu_set_dmp_state  inv_mpu.o
-    0x08006260   0x00000090   Code   RO         1165    i.mpu_set_gyro_fsr  inv_mpu.o
-    0x080062f0   0x00000070   Code   RO         1166    i.mpu_set_int_latched  inv_mpu.o
-    0x08006360   0x00000088   Code   RO         1168    i.mpu_set_lpf       inv_mpu.o
-    0x080063e8   0x000000a4   Code   RO         1169    i.mpu_set_sample_rate  inv_mpu.o
-    0x0800648c   0x000000d8   Code   RO         1170    i.mpu_set_sensors   inv_mpu.o
-    0x08006564   0x00000088   Code   RO         1171    i.mpu_write_mem     inv_mpu.o
-    0x080065ec   0x00000094   Code   RO         1172    i.run_self_test     inv_mpu.o
-    0x08006680   0x00000024   Code   RO          571    i.sendackpacket     uartprotocol.o
-    0x080066a4   0x0000000c   Code   RO          405    i.setCHTH           sensor.o
-    0x080066b0   0x00000014   Code   RO          351    i.setDuty           motor.o
-    0x080066c4   0x00000014   Code   RO          209    i.setLenghtData     wave.o
-    0x080066d8   0x000001c8   Code   RO          352    i.setSpeed          motor.o
-    0x080068a0   0x00000098   Code   RO         1173    i.set_int_enable    inv_mpu.o
-    0x08006938   0x0000008c   Code   RO          406    i.switchCH          sensor.o
-    0x080069c4   0x00000120   Code   RO           13    i.tick1             main.o
-    0x08006ae4   0x00000014   Code   RO           14    i.toVoltage         main.o
-    0x08006af8   0x00000078   Code   RO           15    i.turndone          main.o
-    0x08006b70   0x00000016   Code   RO         1626    i.wait              rc522.o
-    0x08006b86   0x00000002   PAD
-    0x08006b88   0x00000008   Data   RO          210    .constdata          wave.o
-    0x08006b90   0x00000008   Data   RO          353    .constdata          motor.o
-    0x08006b98   0x00000008   Data   RO          380    .constdata          pid.o
-    0x08006ba0   0x00000014   Data   RO          408    .constdata          sensor.o
-    0x08006bb4   0x0000000c   Data   RO          457    .constdata          spi.o
-    0x08006bc0   0x00000018   Data   RO          489    .constdata          uart.o
-    0x08006bd8   0x0000005c   Data   RO          573    .constdata          uartprotocol.o
-    0x08006c34   0x00000028   Data   RO          719    .constdata          timer.o
-    0x08006c5c   0x00000020   Data   RO          803    .constdata          iic.o
-    0x08006c7c   0x00000030   Data   RO          859    .constdata          mpu6050.o
-    0x08006cac   0x00000bf6   Data   RO          952    .constdata          inv_mpu_dmp_motion_driver.o
-    0x080078a2   0x00000002   PAD
-    0x080078a4   0x00000050   Data   RO         1175    .constdata          inv_mpu.o
-    0x080078f4   0x0000004c   Data   RO         1475    .constdata          detectionlogic.o
-    0x08007940   0x00000008   Data   RO         1596    .constdata          adc.o
-    0x08007948   0x00000014   Data   RO         1627    .constdata          rc522.o
-    0x0800795c   0x0000004d   Data   RO         1176    .conststring        inv_mpu.o
-    0x080079a9   0x00000003   PAD
-    0x080079ac   0x00000020   Data   RO         2100    Region$$Table       anon$$obj.o
-
-
-    Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x00000f00, Max: 0x00005000, ABSOLUTE)
+    Execution Region ER_IROM1 (Base: 0x08000000, Size: 0x00007ad4, Max: 0x00010000, ABSOLUTE)
 
     Base Addr    Size         Type   Attr      Idx    E Section Name        Object
 
-    0x20000000   0x00000029   Data   RW           17    .data               main.o
-    0x20000029   0x00000003   PAD
-    0x2000002c   0x00000011   Data   RW          211    .data               wave.o
-    0x2000003d   0x00000001   PAD
-    0x2000003e   0x00000004   Data   RW          258    .data               delay.o
-    0x20000042   0x00000002   Data   RW          354    .data               motor.o
-    0x20000044   0x00000003   Data   RW          409    .data               sensor.o
-    0x20000047   0x00000001   PAD
-    0x20000048   0x00000008   Data   RW          490    .data               uart.o
-    0x20000050   0x0000002a   Data   RW          574    .data               uartprotocol.o
-    0x2000007a   0x00000002   PAD
-    0x2000007c   0x0000000d   Data   RW          720    .data               timer.o
-    0x20000089   0x00000003   PAD
-    0x2000008c   0x00000035   Data   RW         1177    .data               inv_mpu.o
-    0x200000c1   0x00000003   PAD
-    0x200000c4   0x00000044   Data   RW         1476    .data               detectionlogic.o
-    0x20000108   0x0000000a   Data   RW         1628    .data               rc522.o
+    0x08000000   0x000000ec   Data   RO          197    RESET               startup_stm32f10x_md.o
+    0x080000ec   0x00000000   Code   RO         1732  * .ARM.Collect$$$$00000000  mc_w.l(entry.o)
+    0x080000ec   0x00000004   Code   RO         2059    .ARM.Collect$$$$00000001  mc_w.l(entry2.o)
+    0x080000f0   0x00000004   Code   RO         2062    .ARM.Collect$$$$00000004  mc_w.l(entry5.o)
+    0x080000f4   0x00000000   Code   RO         2064    .ARM.Collect$$$$00000008  mc_w.l(entry7b.o)
+    0x080000f4   0x00000000   Code   RO         2066    .ARM.Collect$$$$0000000A  mc_w.l(entry8b.o)
+    0x080000f4   0x00000008   Code   RO         2067    .ARM.Collect$$$$0000000B  mc_w.l(entry9a.o)
+    0x080000fc   0x00000000   Code   RO         2069    .ARM.Collect$$$$0000000D  mc_w.l(entry10a.o)
+    0x080000fc   0x00000000   Code   RO         2071    .ARM.Collect$$$$0000000F  mc_w.l(entry11a.o)
+    0x080000fc   0x00000004   Code   RO         2060    .ARM.Collect$$$$00002712  mc_w.l(entry2.o)
+    0x08000100   0x00000024   Code   RO          717    .emb_text           timer.o
+    0x08000124   0x0000001c   Code   RO          198    .text               startup_stm32f10x_md.o
+    0x08000140   0x0000005a   Code   RO         1735    .text               mc_w.l(ldiv.o)
+    0x0800019a   0x00000024   Code   RO         1737    .text               mc_w.l(memseta.o)
+    0x080001be   0x0000001a   Code   RO         1739    .text               mc_w.l(memcmp.o)
+    0x080001d8   0x000000b0   Code   RO         2002    .text               mf_w.l(fadd.o)
+    0x08000288   0x00000064   Code   RO         2004    .text               mf_w.l(fmul.o)
+    0x080002ec   0x0000007c   Code   RO         2006    .text               mf_w.l(fdiv.o)
+    0x08000368   0x0000014e   Code   RO         2008    .text               mf_w.l(dadd.o)
+    0x080004b6   0x000000e4   Code   RO         2010    .text               mf_w.l(dmul.o)
+    0x0800059a   0x000000de   Code   RO         2012    .text               mf_w.l(ddiv.o)
+    0x08000678   0x00000012   Code   RO         2014    .text               mf_w.l(fflti.o)
+    0x0800068a   0x0000000a   Code   RO         2016    .text               mf_w.l(ffltui.o)
+    0x08000694   0x00000022   Code   RO         2018    .text               mf_w.l(dflti.o)
+    0x080006b6   0x00000032   Code   RO         2020    .text               mf_w.l(ffixi.o)
+    0x080006e8   0x00000028   Code   RO         2022    .text               mf_w.l(ffixui.o)
+    0x08000710   0x00000032   Code   RO         2024    .text               mf_w.l(dfixui.o)
+    0x08000742   0x00000026   Code   RO         2026    .text               mf_w.l(f2d.o)
+    0x08000768   0x00000038   Code   RO         2028    .text               mf_w.l(d2f.o)
+    0x080007a0   0x00000014   Code   RO         2030    .text               mf_w.l(cfcmple.o)
+    0x080007b4   0x00000014   Code   RO         2032    .text               mf_w.l(cfrcmple.o)
+    0x080007c8   0x00000062   Code   RO         2078    .text               mc_w.l(uldiv.o)
+    0x0800082a   0x0000001e   Code   RO         2080    .text               mc_w.l(llshl.o)
+    0x08000848   0x00000020   Code   RO         2082    .text               mc_w.l(llushr.o)
+    0x08000868   0x00000024   Code   RO         2084    .text               mc_w.l(llsshr.o)
+    0x0800088c   0x00000000   Code   RO         2093    .text               mc_w.l(iusefp.o)
+    0x0800088c   0x0000006e   Code   RO         2094    .text               mf_w.l(fepilogue.o)
+    0x080008fa   0x000000b6   Code   RO         2096    .text               mf_w.l(depilogue.o)
+    0x080009b0   0x00000024   Code   RO         2104    .text               mc_w.l(init.o)
+    0x080009d4   0x00000000   Code   RO         2106    .text               mc_w.l(semi.o)
+    0x080009d4   0x00000000   Code   RO         2107    .text               mc_w.l(iusesemip.o)
+    0x080009d4   0x00000050   Code   RO          807    i.Ack               iic.o
+    0x08000a24   0x000000f0   Code   RO         1464    i.ActionRun         detectionlogic.o
+    0x08000b14   0x0000002c   Code   RO          718    i.AddDelay          timer.o
+    0x08000b40   0x00000002   Code   RO            1    i.AliveEvent        main.o
+    0x08000b42   0x00000002   PAD
+    0x08000b44   0x0000002c   Code   RO            2    i.BatteryCheckInit  main.o
+    0x08000b70   0x00000008   Code   RO          719    i.CallFun           timer.o
+    0x08000b78   0x0000013c   Code   RO         1465    i.CheckSensor       detectionlogic.o
+    0x08000cb4   0x00000094   Code   RO         1466    i.CheckTargetYaw    detectionlogic.o
+    0x08000d48   0x0000001c   Code   RO         1628    i.ClearBitMask      rc522.o
+    0x08000d64   0x00000048   Code   RO         1467    i.DefConfig         detectionlogic.o
+    0x08000dac   0x00000044   Code   RO          720    i.Delay             timer.o
+    0x08000df0   0x00000108   Code   RO            3    i.GetDataEvent      main.o
+    0x08000ef8   0x00000058   Code   RO          859    i.Get_Accelerometer  mpu6050.o
+    0x08000f50   0x00000058   Code   RO          860    i.Get_Gyroscope     mpu6050.o
+    0x08000fa8   0x0000006c   Code   RO          861    i.Get_Temperature   mpu6050.o
+    0x08001014   0x0000005c   Code   RO          216    i.Init              wave.o
+    0x08001070   0x00000014   Code   RO          390    i.Init              pid.o
+    0x08001084   0x00000060   Code   RO          466    i.Init              spi.o
+    0x080010e4   0x0000006c   Code   RO          558    i.Init              uartprotocol.o
+    0x08001150   0x0000003c   Code   RO          808    i.Init              iic.o
+    0x0800118c   0x000000a0   Code   RO          862    i.Init              mpu6050.o
+    0x0800122c   0x0000002c   Code   RO          721    i.InitTimer         timer.o
+    0x08001258   0x00000030   Code   RO          300    i.JTAG_Set          sys.o
+    0x08001288   0x0000002c   Code   RO          722    i.KillThisTimer     timer.o
+    0x080012b4   0x00000024   Code   RO          723    i.KillTimer         timer.o
+    0x080012d8   0x00000038   Code   RO          203    i.LED_Init          led.o
+    0x08001310   0x00000174   Code   RO         1468    i.LogicRun          detectionlogic.o
+    0x08001484   0x0000008c   Code   RO          412    i.Loop              sensor.o
+    0x08001510   0x00000068   Code   RO          301    i.MYRCC_DeInit      sys.o
+    0x08001578   0x00000074   Code   RO          302    i.MY_NVIC_Init      sys.o
+    0x080015ec   0x00000028   Code   RO          303    i.MY_NVIC_PriorityGroupConfig  sys.o
+    0x08001614   0x00000014   Code   RO          304    i.MY_NVIC_SetVectorTable  sys.o
+    0x08001628   0x00000024   Code   RO         1470    i.MotorRun          detectionlogic.o
+    0x0800164c   0x00000050   Code   RO          809    i.NAck              iic.o
+    0x0800169c   0x000000f8   Code   RO          559    i.OnRecvData        uartprotocol.o
+    0x08001794   0x00000048   Code   RO          413    i.RTADC             sensor.o
+    0x080017dc   0x00000050   Code   RO          560    i.ReadBuff          uartprotocol.o
+    0x0800182c   0x00000044   Code   RO          467    i.ReadByte          spi.o
+    0x08001870   0x00000034   Code   RO          561    i.ReadByte          uartprotocol.o
+    0x080018a4   0x0000000c   Code   RO            5    i.ReadCard          main.o
+    0x080018b0   0x00000078   Code   RO          562    i.ReadDWord         uartprotocol.o
+    0x08001928   0x00000010   Code   RO          414    i.ReadData          sensor.o
+    0x08001938   0x00000040   Code   RO         1632    i.ReadRawRC         rc522.o
+    0x08001978   0x00000050   Code   RO          563    i.ReadWord          uartprotocol.o
+    0x080019c8   0x00000070   Code   RO          810    i.Read_Byte         iic.o
+    0x08001a38   0x00000054   Code   RO          863    i.Read_Byte         mpu6050.o
+    0x08001a8c   0x00000090   Code   RO          864    i.Read_Len          mpu6050.o
+    0x08001b1c   0x0000000c   Code   RO          564    i.RegisterCmdEvent  uartprotocol.o
+    0x08001b28   0x0000000c   Code   RO         1471    i.RegisterEvent     detectionlogic.o
+    0x08001b34   0x00000044   Code   RO          565    i.SendCmdPack       uartprotocol.o
+    0x08001b78   0x00000064   Code   RO          566    i.SendPack          uartprotocol.o
+    0x08001bdc   0x00000068   Code   RO          811    i.Send_Byte         iic.o
+    0x08001c44   0x00000634   Code   RO         1472    i.SensorDetection   detectionlogic.o
+    0x08002278   0x0000001c   Code   RO         1633    i.SetBitMask        rc522.o
+    0x08002294   0x0000000c   Code   RO         1634    i.SetCallBack       rc522.o
+    0x080022a0   0x00000318   Code   RO            6    i.SetDataEvent      main.o
+    0x080025b8   0x00000018   Code   RO          724    i.SetDelay          timer.o
+    0x080025d0   0x0000003c   Code   RO         1473    i.SetTargetYaw      detectionlogic.o
+    0x0800260c   0x00000060   Code   RO          725    i.SetTimer          timer.o
+    0x0800266c   0x00000018   Code   RO          865    i.Set_Accel_Fsr     mpu6050.o
+    0x08002684   0x00000018   Code   RO          866    i.Set_Gyro_Fsr      mpu6050.o
+    0x0800269c   0x00000040   Code   RO          867    i.Set_LPF           mpu6050.o
+    0x080026dc   0x00000044   Code   RO          868    i.Set_Rate          mpu6050.o
+    0x08002720   0x00000018   Code   RO          567    i.Setoffset         uartprotocol.o
+    0x08002738   0x0000004c   Code   RO          812    i.Start             iic.o
+    0x08002784   0x000001f8   Code   RO         1635    i.StartFindCard     rc522.o
+    0x0800297c   0x00000090   Code   RO          305    i.Stm32_Clock_Init  sys.o
+    0x08002a0c   0x0000004c   Code   RO          813    i.Stop              iic.o
+    0x08002a58   0x00000074   Code   RO         1474    i.StopRun           detectionlogic.o
+    0x08002acc   0x0000004c   Code   RO         1475    i.StopRunAction     detectionlogic.o
+    0x08002b18   0x00000048   Code   RO          726    i.SysTick_Handler   timer.o
+    0x08002b60   0x00000110   Code   RO          217    i.TIM3CapInit       wave.o
+    0x08002c70   0x00000174   Code   RO          218    i.TIM3_IRQHandler   wave.o
+    0x08002de4   0x000000d4   Code   RO          727    i.TimerRun          timer.o
+    0x08002eb8   0x000000c0   Code   RO          493    i.UART_Init         uart.o
+    0x08002f78   0x0000000c   Code   RO          494    i.UART_OnRecv       uart.o
+    0x08002f84   0x00000060   Code   RO          495    i.UART_ReSetBps     uart.o
+    0x08002fe4   0x00000022   Code   RO          496    i.UART_SendBuff     uart.o
+    0x08003006   0x00000002   PAD
+    0x08003008   0x0000001c   Code   RO          497    i.UART_SendByte     uart.o
+    0x08003024   0x0000001e   Code   RO          498    i.UART_SendString   uart.o
+    0x08003042   0x00000002   PAD
+    0x08003044   0x00000020   Code   RO          500    i.USART1_IRQHandler  uart.o
+    0x08003064   0x00000080   Code   RO          569    i.UartCmd           uartprotocol.o
+    0x080030e4   0x0000002c   Code   RO          570    i.UnRegisterCmdEvent  uartprotocol.o
+    0x08003110   0x0000005c   Code   RO          391    i.Update            pid.o
+    0x0800316c   0x00000010   Code   RO            7    i.UpdateBatteryValue  main.o
+    0x0800317c   0x00000064   Code   RO          814    i.Wait_Ack          iic.o
+    0x080031e0   0x0000005c   Code   RO         1476    i.WaveDetection     detectionlogic.o
+    0x0800323c   0x00000070   Code   RO          571    i.WriteBuff         uartprotocol.o
+    0x080032ac   0x00000058   Code   RO          468    i.WriteByte         spi.o
+    0x08003304   0x00000064   Code   RO          572    i.WriteByte         uartprotocol.o
+    0x08003368   0x000000f4   Code   RO          573    i.WriteDWord        uartprotocol.o
+    0x0800345c   0x0000003c   Code   RO         1636    i.WriteRawRC        rc522.o
+    0x08003498   0x00000098   Code   RO          574    i.WriteWord         uartprotocol.o
+    0x08003530   0x0000005c   Code   RO          869    i.Write_Byte        mpu6050.o
+    0x0800358c   0x00000078   Code   RO          870    i.Write_Len         mpu6050.o
+    0x08003604   0x00000074   Code   RO          575    i.Writestr          uartprotocol.o
+    0x08003678   0x0000001c   Code   RO          728    i.ZeroDelay         timer.o
+    0x08003694   0x00000020   Code   RO         1948    i.__0printf$8       mc_w.l(printf8.o)
+    0x080036b4   0x0000000e   Code   RO         2114    i.__scatterload_copy  mc_w.l(handlers.o)
+    0x080036c2   0x00000002   Code   RO         2115    i.__scatterload_null  mc_w.l(handlers.o)
+    0x080036c4   0x0000000e   Code   RO         2116    i.__scatterload_zeroinit  mc_w.l(handlers.o)
+    0x080036d2   0x00000002   PAD
+    0x080036d4   0x00000408   Code   RO         1955    i._printf_core      mc_w.l(printf8.o)
+    0x08003adc   0x00000024   Code   RO         1956    i._printf_post_padding  mc_w.l(printf8.o)
+    0x08003b00   0x0000002e   Code   RO         1957    i._printf_pre_padding  mc_w.l(printf8.o)
+    0x08003b2e   0x00000002   PAD
+    0x08003b30   0x0000000c   Code   RO          576    i.aack              uartprotocol.o
+    0x08003b3c   0x000000a8   Code   RO         1135    i.accel_self_test   inv_mpu.o
+    0x08003be4   0x000000c0   Code   RO          577    i.ackpack           uartprotocol.o
+    0x08003ca4   0x00000018   Code   RO          267    i.delay_ms          delay.o
+    0x08003cbc   0x00000048   Code   RO          269    i.delay_us          delay.o
+    0x08003d04   0x0000003c   Code   RO          936    i.dmp_enable_6x_lp_quat  inv_mpu_dmp_motion_driver.o
+    0x08003d40   0x0000021c   Code   RO          937    i.dmp_enable_feature  inv_mpu_dmp_motion_driver.o
+    0x08003f5c   0x00000058   Code   RO          938    i.dmp_enable_gyro_cal  inv_mpu_dmp_motion_driver.o
+    0x08003fb4   0x0000003c   Code   RO          939    i.dmp_enable_lp_quat  inv_mpu_dmp_motion_driver.o
+    0x08003ff0   0x00000018   Code   RO          944    i.dmp_load_motion_driver_firmware  inv_mpu_dmp_motion_driver.o
+    0x08004008   0x00000130   Code   RO          948    i.dmp_set_accel_bias  inv_mpu_dmp_motion_driver.o
+    0x08004138   0x00000070   Code   RO          949    i.dmp_set_fifo_rate  inv_mpu_dmp_motion_driver.o
+    0x080041a8   0x00000130   Code   RO          950    i.dmp_set_gyro_bias  inv_mpu_dmp_motion_driver.o
+    0x080042d8   0x00000138   Code   RO          952    i.dmp_set_orientation  inv_mpu_dmp_motion_driver.o
+    0x08004410   0x00000038   Code   RO          955    i.dmp_set_shake_reject_thresh  inv_mpu_dmp_motion_driver.o
+    0x08004448   0x00000026   Code   RO          956    i.dmp_set_shake_reject_time  inv_mpu_dmp_motion_driver.o
+    0x0800446e   0x00000026   Code   RO          957    i.dmp_set_shake_reject_timeout  inv_mpu_dmp_motion_driver.o
+    0x08004494   0x00000046   Code   RO          958    i.dmp_set_tap_axes  inv_mpu_dmp_motion_driver.o
+    0x080044da   0x00000026   Code   RO          959    i.dmp_set_tap_count  inv_mpu_dmp_motion_driver.o
+    0x08004500   0x000001a0   Code   RO          960    i.dmp_set_tap_thresh  inv_mpu_dmp_motion_driver.o
+    0x080046a0   0x00000026   Code   RO          961    i.dmp_set_tap_time  inv_mpu_dmp_motion_driver.o
+    0x080046c6   0x00000026   Code   RO          962    i.dmp_set_tap_time_multi  inv_mpu_dmp_motion_driver.o
+    0x080046ec   0x00000012   Code   RO         2073    i.fputc             mc_w.l(fputc.o)
+    0x080046fe   0x00000002   PAD
+    0x08004700   0x0000004c   Code   RO         1606    i.getADCValue       adc.o
+    0x0800474c   0x00000050   Code   RO            8    i.getBatteryValue   main.o
+    0x0800479c   0x00000010   Code   RO          415    i.getCHVA           sensor.o
+    0x080047ac   0x0000000c   Code   RO         1477    i.getLastError      detectionlogic.o
+    0x080047b8   0x00000018   Code   RO         1478    i.getLastPath       detectionlogic.o
+    0x080047d0   0x00000024   Code   RO         1479    i.getPathCount      detectionlogic.o
+    0x080047f4   0x0000000c   Code   RO         1480    i.getTime           detectionlogic.o
+    0x08004800   0x000000bc   Code   RO         1136    i.get_accel_prod_shift  inv_mpu.o
+    0x080048bc   0x00000498   Code   RO         1137    i.get_st_biases     inv_mpu.o
+    0x08004d54   0x00000014   Code   RO          578    i.getbuff           uartprotocol.o
+    0x08004d68   0x0000000c   Code   RO          579    i.getcmd            uartprotocol.o
+    0x08004d74   0x0000000c   Code   RO         1481    i.getdir            detectionlogic.o
+    0x08004d80   0x0000000c   Code   RO          580    i.getlen            uartprotocol.o
+    0x08004d8c   0x00000014   Code   RO          581    i.getsendbuff       uartprotocol.o
+    0x08004da0   0x00000118   Code   RO         1138    i.gyro_self_test    inv_mpu.o
+    0x08004eb8   0x00000098   Code   RO            9    i.inPoint           main.o
+    0x08004f50   0x0000002c   Code   RO         1482    i.inPoint           detectionlogic.o
+    0x08004f7c   0x000000bc   Code   RO          362    i.init              motor.o
+    0x08005038   0x0000009c   Code   RO          416    i.init              sensor.o
+    0x080050d4   0x00000048   Code   RO         1483    i.init              detectionlogic.o
+    0x0800511c   0x000000a8   Code   RO         1607    i.init              adc.o
+    0x080051c4   0x0000011c   Code   RO         1637    i.init              rc522.o
+    0x080052e0   0x00000028   Code   RO         1484    i.inturndone        detectionlogic.o
+    0x08005308   0x00000028   Code   RO         1139    i.inv_orientation_matrix_to_scalar  inv_mpu.o
+    0x08005330   0x0000004e   Code   RO         1140    i.inv_row_2_scale   inv_mpu.o
+    0x0800537e   0x00000002   PAD
+    0x08005380   0x0000010c   Code   RO           10    i.inway             main.o
+    0x0800548c   0x0000008c   Code   RO         1485    i.inway             detectionlogic.o
+    0x08005518   0x00000014   Code   RO          582    i.isLink            uartprotocol.o
+    0x0800552c   0x0000001c   Code   RO          729    i.isUse             timer.o
+    0x08005548   0x000001a4   Code   RO           12    i.main              main.o
+    0x080056ec   0x00000070   Code   RO         1142    i.mpu_configure_fifo  inv_mpu.o
+    0x0800575c   0x000000a0   Code   RO         1144    i.mpu_dmp_init      inv_mpu.o
+    0x080057fc   0x0000004c   Code   RO         1145    i.mpu_get_accel_fsr  inv_mpu.o
+    0x08005848   0x00000054   Code   RO         1147    i.mpu_get_accel_sens  inv_mpu.o
+    0x0800589c   0x00000010   Code   RO         1152    i.mpu_get_fifo_config  inv_mpu.o
+    0x080058ac   0x00000044   Code   RO         1153    i.mpu_get_gyro_fsr  inv_mpu.o
+    0x080058f0   0x00000050   Code   RO         1155    i.mpu_get_gyro_sens  inv_mpu.o
+    0x08005940   0x00000050   Code   RO         1157    i.mpu_get_lpf       inv_mpu.o
+    0x08005990   0x00000020   Code   RO         1159    i.mpu_get_sample_rate  inv_mpu.o
+    0x080059b0   0x000001fc   Code   RO         1161    i.mpu_init          inv_mpu.o
+    0x08005bac   0x000000c0   Code   RO         1162    i.mpu_load_firmware  inv_mpu.o
+    0x08005c6c   0x000000e8   Code   RO         1163    i.mpu_lp_accel_mode  inv_mpu.o
+    0x08005d54   0x00000088   Code   RO         1167    i.mpu_read_mem      inv_mpu.o
+    0x08005ddc   0x000001e0   Code   RO         1170    i.mpu_reset_fifo    inv_mpu.o
+    0x08005fbc   0x0000011c   Code   RO         1171    i.mpu_run_self_test  inv_mpu.o
+    0x080060d8   0x00000088   Code   RO         1173    i.mpu_set_accel_fsr  inv_mpu.o
+    0x08006160   0x0000015c   Code   RO         1174    i.mpu_set_bypass    inv_mpu.o
+    0x080062bc   0x00000098   Code   RO         1176    i.mpu_set_dmp_state  inv_mpu.o
+    0x08006354   0x00000090   Code   RO         1177    i.mpu_set_gyro_fsr  inv_mpu.o
+    0x080063e4   0x00000070   Code   RO         1178    i.mpu_set_int_latched  inv_mpu.o
+    0x08006454   0x00000088   Code   RO         1180    i.mpu_set_lpf       inv_mpu.o
+    0x080064dc   0x000000a4   Code   RO         1181    i.mpu_set_sample_rate  inv_mpu.o
+    0x08006580   0x000000d8   Code   RO         1182    i.mpu_set_sensors   inv_mpu.o
+    0x08006658   0x00000088   Code   RO         1183    i.mpu_write_mem     inv_mpu.o
+    0x080066e0   0x00000094   Code   RO         1184    i.run_self_test     inv_mpu.o
+    0x08006774   0x00000024   Code   RO          583    i.sendackpacket     uartprotocol.o
+    0x08006798   0x0000000c   Code   RO          417    i.setCHTH           sensor.o
+    0x080067a4   0x00000014   Code   RO          363    i.setDuty           motor.o
+    0x080067b8   0x00000014   Code   RO          221    i.setLenghtData     wave.o
+    0x080067cc   0x000001c8   Code   RO          364    i.setSpeed          motor.o
+    0x08006994   0x00000098   Code   RO         1185    i.set_int_enable    inv_mpu.o
+    0x08006a2c   0x0000008c   Code   RO          418    i.switchCH          sensor.o
+    0x08006ab8   0x00000134   Code   RO           15    i.tick1             main.o
+    0x08006bec   0x00000014   Code   RO           16    i.toVoltage         main.o
+    0x08006c00   0x00000078   Code   RO           17    i.turndone          main.o
+    0x08006c78   0x00000016   Code   RO         1638    i.wait              rc522.o
+    0x08006c8e   0x00000002   PAD
+    0x08006c90   0x00000008   Data   RO          222    .constdata          wave.o
+    0x08006c98   0x00000008   Data   RO          365    .constdata          motor.o
+    0x08006ca0   0x00000008   Data   RO          392    .constdata          pid.o
+    0x08006ca8   0x00000014   Data   RO          420    .constdata          sensor.o
+    0x08006cbc   0x0000000c   Data   RO          469    .constdata          spi.o
+    0x08006cc8   0x00000018   Data   RO          501    .constdata          uart.o
+    0x08006ce0   0x0000005c   Data   RO          585    .constdata          uartprotocol.o
+    0x08006d3c   0x00000028   Data   RO          731    .constdata          timer.o
+    0x08006d64   0x00000020   Data   RO          815    .constdata          iic.o
+    0x08006d84   0x00000030   Data   RO          871    .constdata          mpu6050.o
+    0x08006db4   0x00000bf6   Data   RO          964    .constdata          inv_mpu_dmp_motion_driver.o
+    0x080079aa   0x00000002   PAD
+    0x080079ac   0x00000050   Data   RO         1187    .constdata          inv_mpu.o
+    0x080079fc   0x0000004c   Data   RO         1487    .constdata          detectionlogic.o
+    0x08007a48   0x00000008   Data   RO         1608    .constdata          adc.o
+    0x08007a50   0x00000014   Data   RO         1639    .constdata          rc522.o
+    0x08007a64   0x0000004d   Data   RO         1188    .conststring        inv_mpu.o
+    0x08007ab1   0x00000003   PAD
+    0x08007ab4   0x00000020   Data   RO         2112    Region$$Table       anon$$obj.o
+
+
+    Execution Region RW_IRAM1 (Base: 0x20000000, Size: 0x00000f10, Max: 0x00005000, ABSOLUTE)
+
+    Base Addr    Size         Type   Attr      Idx    E Section Name        Object
+
+    0x20000000   0x0000002d   Data   RW           19    .data               main.o
+    0x2000002d   0x00000003   PAD
+    0x20000030   0x00000011   Data   RW          223    .data               wave.o
+    0x20000041   0x00000001   PAD
+    0x20000042   0x00000004   Data   RW          270    .data               delay.o
+    0x20000046   0x00000002   Data   RW          366    .data               motor.o
+    0x20000048   0x00000005   Data   RW          421    .data               sensor.o
+    0x2000004d   0x00000003   PAD
+    0x20000050   0x00000008   Data   RW          502    .data               uart.o
+    0x20000058   0x0000002a   Data   RW          586    .data               uartprotocol.o
+    0x20000082   0x00000002   PAD
+    0x20000084   0x0000000d   Data   RW          732    .data               timer.o
+    0x20000091   0x00000003   PAD
+    0x20000094   0x00000035   Data   RW         1189    .data               inv_mpu.o
+    0x200000c9   0x00000003   PAD
+    0x200000cc   0x00000046   Data   RW         1488    .data               detectionlogic.o
     0x20000112   0x00000002   PAD
-    0x20000114   0x00000004   Data   RW         2063    .data               mc_w.l(stdout.o)
-    0x20000118   0x000004c0   Zero   RW           16    .bss                main.o
-    0x200005d8   0x00000024   Zero   RW          407    .bss                sensor.o
-    0x200005fc   0x00000040   Zero   RW          572    .bss                uartprotocol.o
-    0x2000063c   0x00000060   Zero   RW          718    .bss                timer.o
-    0x2000069c   0x00000010   Zero   RW          951    .bss                inv_mpu_dmp_motion_driver.o
-    0x200006ac   0x00000054   Zero   RW         1474    .bss                detectionlogic.o
-    0x20000700   0x00000800   Zero   RW          183    STACK               startup_stm32f10x_md.o
+    0x20000114   0x0000000a   Data   RW         1640    .data               rc522.o
+    0x2000011e   0x00000002   PAD
+    0x20000120   0x00000004   Data   RW         2075    .data               mc_w.l(stdout.o)
+    0x20000124   0x000004c0   Zero   RW           18    .bss                main.o
+    0x200005e4   0x00000024   Zero   RW          419    .bss                sensor.o
+    0x20000608   0x00000040   Zero   RW          584    .bss                uartprotocol.o
+    0x20000648   0x00000060   Zero   RW          730    .bss                timer.o
+    0x200006a8   0x00000010   Zero   RW          963    .bss                inv_mpu_dmp_motion_driver.o
+    0x200006b8   0x00000054   Zero   RW         1486    .bss                detectionlogic.o
+    0x2000070c   0x00000004   PAD
+    0x20000710   0x00000800   Zero   RW          195    STACK               startup_stm32f10x_md.o
 
 
 ==============================================================================
@@ -2269,19 +2285,19 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   Object Name
 
-       220         16          8          0          0       1702   adc.o
+       244         20          8          0          0       1710   adc.o
         96          4          0          4          0       1238   delay.o
-      3324        582         76         68         84      15808   detectionlogic.o
+      3520        580         76         70         84      16005   detectionlogic.o
        688        104         32          0          0       4710   iic.o
       6314        352        157         53          0      26680   inv_mpu.o
       2536        112       3062          0         16      17702   inv_mpu_dmp_motion_driver.o
         56         14          0          0          0        399   led.o
-      2466        438          0         41       1216     217712   main.o
+      2498        446          0         45       1216     217791   main.o
        664         34          8          2          0       2816   motor.o
       1064         78         48          0          0       9446   mpu6050.o
        112          0          8          0          0       2022   pid.o
       1002         56         20         10          0       7235   rc522.o
-       540         74         20          3         36       4490   sensor.o
+       552         78         20          5         36       4521   sensor.o
        252         26         12          0          0       2394   spi.o
         28          4        236          0       2048        800   startup_stm32f10x_md.o
        472         60          0          0          0       3139   sys.o
@@ -2291,9 +2307,9 @@ Image component sizes
        756         58          8         17          0       3827   wave.o
 
     ----------------------------------------------------------------------
-     23876       2538       3888        276       3560     365139   Object Totals
+     24140       2552       3888        288       3564     365454   Object Totals
          0          0         32          0          0          0   (incl. Generated)
-        10          0          5         15          0          0   (incl. Padding)
+        10          0          5         19          4          0   (incl. Padding)
 
     ----------------------------------------------------------------------
 
@@ -2362,15 +2378,15 @@ Image component sizes
 
       Code (inc. data)   RO Data    RW Data    ZI Data      Debug   
 
-     27292       2608       3888        280       3560     357095   Grand Totals
-     27292       2608       3888        280       3560     357095   ELF Image Totals
-     27292       2608       3888        280          0          0   ROM Totals
+     27556       2622       3888        292       3564     357410   Grand Totals
+     27556       2622       3888        292       3564     357410   ELF Image Totals
+     27556       2622       3888        292          0          0   ROM Totals
 
 ==============================================================================
 
-    Total RO  Size (Code + RO Data)                31180 (  30.45kB)
-    Total RW  Size (RW Data + ZI Data)              3840 (   3.75kB)
-    Total ROM Size (Code + RO Data + RW Data)      31460 (  30.72kB)
+    Total RO  Size (Code + RO Data)                31444 (  30.71kB)
+    Total RW  Size (RW Data + ZI Data)              3856 (   3.77kB)
+    Total ROM Size (Code + RO Data + RW Data)      31736 (  30.99kB)
 
 ==============================================================================
 

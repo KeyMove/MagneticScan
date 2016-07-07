@@ -71,6 +71,38 @@ void UpdateBatteryValue(){
 	lastBatteryValue=getBatteryValue();
 }
 
+
+u8 savecount;
+u8 keycount=0;
+
+void rsPath(){
+	u8 i;
+	for(i=0;i<savecount;i++)
+		if(PathList[i]==Left)
+			PathList[i]=Right;
+		else if(PathList[i]==Right)
+			PathList[i]=Left;
+}
+
+void KeyLoad(){
+	if(GPIOA->IDR&BIT0){
+		if(keycount==50){
+			if(savecount){
+				if(PathPos==0xffff)
+				{
+					rsPath();
+					DetectionLogic.Control->ActionRun(Back,2000);
+				}
+			}
+		}
+		keycount=0;
+		return;
+	}
+	if(keycount<50){
+		keycount++;
+	}
+}
+
 void tick1()
 {
 	static u8 ch;
@@ -95,7 +127,7 @@ void tick1()
 					temp+=TIM3CH3_CAPTURE_VAL;
 					
 					flen=(float)temp*.017;
-					
+					waveLenght[0]=flen;
 				}
 				else
 					flen=10000;
@@ -114,7 +146,7 @@ void tick1()
 					temp+=TIM3CH4_CAPTURE_VAL;
 					
 					blen=(float)temp*.017;
-					
+					waveLenght[1]=blen;
 				}
 				else
 					blen=10000;
@@ -715,6 +747,7 @@ void SetDataEvent(UartEvent e)
 			e->ReadBuff(&pathbuff[PathPos],PathLen);
 			PathLen+=PathPos;
 			PathPos=0;
+			savecount=PathLen;
 			break;
 		case 4:
 			switch(e->ReadByte())
@@ -929,7 +962,7 @@ int main(void)
 	Timer.Start(0,UartProtocol.Check);
   Timer.Start(0,tick1);
   Timer.Start(10,DetectionLogic.LogicRun);
-	Timer.Start(10,Sensor.LoopScan);
+	Timer.Start(1,Sensor.LoopScan);
 	PathList=pathbuff;
 	DetectionLogic.Init();
 	DetectionLogic.RegisterEvent(ActionType.EnterWay,inway);

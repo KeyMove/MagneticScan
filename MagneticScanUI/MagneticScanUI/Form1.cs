@@ -23,8 +23,11 @@ namespace MagneticScanUI
         public Form1()
         {
             InitializeComponent();
-            
         }
+
+
+        byte[] recvList = new byte[4096];
+
         bool getipidMode = false;
 
         Bitmap LEDON, LEDOFF;
@@ -76,8 +79,8 @@ namespace MagneticScanUI
         MapDraw mapInfo;
 
 
-        byte[][] sendarraydata = new byte[10][];
-        byte[] sendarrayid = new byte[10];
+        byte[][] sendarraydata = new byte[20][];
+        byte[] sendarrayid = new byte[20];
         bool checkdata(SendCode code)
         {
             return sendarraydata[(int)code] == null;
@@ -193,6 +196,34 @@ namespace MagneticScanUI
             v |= s.ReadByte();
             return v;
         }
+
+        void recvData(Stream s)
+        {
+            Invoke(new MethodInvoker(() =>
+            {
+                int pos = readint16(s);
+                int len = readint16(s);
+                int isData = s.ReadByte();
+                for (int i = 0; i < len; i++)
+                {
+                    recvList[pos + i] = (byte)s.ReadByte();
+                }
+                if (isData != 0)
+                {
+                    senddata(SendCode.ReadPos, (pos + len) / 256, (pos + len) % 256);
+                }
+                else
+                {
+                    mapInfo.SearchInit();
+                    mapInfo.setNode(mapInfo.toNode(new MemoryStream(recvList))[PathType.Forward]);
+                    MapBox.Image = mapInfo.Update();
+                    PathPoint.Items.Clear();
+                    PathPoint.Items.AddRange(mapInfo.getEndPoint().ToArray());
+
+                }
+            }));
+        }
+
         List<IPAddress> Areaipadd = new List<IPAddress>();
         int ipcount = 0;
         List<EquipmentData> equi = new List<EquipmentData>();
@@ -222,99 +253,111 @@ namespace MagneticScanUI
             SpeedChart.ChartAreas[0].AxisY.Minimum = -100;
 
             GetData = Encoding.Default.GetBytes("GetData()");
-            GetIPID = Encoding.Default.GetBytes("GetIPID()");
+            GetIPID = Encoding.Default.GetBytes("print(\"ID:\"..node.chipid())");
 
             
 
-            //ips = getIPAddress();
+            ips = getIPAddress();
 
 
+            OutPoint=new IPEndPoint(IPAddress.Any, 0);
 
-            
             new Task(() =>
             {
                 while (!this.IsDisposed)
                     try
                     {
-                        IPEndPoint p = new IPEndPoint(IPAddress.Any, 0);
-                        byte[] buff = Search.Receive(ref p);
-                        lasttarget = p.Address;
+                        byte[] buff = Search.Receive(ref OutPoint);
+                        lasttarget = OutPoint.Address;
+                        OutPoint.Address = IPAddress.Any;
+                        OutPoint.Port = 0;
                         string value = Encoding.Default.GetString(buff);
 
-                        if(getipidMode==true)
-                        {
-                            int poss = value.IndexOf("ID:");
-                            if(poss!=-1)
-                            {
-                                poss += 3;
-                                string str = "";
-                                for(int i=0;i<value.Length; i++)
-                                {
-                                    if(char.IsDigit(value,i))
-                                    {
-                                        str += value[i];
-                                    }
-                                }
-                                EquipmentData equidata=new EquipmentData();
-                                equidata.id = str;
-                                equidata.ip = lasttarget;
-                                equidata.num = ipcount;
-                                ipcount++;
-                                equi.Add(equidata);
-                                
-                                Invoke(new MethodInvoker(() =>
-                                {
+                        //if(true)
+                        //{
+                        //    int poss = value.IndexOf("ID:");
+                        //    if(poss!=-1)
+                        //    {
+                        //        poss += 3;
+                        //        string str = "";
+                        //        for(int i=0;i<value.Length; i++)
+                        //        {
+                        //            if(char.IsDigit(value,i))
+                        //            {
+                        //                str += value[i];
+                        //            }
+                        //        }
+                        //        EquipmentData equidata=new EquipmentData();
+                        //        equidata.id = str;
+                        //        equidata.ip = lasttarget;
+                        //        equidata.num = ipcount;
+                        //        ipcount++;
+                        //        equi.Add(equidata);
 
-                                    dataGridView1.Rows.Clear();
-                                    foreach(EquipmentData eq in equi)
-                                    {
-                                        dataGridView1.Rows.Add(eq.num, eq.id, eq.ip);
-                                    }
-                                    
-                                }));
-                                //textBox1.Text += lasttarget.ToString() + "    "+ str + "\r\n";
-                                
-                                
-                            }
-                        }
+                        //        Invoke(new MethodInvoker(() =>
+                        //        {
 
-                        int pos = value.IndexOf("Data:");
-                        if (pos != -1)
+                        //            dataGridView1.Rows.Clear();
+                        //            foreach(EquipmentData eq in equi)
+                        //            {
+                        //                dataGridView1.Rows.Add(eq.num, eq.id, eq.ip);
+                        //            }
+
+                        //        }));
+                        //        //textBox1.Text += lasttarget.ToString() + "    "+ str + "\r\n";
+
+                        //        return;
+                        //    }
+                        //}
+                        if (!value.Contains("Data:")) continue;
+                        int pos = value.IndexOf("Data:");                        
+                        if (pos == 0)
                         {
                             pos += 5;
                             UInt64 data = 0;
                             BinaryReader br = new BinaryReader(new MemoryStream(buff),Encoding.Default);
                             br.BaseStream.Seek(5, SeekOrigin.Begin);
-                            for (int j = 0; j < 8; j++)
+                            lastID = br.ReadByte();
+                            if (br.ReadByte()!=0)
                             {
-                                data <<= 8;
-                                data |= br.ReadByte();
+                                recvData(br.BaseStream);
+                                continue;
                             }
+
+                            SensorStats = (ulong)readint16(br.BaseStream);
+
                             for (int j = 0; j < WaveSensor.Length; j++)
                             {
-                                WaveSensor[j] = 0;
-                                WaveSensor[j] |= br.ReadByte();
-                                WaveSensor[j] <<= 8;
-                                WaveSensor[j] |= br.ReadByte();
+                                WaveSensor[j] = readint16(br.BaseStream);
                             }
                             lspeed = (int)br.ReadByte();
                             if (lspeed > 128) lspeed -= 256;
                             rspeed = (int)br.ReadByte();
                             if (rspeed > 128) rspeed -= 256;
-                            int ag = (br.ReadByte()<<8)|br.ReadByte();
+                            int ag = readint16(br.BaseStream);
                             if (ag > 0x7fff)
                                 ag -= 65536;
-                            accangle = -ag;                            
+                            accangle = -ag;
                             lastBattery = br.ReadByte();
                             pathpos = readint16(br.BaseStream);
                             lastAction = br.ReadByte();
                             lastPathSelect = br.ReadByte();
-                            lastID = br.ReadByte();
+                            
                             lastRecvID = br.ReadByte();
                             lastTick = readint16(br.BaseStream);
                             lastIDCard = readint32(br.BaseStream);
                             for (int i = 0; i < MaxSensor; i++)
                                 lastCHVA[i] = readint16(br.BaseStream);
+                            if (MapSendFlag)
+                                if (checkdata(SendCode.SendMapData))
+                                {
+                                    if (SendLen != 0)
+                                        SendMapPos(SendPos);
+                                    else
+                                    {
+                                        MapSendFlag = false;
+                                    }
+                                }
                             while (NodesSearch)
                             {
                                 if (checkdata(SendCode.PathCmd))
@@ -407,18 +450,18 @@ namespace MagneticScanUI
                             }
                             //PathNode pn;
                             //data >>= 24;
-                            SensorStats = data;
+                            //SensorStats = data;
                             Invoke(new MethodInvoker(() =>
                             {
                                 UpdateStats();
                             }));
                         }
                     }
-                    catch { }
+                    catch (Exception ex){ MessageBox.Show(ex.ToString()); }
 
             }).Start();
 
-           // FindDev();
+            FindDev();
 
             //uint i=0;
             t.Interval = 100;
@@ -426,6 +469,7 @@ namespace MagneticScanUI
             {
                 if (lasttarget == null) return;
                 Search.Send(GetData, GetData.Length, new IPEndPoint(lasttarget.Address | 0xff000000, 2333));
+                //Search.Send(GetData, GetData.Length, new IPEndPoint(lasttarget.Address|0xff000000, 2333));
 
                 if (AutoRun&& !PathRun)
                 {
@@ -631,17 +675,24 @@ namespace MagneticScanUI
                 }
                 
             });
-            t.Start();
+            //t.Start();
         }
 
         enum SendCode:int
         {
             PID=0,
+            EncodePath=1,
+            ReadPos=2,
             LoadPathList=3,
             PathCmd=4,
             Reset=5,
             AveSpeed=6,
             MotorSpeed=7,
+            AutoFindPath=8,
+            SetWaveLenght=9,
+            SetReturnTime=10,
+            SetTargetNodeID=11,
+            SendMapData=12,
         }
 
         void senddata(SendCode code,params object[] list)
@@ -673,7 +724,7 @@ namespace MagneticScanUI
         {
             for (int i = 0; i < ips.Length; i++)
             {
-                Search.Send(GetData, GetData.Length, new IPEndPoint(ips[i].Address | 0xff000000, 2333));
+                Search.Send(GetIPID, GetIPID.Length, new IPEndPoint(ips[i].Address | 0xff000000, 2333));
             }
         }
 
@@ -742,21 +793,8 @@ namespace MagneticScanUI
             sb.Append(',');
             foreach (PathType type in PathRunList)
             {
-                switch (type)
-                {
-                    case PathType.Forward:
-                        sb.Append('2');
-                        break;
-                    case PathType.Left:
-                        sb.Append('0');
-                        break;
-                    case PathType.Right:
-                        sb.Append('1');
-                        break;
-                    case PathType.Back:
-                        sb.Append('3');
-                        break;
-                }
+                sb.Append((int)type);
+                
 
                 //switch (str)
                 //{
@@ -1009,11 +1047,13 @@ namespace MagneticScanUI
             if (of.ShowDialog() == DialogResult.OK)
             {
                 FileStream fs = new FileStream(of.FileName, FileMode.Open);
-                mapInfo.setNode( mapInfo.toNode(fs));
+                mapInfo.SearchInit();
+                mapInfo.setNode( mapInfo.toNode(fs)[PathType.Forward]);
                 fs.Close();
                 PathPoint.Items.Clear();
                 PathPoint.Items.AddRange(mapInfo.getEndPoint().ToArray());
                 MapBox.Image = mapInfo.Update();
+                
                 //mapInfo.
             }
         }
@@ -1105,6 +1145,7 @@ namespace MagneticScanUI
         private int SaveRecvID;
         private bool AutoRun;
         private int lastBattery;
+        private IPEndPoint OutPoint;
 
         private void TestMode_CheckedChanged(object sender, EventArgs e)
         {
@@ -1121,6 +1162,104 @@ namespace MagneticScanUI
             
             Search.Send(GetIPID, GetIPID.Length, "255.255.255.255", 2333);
 
+        }
+
+        private void rightdut_Click(object sender, EventArgs e)
+        {
+
+
+        }
+
+        bool AutoFinderFlag = false;
+        private int SendPos=0;
+        private int SendLen=0;
+        private byte[] SendBuff;
+        private bool MapSendFlag;
+
+        private void AutoFindButton_Click(object sender, EventArgs e)
+        {
+            if (AutoFinderFlag)
+            {
+                senddata(SendCode.AutoFindPath, 0);
+                AutoFindButton.BackColor = Color.DarkRed;
+            }
+            else
+            {
+                senddata(SendCode.AutoFindPath, 1);
+                AutoFindButton.BackColor = Color.LightGreen;
+            }
+
+            AutoFinderFlag = !AutoFinderFlag;
+        }
+
+        private void detlenght_TextChanged(object sender, EventArgs e)
+        {
+            try
+            {
+                int len = int.Parse(detlenght.Text);
+                senddata(SendCode.SetWaveLenght, len);
+            }
+            catch { }
+        }
+
+        private void returntimebar_Scroll(object sender, EventArgs e)
+        {
+            senddata(SendCode.SetReturnTime, returntimebar.Value);
+            returntimetext.Text = returntimebar.Value.ToString();
+        }
+
+        private void ReadDataButton_Click(object sender, EventArgs e)
+        {
+            senddata(SendCode.EncodePath);
+            senddata(SendCode.ReadPos, 0,0);
+        }
+
+        private void SetTargetNode_Click(object sender, EventArgs e)
+        {
+            if (PathPoint.SelectedItem != null)
+                senddata(SendCode.SetTargetNodeID, ((PathNode)PathPoint.SelectedItem).pathID);
+        }
+
+
+        void SendMapPos(int pos)
+        {
+            StringBuilder sb = new StringBuilder();
+            int len= (SendLen - SendPos);
+            len = len > 32 ? 32 : len;
+            sb.Append(pos/256);
+            sb.Append(',');
+            sb.Append(pos % 256);
+            sb.Append(',');
+            sb.Append(len);
+            sb.Append(',');
+            sb.Append((SendLen - SendPos) <= 32 ? 0 : 1);
+            sb.Append(',');
+            for (int i = 0; i < len; i++)
+            {
+                sb.Append(SendBuff[pos + i]);
+                sb.Append(',');
+            }
+            sb.Append("0");
+            if ((SendLen - SendPos) <= 32)
+            {
+                SendLen = 0;
+                SendPos = 0;
+                SendBuff = null;
+            }
+            SendPos += len;
+            
+            senddata(SendCode.SendMapData, sb.ToString());
+        }
+
+        private void DownloadPath_Click(object sender, EventArgs e)
+        {
+            MemoryStream ms = new MemoryStream(recvList);
+            mapInfo.toBin(ms);
+            SendLen = (int)ms.Position;
+            SendPos = 0;
+            SendBuff = recvList;
+            SendMapPos(0);
+            MapSendFlag = true;
         }
 
         private void SearchButton_Click(object sender, EventArgs e)
@@ -1248,6 +1387,22 @@ namespace MagneticScanUI
             ps[3].X = 160;
             ps[3].Y = 160;
 
+            if((lastPathSelect&1)!=0)
+                StatsDraw.DrawImage(LEDON, 160-12, 280, 24, 24);
+            else
+                StatsDraw.DrawImage(LEDOFF, 160-12, 280, 24, 24);
+
+            if ((lastPathSelect & 2) != 0)
+                StatsDraw.DrawImage(LEDON, 160-48-12, 280, 24, 24);
+            else
+                StatsDraw.DrawImage(LEDOFF, 160 - 48 - 12, 280, 24, 24);
+
+            if ((lastPathSelect & 4) != 0)
+                StatsDraw.DrawImage(LEDON, 160 + 48 - 12, 280, 24, 24);
+            else
+                StatsDraw.DrawImage(LEDOFF, 160 + 48 - 12, 280, 24, 24);
+
+
             StatsDraw.FillEllipse(Brushes.Black, new Rectangle(160 - 64, 160 - 64, 128, 128));
             //StatsDraw.DrawLine(Pens.White, new Point(160, 160), new Point((int)dx, (int)dy));
             StatsDraw.FillPolygon(Brushes.Wheat, ps);
@@ -1260,8 +1415,8 @@ namespace MagneticScanUI
             FLen.Text = WaveSensor[0] + "";
             BLen.Text = WaveSensor[1] + "";
 
-            LSpeed.Points.AddY(lspeed * 3.125);
-            RSpeed.Points.AddY(rspeed * 3.125);
+            LSpeed.Points.AddY(lspeed);
+            RSpeed.Points.AddY(rspeed);
 
             BatteryValue.Text = lastBattery + "%";
 

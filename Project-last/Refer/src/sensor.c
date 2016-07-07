@@ -4,6 +4,7 @@
 SensorStatus Status=0;
 u16 CHTH[MaxSensor];
 u16 CHVA[MaxSensor];
+u16 PutOut=0;
 
 static void switchCH(u8 ch) {
 	if (ch&BIT0)
@@ -71,6 +72,7 @@ static void Loop() {
 		CLRBIT(Status, (u16)BIT15 >> count);
 	if (++count >= MaxSensor) {
 		count = 0;
+		PutOut=Status;
 	}
 	switchCH(count);
 }
@@ -84,7 +86,7 @@ static void setCHTH(u8 ch,u16 value){
 }
 
 static SensorStatus ReadData(){
-	return ~Status;
+	return ~PutOut;
 }
 
 const SensorBase Sensor = {

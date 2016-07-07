@@ -29,16 +29,21 @@
         private void InitializeComponent()
         {
             this.components = new System.ComponentModel.Container();
-            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea3 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
-            System.Windows.Forms.DataVisualization.Charting.Legend legend3 = new System.Windows.Forms.DataVisualization.Charting.Legend();
-            System.Windows.Forms.DataVisualization.Charting.Series series3 = new System.Windows.Forms.DataVisualization.Charting.Series();
+            System.Windows.Forms.DataVisualization.Charting.ChartArea chartArea2 = new System.Windows.Forms.DataVisualization.Charting.ChartArea();
+            System.Windows.Forms.DataVisualization.Charting.Legend legend2 = new System.Windows.Forms.DataVisualization.Charting.Legend();
+            System.Windows.Forms.DataVisualization.Charting.Series series2 = new System.Windows.Forms.DataVisualization.Charting.Series();
             this.MainTable = new System.Windows.Forms.TabControl();
             this.tabPage1 = new System.Windows.Forms.TabPage();
             this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.BatteryValue = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
+            this.ReadDataButton = new System.Windows.Forms.Button();
             this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.returntimetext = new System.Windows.Forms.TextBox();
+            this.returntimebar = new System.Windows.Forms.TrackBar();
+            this.AutoFindButton = new System.Windows.Forms.Button();
             this.IDCardText = new System.Windows.Forms.TextBox();
+            this.label11 = new System.Windows.Forms.Label();
             this.label9 = new System.Windows.Forms.Label();
             this.groupBox9 = new System.Windows.Forms.GroupBox();
             this.SendPath = new System.Windows.Forms.Button();
@@ -57,7 +62,7 @@
             this.label2 = new System.Windows.Forms.Label();
             this.label3 = new System.Windows.Forms.Label();
             this.label1 = new System.Windows.Forms.Label();
-            this.textBox2 = new System.Windows.Forms.TextBox();
+            this.detlenght = new System.Windows.Forms.TextBox();
             this.FLen = new System.Windows.Forms.TextBox();
             this.BLen = new System.Windows.Forms.TextBox();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
@@ -88,6 +93,7 @@
             this.TestMode = new System.Windows.Forms.CheckBox();
             this.LoadMap = new System.Windows.Forms.Button();
             this.SaveMap = new System.Windows.Forms.Button();
+            this.SetTargetNode = new System.Windows.Forms.Button();
             this.gotoNodeButton = new System.Windows.Forms.Button();
             this.SearchButton = new System.Windows.Forms.Button();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
@@ -101,7 +107,6 @@
             this.upkey = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
             this.MapBox = new System.Windows.Forms.PictureBox();
-            this.ImgList = new System.Windows.Forms.ImageList(this.components);
             this.tabPage3 = new System.Windows.Forms.TabPage();
             this.dataGridView1 = new System.Windows.Forms.DataGridView();
             this.编号 = new System.Windows.Forms.DataGridViewTextBoxColumn();
@@ -109,10 +114,13 @@
             this.IP地址 = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.MAC = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.扫描But = new System.Windows.Forms.Button();
+            this.ImgList = new System.Windows.Forms.ImageList(this.components);
+            this.DownloadPath = new System.Windows.Forms.Button();
             this.MainTable.SuspendLayout();
             this.tabPage1.SuspendLayout();
             this.groupBox11.SuspendLayout();
             this.groupBox10.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.returntimebar)).BeginInit();
             this.groupBox9.SuspendLayout();
             this.groupBox2.SuspendLayout();
             this.groupBox8.SuspendLayout();
@@ -168,16 +176,17 @@
             // 
             this.groupBox11.Controls.Add(this.BatteryValue);
             this.groupBox11.Controls.Add(this.label10);
-            this.groupBox11.Location = new System.Drawing.Point(580, 458);
+            this.groupBox11.Controls.Add(this.ReadDataButton);
+            this.groupBox11.Location = new System.Drawing.Point(580, 485);
             this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(261, 65);
+            this.groupBox11.Size = new System.Drawing.Size(261, 38);
             this.groupBox11.TabIndex = 11;
             this.groupBox11.TabStop = false;
             this.groupBox11.Text = "电池";
             // 
             // BatteryValue
             // 
-            this.BatteryValue.Location = new System.Drawing.Point(67, 19);
+            this.BatteryValue.Location = new System.Drawing.Point(67, 14);
             this.BatteryValue.Name = "BatteryValue";
             this.BatteryValue.Size = new System.Drawing.Size(33, 21);
             this.BatteryValue.TabIndex = 3;
@@ -185,22 +194,66 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(10, 22);
+            this.label10.Location = new System.Drawing.Point(10, 17);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(59, 12);
             this.label10.TabIndex = 4;
             this.label10.Text = "剩余电量:";
             // 
+            // ReadDataButton
+            // 
+            this.ReadDataButton.Location = new System.Drawing.Point(180, 12);
+            this.ReadDataButton.Name = "ReadDataButton";
+            this.ReadDataButton.Size = new System.Drawing.Size(75, 23);
+            this.ReadDataButton.TabIndex = 5;
+            this.ReadDataButton.Text = "ReadData";
+            this.ReadDataButton.UseVisualStyleBackColor = true;
+            this.ReadDataButton.Click += new System.EventHandler(this.ReadDataButton_Click);
+            // 
             // groupBox10
             // 
+            this.groupBox10.Controls.Add(this.returntimetext);
+            this.groupBox10.Controls.Add(this.returntimebar);
+            this.groupBox10.Controls.Add(this.AutoFindButton);
             this.groupBox10.Controls.Add(this.IDCardText);
+            this.groupBox10.Controls.Add(this.label11);
             this.groupBox10.Controls.Add(this.label9);
             this.groupBox10.Location = new System.Drawing.Point(580, 380);
             this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(261, 72);
+            this.groupBox10.Size = new System.Drawing.Size(261, 99);
             this.groupBox10.TabIndex = 11;
             this.groupBox10.TabStop = false;
             this.groupBox10.Text = "路标";
+            // 
+            // returntimetext
+            // 
+            this.returntimetext.Location = new System.Drawing.Point(240, 58);
+            this.returntimetext.Name = "returntimetext";
+            this.returntimetext.Size = new System.Drawing.Size(21, 21);
+            this.returntimetext.TabIndex = 10;
+            this.returntimetext.Text = "30";
+            // 
+            // returntimebar
+            // 
+            this.returntimebar.BackColor = System.Drawing.Color.White;
+            this.returntimebar.Location = new System.Drawing.Point(60, 47);
+            this.returntimebar.Maximum = 200;
+            this.returntimebar.Name = "returntimebar";
+            this.returntimebar.Size = new System.Drawing.Size(184, 45);
+            this.returntimebar.TabIndex = 10;
+            this.returntimebar.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.returntimebar.Value = 30;
+            this.returntimebar.Scroll += new System.EventHandler(this.returntimebar_Scroll);
+            // 
+            // AutoFindButton
+            // 
+            this.AutoFindButton.Location = new System.Drawing.Point(180, 14);
+            this.AutoFindButton.Name = "AutoFindButton";
+            this.AutoFindButton.Size = new System.Drawing.Size(75, 23);
+            this.AutoFindButton.TabIndex = 5;
+            this.AutoFindButton.Text = "AutoFind";
+            this.AutoFindButton.UseVisualStyleBackColor = true;
+            this.AutoFindButton.Click += new System.EventHandler(this.AutoFindButton_Click);
             // 
             // IDCardText
             // 
@@ -208,6 +261,15 @@
             this.IDCardText.Name = "IDCardText";
             this.IDCardText.Size = new System.Drawing.Size(98, 21);
             this.IDCardText.TabIndex = 3;
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(6, 61);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(59, 12);
+            this.label11.TabIndex = 4;
+            this.label11.Text = "导正时间:";
             // 
             // label9
             // 
@@ -324,7 +386,7 @@
             this.groupBox2.Controls.Add(this.label2);
             this.groupBox2.Controls.Add(this.label3);
             this.groupBox2.Controls.Add(this.label1);
-            this.groupBox2.Controls.Add(this.textBox2);
+            this.groupBox2.Controls.Add(this.detlenght);
             this.groupBox2.Controls.Add(this.FLen);
             this.groupBox2.Controls.Add(this.BLen);
             this.groupBox2.Location = new System.Drawing.Point(686, 6);
@@ -342,6 +404,7 @@
             this.rightdut.TabIndex = 12;
             this.rightdut.Text = "Right";
             this.rightdut.UseVisualStyleBackColor = true;
+            this.rightdut.Click += new System.EventHandler(this.rightkey_Click);
             // 
             // leftbut
             // 
@@ -351,6 +414,7 @@
             this.leftbut.TabIndex = 11;
             this.leftbut.Text = "Left";
             this.leftbut.UseVisualStyleBackColor = true;
+            this.leftbut.Click += new System.EventHandler(this.leftkey_Click);
             // 
             // downbut
             // 
@@ -360,6 +424,7 @@
             this.downbut.TabIndex = 10;
             this.downbut.Text = "Down";
             this.downbut.UseVisualStyleBackColor = true;
+            this.downbut.Click += new System.EventHandler(this.downkey_Click);
             // 
             // upbut
             // 
@@ -369,6 +434,7 @@
             this.upbut.TabIndex = 9;
             this.upbut.Text = "UP";
             this.upbut.UseVisualStyleBackColor = true;
+            this.upbut.Click += new System.EventHandler(this.upkey_Click);
             // 
             // label2
             // 
@@ -397,13 +463,14 @@
             this.label1.TabIndex = 4;
             this.label1.Text = "前方L:";
             // 
-            // textBox2
+            // detlenght
             // 
-            this.textBox2.Location = new System.Drawing.Point(91, 172);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(64, 21);
-            this.textBox2.TabIndex = 3;
-            this.textBox2.Text = "10";
+            this.detlenght.Location = new System.Drawing.Point(91, 172);
+            this.detlenght.Name = "detlenght";
+            this.detlenght.Size = new System.Drawing.Size(64, 21);
+            this.detlenght.TabIndex = 3;
+            this.detlenght.Text = "20";
+            this.detlenght.TextChanged += new System.EventHandler(this.detlenght_TextChanged);
             // 
             // FLen
             // 
@@ -471,16 +538,16 @@
             // 
             // SpeedChart
             // 
-            chartArea3.Name = "ChartArea1";
-            this.SpeedChart.ChartAreas.Add(chartArea3);
-            legend3.Name = "Legend1";
-            this.SpeedChart.Legends.Add(legend3);
+            chartArea2.Name = "ChartArea1";
+            this.SpeedChart.ChartAreas.Add(chartArea2);
+            legend2.Name = "Legend1";
+            this.SpeedChart.Legends.Add(legend2);
             this.SpeedChart.Location = new System.Drawing.Point(6, 15);
             this.SpeedChart.Name = "SpeedChart";
-            series3.ChartArea = "ChartArea1";
-            series3.Legend = "Legend1";
-            series3.Name = "Series1";
-            this.SpeedChart.Series.Add(series3);
+            series2.ChartArea = "ChartArea1";
+            series2.Legend = "Legend1";
+            series2.Name = "Series1";
+            this.SpeedChart.Series.Add(series2);
             this.SpeedChart.Size = new System.Drawing.Size(489, 142);
             this.SpeedChart.TabIndex = 2;
             this.SpeedChart.Text = "chart1";
@@ -679,7 +746,9 @@
             this.tabPage2.Controls.Add(this.TestMode);
             this.tabPage2.Controls.Add(this.LoadMap);
             this.tabPage2.Controls.Add(this.SaveMap);
+            this.tabPage2.Controls.Add(this.SetTargetNode);
             this.tabPage2.Controls.Add(this.gotoNodeButton);
+            this.tabPage2.Controls.Add(this.DownloadPath);
             this.tabPage2.Controls.Add(this.SearchButton);
             this.tabPage2.Controls.Add(this.groupBox7);
             this.tabPage2.Controls.Add(this.groupBox6);
@@ -722,6 +791,16 @@
             this.SaveMap.Text = "储存地图";
             this.SaveMap.UseVisualStyleBackColor = true;
             this.SaveMap.Click += new System.EventHandler(this.SaveMap_Click);
+            // 
+            // SetTargetNode
+            // 
+            this.SetTargetNode.Location = new System.Drawing.Point(515, 436);
+            this.SetTargetNode.Name = "SetTargetNode";
+            this.SetTargetNode.Size = new System.Drawing.Size(93, 38);
+            this.SetTargetNode.TabIndex = 6;
+            this.SetTargetNode.Text = "设置目标节点";
+            this.SetTargetNode.UseVisualStyleBackColor = true;
+            this.SetTargetNode.Click += new System.EventHandler(this.SetTargetNode_Click);
             // 
             // gotoNodeButton
             // 
@@ -862,12 +941,6 @@
             this.MapBox.TabIndex = 0;
             this.MapBox.TabStop = false;
             // 
-            // ImgList
-            // 
-            this.ImgList.ColorDepth = System.Windows.Forms.ColorDepth.Depth24Bit;
-            this.ImgList.ImageSize = new System.Drawing.Size(32, 32);
-            this.ImgList.TransparentColor = System.Drawing.Color.Transparent;
-            // 
             // tabPage3
             // 
             this.tabPage3.Controls.Add(this.dataGridView1);
@@ -925,6 +998,22 @@
             this.扫描But.UseVisualStyleBackColor = true;
             this.扫描But.Click += new System.EventHandler(this.扫描But_Click);
             // 
+            // ImgList
+            // 
+            this.ImgList.ColorDepth = System.Windows.Forms.ColorDepth.Depth24Bit;
+            this.ImgList.ImageSize = new System.Drawing.Size(32, 32);
+            this.ImgList.TransparentColor = System.Drawing.Color.Transparent;
+            // 
+            // DownloadPath
+            // 
+            this.DownloadPath.Location = new System.Drawing.Point(427, 392);
+            this.DownloadPath.Name = "DownloadPath";
+            this.DownloadPath.Size = new System.Drawing.Size(82, 38);
+            this.DownloadPath.TabIndex = 6;
+            this.DownloadPath.Text = "下载路径";
+            this.DownloadPath.UseVisualStyleBackColor = true;
+            this.DownloadPath.Click += new System.EventHandler(this.DownloadPath_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -943,6 +1032,7 @@
             this.groupBox11.PerformLayout();
             this.groupBox10.ResumeLayout(false);
             this.groupBox10.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.returntimebar)).EndInit();
             this.groupBox9.ResumeLayout(false);
             this.groupBox9.PerformLayout();
             this.groupBox2.ResumeLayout(false);
@@ -987,7 +1077,7 @@
         private System.Windows.Forms.TextBox FLen;
         private System.Windows.Forms.TextBox BLen;
         private System.Windows.Forms.Label label3;
-        private System.Windows.Forms.TextBox textBox2;
+        private System.Windows.Forms.TextBox detlenght;
         private System.Windows.Forms.GroupBox groupBox3;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.Label label6;
@@ -1051,6 +1141,13 @@
         private System.Windows.Forms.DataGridViewTextBoxColumn IP地址;
         private System.Windows.Forms.DataGridViewTextBoxColumn MAC;
         private System.Windows.Forms.Button 扫描But;
+        private System.Windows.Forms.Button AutoFindButton;
+        private System.Windows.Forms.TextBox returntimetext;
+        private System.Windows.Forms.TrackBar returntimebar;
+        private System.Windows.Forms.Label label11;
+        private System.Windows.Forms.Button ReadDataButton;
+        private System.Windows.Forms.Button SetTargetNode;
+        private System.Windows.Forms.Button DownloadPath;
     }
 }
 

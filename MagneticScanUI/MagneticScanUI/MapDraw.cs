@@ -16,6 +16,20 @@ namespace MagneticScanUI
         Right = 2,
         Back = 3,
     }
+
+    class FlagNode
+    {
+        public uint id;
+        public int nodeid;
+
+        public FlagNode(uint id,int nodeid)
+        {
+            this.id = id;
+            this.nodeid = nodeid;
+        }
+
+    }
+
     class PathNode
     {
         
@@ -306,6 +320,7 @@ namespace MagneticScanUI
 
         Stack<PathNode> searchStack = new Stack<PathNode>();
         private int lastlenght;
+        private List<FlagNode> FlagNodeList = new List<FlagNode>();
 
         public MapDraw(int w,int h)
         {
@@ -515,6 +530,8 @@ namespace MagneticScanUI
             nodes[PathType.Forward][PathType.Back] = nodes;
             lastNode = nodes[PathType.Forward];
             LastDir.Reset();
+            LastPathDirValue.Reset();
+            setCarNode(nodes);
             TurnBack = false;
             WayLenght = true;
         }
@@ -740,40 +757,27 @@ namespace MagneticScanUI
             int type = allPath.Count;
             int index;
             allPath.Sort((PathNode a, PathNode b) => { return a.pathID > b.pathID ? 1 : a.pathID == b.pathID ? 0 : -1; });
-            s.WriteByte((byte)(type >> 8));
+            s.WriteByte((byte)FlagNodeList.Count);
             s.WriteByte((byte)type);
-            if (type < 256)
+            foreach (PathNode node in allPath)
             {
-                foreach (PathNode node in allPath)
+                index = node.pathID;
+                //s.WriteByte((byte)index);
+                for (int i = 0; i < node.paths.Length; i++)
                 {
-                    index = node.pathID;
+                    index = node.paths[i] == null ? 0xff : node.paths[i].pathID;
                     s.WriteByte((byte)index);
-                    for (int i = 0; i < node.paths.Length; i++)
-                    {
-                        index = allPath.IndexOf(node.paths[i]);
-                        s.WriteByte((byte)index);
-                        index = node.pathlenght[i];
-                        s.WriteByte((byte)index);
-                    }
+                    index = node.pathlenght[i];
+                    s.WriteByte((byte)index);
                 }
             }
-            else
+            foreach(FlagNode flag in FlagNodeList)
             {
-                foreach (PathNode node in allPath)
-                {
-                    index = node.pathID;
-                    s.WriteByte((byte)(index >> 8));
-                    s.WriteByte((byte)index);
-                    for (int i = 0; i < node.paths.Length; i++)
-                    {
-                        index = allPath.IndexOf(node.paths[i]);
-                        s.WriteByte((byte)(index >> 8));
-                        s.WriteByte((byte)index);
-                        index = node.pathlenght[i];
-                        s.WriteByte((byte)(index >> 8));
-                        s.WriteByte((byte)index);
-                    }
-                }
+                s.WriteByte((byte)flag.nodeid);
+                s.WriteByte((byte)(flag.id >> 24));
+                s.WriteByte((byte)(flag.id >> 16));
+                s.WriteByte((byte)(flag.id >> 8));
+                s.WriteByte((byte)(flag.id));
             }
             return s;
         }
@@ -782,45 +786,35 @@ namespace MagneticScanUI
         {
             PathNode node;
             List<PathNode> allPath = new List<PathNode>();
+            FlagNodeList.Clear();
             int index;
-            int len = (s.ReadByte() * 256 + s.ReadByte());
-            if (len >= 256)
+            int flaglen = s.ReadByte();
+            int len = s.ReadByte();
+            for (int i = 0; i < len; i++)
             {
-                for (int i = 0; i < len; i++)
+                allPath.Add(new PathNode(i));
+            }
+            for (int i = 0; i < len; i++)
+            {
+                node = allPath[i];
+                //node.pathID = (s.ReadByte());
+                node.pathID = i;
+                for (int j = 0; j < node.paths.Length; j++)
                 {
-                    allPath.Add(new PathNode(i));
-                }
-                for (int i = 0; i < len; i++)
-                {
-                    node = allPath[i];
-                    node.pathID = (256 * s.ReadByte() + s.ReadByte());
-                    for (int j = 0; j < node.paths.Length; j++)
-                    {
-                        index = node.pathID = (256 * s.ReadByte() + s.ReadByte());
-                        if (index!=(-1&0xffff))
-                            node.paths[j] = allPath[index];
-                        node.pathlenght[j] = (256 * s.ReadByte() + s.ReadByte());
-                    }
+                    index = (s.ReadByte());
+                    if (index != (-1 & 0xff))
+                        node[(PathType)j] = allPath[index];
+                    node.pathlenght[j] = (s.ReadByte());
                 }
             }
-            else
+            for(int i = 0; i < flaglen; i++)
             {
-                for (int i = 0; i < len; i++)
-                {
-                    allPath.Add(new PathNode(i));
-                }
-                for (int i = 0; i < len; i++)
-                {
-                    node = allPath[i];
-                    node.pathID = (s.ReadByte());
-                    for (int j = 0; j < node.paths.Length; j++)
-                    {
-                        index = node.pathID = (s.ReadByte());
-                        if (index != (-1&0xff))
-                            node[(PathType)j] = allPath[index];
-                        node.pathlenght[j] = (s.ReadByte());
-                    }
-                }
+                index = s.ReadByte();
+                uint id = (byte)s.ReadByte(); id <<= 8;
+                id |= (byte)s.ReadByte(); id <<= 8;
+                id |= (byte)s.ReadByte(); id <<= 8;
+                id |= (byte)s.ReadByte();
+                FlagNodeList.Add(new FlagNode(id,index));
             }
             return allPath[0];
         }
