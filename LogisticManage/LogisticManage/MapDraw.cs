@@ -6,7 +6,7 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace MagneticScanUI
+namespace LogisticManage
 {
     public enum PathType : int
     {
@@ -26,6 +26,11 @@ namespace MagneticScanUI
         {
             this.id = id;
             this.nodeid = nodeid;
+        }
+
+        public override string ToString()
+        {
+            return string.Format("ID:0x{0:X8}", id);
         }
 
     }
@@ -175,7 +180,7 @@ namespace MagneticScanUI
 
         public override string ToString()
         {
-            return pathName;
+            return pathName + ((Tag != null) ?" - ["+ Tag.ToString()+"]" : "");
         }
 
     }
@@ -190,6 +195,11 @@ namespace MagneticScanUI
         public PathDir()
         {
 
+        }
+
+        public PathDir(PathType type)
+        {
+            Rotate(type);
         }
 
         public PathDir(PathType f, PathType l, PathType r, PathType b)
@@ -293,8 +303,22 @@ namespace MagneticScanUI
         Font strFont = new Font("宋体", 9);    
         int xpos, ypos;
         int width=10;
-        List<PathNode> allPath = new List<PathNode>();
+        public List<PathNode> allPath = new List<PathNode>();
 
+        public double Scale=1;
+        public double DrawScale
+        {
+            get { return Scale; }
+            set
+            {
+                Scale = value;
+                if (MapSize != null)
+                {
+                    xpos = (int)(map.Width  / 2 - MapSize.Width * Scale / 2 + MapSize.X * Scale);
+                    ypos = (int)(map.Height  / 2 - MapSize.Height * Scale / 2 + MapSize.Y * Scale);
+                }
+            }
+        }
         int nodescount = 0;
         PathNode nodes;
 
@@ -316,17 +340,30 @@ namespace MagneticScanUI
             }
         }
 
-        public bool WayLenght { get; private set; }
+        public int NodeCount
+        {
+            get { return allPath.Count; }
+        }
+
+        public PathNode this[int index]
+        {
+            get { return allPath[index]; }
+        }
+
+        public bool WayLenght { get; set; }
 
         Stack<PathNode> searchStack = new Stack<PathNode>();
         private int lastlenght;
         private List<FlagNode> FlagNodeList = new List<FlagNode>();
+        private Rectangle MapSize;
 
         public MapDraw(int w,int h)
         {
             map = new Bitmap(w, h);
             Draw = Graphics.FromImage(map);
             Draw.SmoothingMode = System.Drawing.Drawing2D.SmoothingMode.HighQuality;
+            xpos = map.Width / 2;
+            ypos = map.Height / 2;
         }
 
         void DrawTargetPath()
@@ -343,8 +380,7 @@ namespace MagneticScanUI
                 Draw.DrawLine(PathPen, node.x, node.y, n.x, n.y);
                 node = n;
             }
-        }
-
+        }        
 
         //public List<PathNode> getAllNode(List<PathNode> list = null)
         //{
@@ -383,6 +419,7 @@ namespace MagneticScanUI
                 {
                     if (nodes.Contains(node.paths[i])) continue;
                     if ((w = node.pathlenght[i]) == 0) w = width;
+                    w = (int)(w * DrawScale);
                     switch ((PathType)i)
                     {
                         case PathType.Forward:
@@ -443,6 +480,13 @@ namespace MagneticScanUI
             return nodes;
         }
 
+        public void LinkNode(PathNode snode,PathNode dnode,PathType dir)
+        {
+            PathDir d = new PathDir(dir);
+            snode[d.Forward] = dnode;
+            dnode[d.Back] = snode;
+        }
+
         public List<PathNode> getEndPoint()
         {
             return EndPathList;
@@ -450,13 +494,11 @@ namespace MagneticScanUI
 
         public Bitmap Update()
         {
-            xpos = map.Width / 2;
-            ypos = map.Height/2 ;
             Draw.Clear(Color.White);
             NodeList.Clear();
             DrawPathList(xpos, ypos, nodes);
             DrawTargetPath();
-            updateCar(lastlenght);
+            updateCar((int)(lastlenght*Scale));
             //DrawPath(xpos,ypos,nodes);
             //findDir.Rotate(PathType.Back);
             //DrawPath(nodes[PathType.Forward].x, nodes[PathType.Forward].y, nodes[PathType.Forward],PathType.Back);
@@ -486,13 +528,14 @@ namespace MagneticScanUI
             return TargetPath;
         }
 
-        public bool setTargetPoint(PathNode node)
+        public bool setTargetPoint(PathNode node,PathNode lastnode=null)
         {
+            if (lastnode == null) lastnode = lastNode;
             TargetDirList.Clear();
             if (lastNode == null) return false;
             if (node.isNew || !node.isDead) return false;
             if (lastNode == node) return false;
-            TargetPath = lastNode.gotoNode(node);
+            TargetPath = lastnode.gotoNode(node);
             if (TargetPath == null) return false;
             PathDir dir = LastPathDir;
             PathNode nt = null;
@@ -517,16 +560,28 @@ namespace MagneticScanUI
             return TargetDirList;
         }
 
+        public PathNode getNewPathNode()
+        {
+            PathNode node = new PathNode(nodescount++);
+            allPath.Add(node);
+            return node;
+        }
+
+        void ClearAllPath()
+        {
+            allPath.Clear();
+            nodescount = 0;
+        }
 
         public void SearchInit()
         {
-            nodescount = 0;
+            ClearAllPath();
             isOver = false;
             TargetPath.Clear();
-            TargetNode = nodes = new PathNode(nodescount++);
+            TargetNode = nodes = getNewPathNode();
             searchStack.Clear();
             searchStack.Push(nodes);
-            nodes[PathType.Forward] = new PathNode(nodescount++);
+            nodes[PathType.Forward] = getNewPathNode();
             nodes[PathType.Forward][PathType.Back] = nodes;
             lastNode = nodes[PathType.Forward];
             LastDir.Reset();
@@ -540,6 +595,8 @@ namespace MagneticScanUI
         public void setCarNode(PathNode d,PathNode s=null)
         {
 
+            if (d == s)
+                s = null;
             if (s != null)
                 TargetNode = s;
             else
@@ -604,6 +661,87 @@ namespace MagneticScanUI
             Draw.FillEllipse(Brushes.White, new Rectangle(x - 3, y - 3, 6, 6));
         }
 
+        public Rectangle getMapSize()
+        {
+            if (nodes == null) return new Rectangle(0,0,0,0);
+            Point size = new Point(0,0);
+            Point s = new Point();
+            Stack<PathNode> backstack = new Stack<PathNode>();
+            List<PathNode> nodeslist = new List<PathNode>();
+            Stack<Point> sizelist = new Stack<Point>();
+            int minx=0, miny=0, maxx=0, maxy=0;
+            int x=0, y=0;
+            int ax=0, ay=0;
+            int w;
+            nodeslist.Add(nodes);
+            PathNode node = nodes;
+            for (int i = 0; i < 4; i++)
+            {
+                if (nodeslist.Contains(node.paths[i])|| node.paths[i] == null)
+                {
+                    if (i == 3)
+                        if (backstack.Count != 0)
+                        {
+                            i = 0;
+                            node = backstack.Pop();
+                            size = sizelist.Pop();
+                            x = size.X;
+                            y = size.Y;
+                            continue;
+                        }
+                        else
+                        {
+                            minx = -minx;
+                            miny = -miny;
+                            size.X = maxx + minx;
+                            size.Y = maxy + miny;
+                            s.X = minx;
+                            s.Y = miny;
+                        }
+                    continue;
+                }
+                if ((w = node.pathlenght[i]) == 0) w = width;
+                switch ((PathType)i)
+                {
+                    case PathType.Forward:
+                        ax = 0;
+                        ay = -w;
+                        break;
+                    case PathType.Left:
+                        ax = -w;
+                        ay = 0;
+                        break;
+                    case PathType.Right:
+                        ax = w;
+                        ay = 0;
+                        break;
+                    case PathType.Back:
+                        ax = 0;
+                        ay = w;
+                        break;
+                }
+                if (maxx < (x + ax)) maxx = x + ax;
+                if (maxy < (y + ay)) maxy = y + ay;
+                if (minx > (x + ax)) minx = x + ax;
+                if (miny > (y + ay)) miny = y + ay;
+                nodeslist.Add(node.paths[i]);
+                sizelist.Push(new Point(x,y));
+                backstack.Push(node);
+                node = node.paths[i];
+                x += ax;
+                y += ay;
+                i = -1;
+            }
+            return new Rectangle(s.X,s.Y,size.X,size.Y);
+        }
+
+        public void AutoOffset()
+        {
+            MapSize = getMapSize();
+            xpos = (int)(map.Width*Scale / 2 - MapSize.Width / 2 + MapSize.X);
+            ypos = (int)(map.Height*Scale / 2 - MapSize.Height / 2+ MapSize.Y);
+        }
+
         public void SetLastPathLenght(int lenght)
         {
             if(WayLenght)
@@ -642,17 +780,17 @@ namespace MagneticScanUI
                 lastPath = (PathType)PathOut;
                 if ((lastPathSelect & 2) != 0)
                 {
-                    lastNode[LastDir.Left] = new PathNode(nodescount++);
+                    lastNode[LastDir.Left] = getNewPathNode();
                     PathOut = (int)PathType.Left;
                 }
                 if ((lastPathSelect & 1) != 0)
                 {
-                    lastNode[LastDir.Forward] = new PathNode(nodescount++);
+                    lastNode[LastDir.Forward] = getNewPathNode();
                     PathOut = (int)PathType.Forward;
                 }
                 if ((lastPathSelect & 4) != 0)
                 {
-                    lastNode[LastDir.Right] = new PathNode(nodescount++);
+                    lastNode[LastDir.Right] = getNewPathNode();
                     PathOut = (int)PathType.Right;
                 }
                 if (PathOut < 0)
@@ -745,6 +883,11 @@ namespace MagneticScanUI
             return PathOut;
         }
 
+        public bool isNull()
+        {
+            return nodes == null;
+        }
+
         public void UpdateEndPoint()
         {
             EndPathList = nodes.getEndNode();
@@ -760,7 +903,7 @@ namespace MagneticScanUI
         }
         public Stream toBin(Stream s)
         {
-            List<PathNode> allPath = nodes.getAllNode();
+            allPath = nodes.getAllNode();
             int type = allPath.Count;
             int index;
             allPath.Sort((PathNode a, PathNode b) => { return a.pathID > b.pathID ? 1 : a.pathID == b.pathID ? 0 : -1; });
@@ -792,7 +935,7 @@ namespace MagneticScanUI
         public PathNode toNode(Stream s)
         {
             PathNode node;
-            List<PathNode> allPath = new List<PathNode>();
+            allPath.Clear();
             FlagNodeList.Clear();
             int index;
             int flaglen = s.ReadByte();
@@ -821,7 +964,9 @@ namespace MagneticScanUI
                 id |= (byte)s.ReadByte(); id <<= 8;
                 id |= (byte)s.ReadByte(); id <<= 8;
                 id |= (byte)s.ReadByte();
-                FlagNodeList.Add(new FlagNode(id,index));
+                FlagNode flag = new FlagNode(id, index);
+                FlagNodeList.Add(flag);
+                allPath[index].Tag = flag;
             }
             return allPath[0];
         }
