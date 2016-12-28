@@ -45,10 +45,12 @@
             this.IDText = new System.Windows.Forms.TextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.groupBox3 = new System.Windows.Forms.GroupBox();
+            this.CarGroup = new System.Windows.Forms.TreeView();
             this.CarList = new System.Windows.Forms.ListBox();
             this.SaveMapButton = new System.Windows.Forms.Button();
             this.LoadMapButton = new System.Windows.Forms.Button();
             this.groupBox4 = new System.Windows.Forms.GroupBox();
+            this.randomTest = new System.Windows.Forms.CheckBox();
             this.UDProgress = new System.Windows.Forms.ProgressBar();
             this.rightkey = new System.Windows.Forms.Button();
             this.PathFlagTree = new System.Windows.Forms.TreeView();
@@ -67,8 +69,49 @@
             this.groupBox5 = new System.Windows.Forms.GroupBox();
             this.SpeedChart = new System.Windows.Forms.DataVisualization.Charting.Chart();
             this.CarInfoPicture = new System.Windows.Forms.PictureBox();
+            this.groupBox10 = new System.Windows.Forms.GroupBox();
+            this.groupBox9 = new System.Windows.Forms.GroupBox();
+            this.SensorSetZero = new System.Windows.Forms.Button();
+            this.THValue = new System.Windows.Forms.TextBox();
+            this.THBar = new System.Windows.Forms.TrackBar();
             this.groupBox8 = new System.Windows.Forms.GroupBox();
+            this.label21 = new System.Windows.Forms.Label();
+            this.label20 = new System.Windows.Forms.Label();
+            this.label19 = new System.Windows.Forms.Label();
+            this.label18 = new System.Windows.Forms.Label();
+            this.label17 = new System.Windows.Forms.Label();
+            this.label16 = new System.Windows.Forms.Label();
+            this.label15 = new System.Windows.Forms.Label();
+            this.label14 = new System.Windows.Forms.Label();
+            this.label13 = new System.Windows.Forms.Label();
+            this.THV8 = new System.Windows.Forms.TextBox();
+            this.THV6 = new System.Windows.Forms.TextBox();
+            this.THV7 = new System.Windows.Forms.TextBox();
+            this.THV5 = new System.Windows.Forms.TextBox();
+            this.THV4 = new System.Windows.Forms.TextBox();
+            this.THV3 = new System.Windows.Forms.TextBox();
+            this.THV2 = new System.Windows.Forms.TextBox();
+            this.THV1 = new System.Windows.Forms.TextBox();
+            this.THV0 = new System.Windows.Forms.TextBox();
             this.groupBox7 = new System.Windows.Forms.GroupBox();
+            this.label12 = new System.Windows.Forms.Label();
+            this.label11 = new System.Windows.Forms.Label();
+            this.Rspeedtex = new System.Windows.Forms.TextBox();
+            this.Lspeedtex = new System.Windows.Forms.TextBox();
+            this.LeftSpeed = new System.Windows.Forms.TrackBar();
+            this.RightSpeed = new System.Windows.Forms.TrackBar();
+            this.Dvalue = new System.Windows.Forms.TextBox();
+            this.Ivalue = new System.Windows.Forms.TextBox();
+            this.Pvalue = new System.Windows.Forms.TextBox();
+            this.label10 = new System.Windows.Forms.Label();
+            this.label9 = new System.Windows.Forms.Label();
+            this.label8 = new System.Windows.Forms.Label();
+            this.trackD = new System.Windows.Forms.TrackBar();
+            this.trackI = new System.Windows.Forms.TrackBar();
+            this.trackP = new System.Windows.Forms.TrackBar();
+            this.groupBox11 = new System.Windows.Forms.GroupBox();
+            this.returntimetext = new System.Windows.Forms.TextBox();
+            this.returntimebar = new System.Windows.Forms.TrackBar();
             this.groupBox6 = new System.Windows.Forms.GroupBox();
             this.DetectionLenght = new System.Windows.Forms.TextBox();
             this.RightWaveLenght = new System.Windows.Forms.TextBox();
@@ -76,62 +119,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.LeftWaveLenght = new System.Windows.Forms.TextBox();
             this.label5 = new System.Windows.Forms.Label();
-            this.Pvalue = new System.Windows.Forms.TextBox();
-            this.label8 = new System.Windows.Forms.Label();
-            this.trackP = new System.Windows.Forms.TrackBar();
-            this.trackI = new System.Windows.Forms.TrackBar();
-            this.label9 = new System.Windows.Forms.Label();
-            this.Ivalue = new System.Windows.Forms.TextBox();
-            this.trackD = new System.Windows.Forms.TrackBar();
-            this.label10 = new System.Windows.Forms.Label();
-            this.Dvalue = new System.Windows.Forms.TextBox();
-            this.Rspeedtex = new System.Windows.Forms.TextBox();
-            this.Lspeedtex = new System.Windows.Forms.TextBox();
-            this.LeftSpeed = new System.Windows.Forms.TrackBar();
-            this.RightSpeed = new System.Windows.Forms.TrackBar();
-            this.label11 = new System.Windows.Forms.Label();
-            this.label12 = new System.Windows.Forms.Label();
-            this.groupBox10 = new System.Windows.Forms.GroupBox();
-            this.THV0 = new System.Windows.Forms.TextBox();
-            this.THV1 = new System.Windows.Forms.TextBox();
-            this.THV2 = new System.Windows.Forms.TextBox();
-            this.THV3 = new System.Windows.Forms.TextBox();
-            this.THV4 = new System.Windows.Forms.TextBox();
-            this.THV5 = new System.Windows.Forms.TextBox();
-            this.THV6 = new System.Windows.Forms.TextBox();
-            this.THV7 = new System.Windows.Forms.TextBox();
-            this.THV8 = new System.Windows.Forms.TextBox();
-            this.label13 = new System.Windows.Forms.Label();
-            this.label14 = new System.Windows.Forms.Label();
-            this.label15 = new System.Windows.Forms.Label();
-            this.label16 = new System.Windows.Forms.Label();
-            this.label17 = new System.Windows.Forms.Label();
-            this.label18 = new System.Windows.Forms.Label();
-            this.label19 = new System.Windows.Forms.Label();
-            this.label20 = new System.Windows.Forms.Label();
-            this.label21 = new System.Windows.Forms.Label();
-            this.groupBox9 = new System.Windows.Forms.GroupBox();
-            this.label22 = new System.Windows.Forms.Label();
-            this.label23 = new System.Windows.Forms.Label();
-            this.label24 = new System.Windows.Forms.Label();
-            this.label25 = new System.Windows.Forms.Label();
-            this.label26 = new System.Windows.Forms.Label();
-            this.label27 = new System.Windows.Forms.Label();
-            this.label28 = new System.Windows.Forms.Label();
-            this.label29 = new System.Windows.Forms.Label();
-            this.label30 = new System.Windows.Forms.Label();
-            this.textBox1 = new System.Windows.Forms.TextBox();
-            this.textBox2 = new System.Windows.Forms.TextBox();
-            this.textBox3 = new System.Windows.Forms.TextBox();
-            this.textBox4 = new System.Windows.Forms.TextBox();
-            this.textBox5 = new System.Windows.Forms.TextBox();
-            this.textBox6 = new System.Windows.Forms.TextBox();
-            this.textBox7 = new System.Windows.Forms.TextBox();
-            this.textBox8 = new System.Windows.Forms.TextBox();
-            this.textBox9 = new System.Windows.Forms.TextBox();
-            this.returntimetext = new System.Windows.Forms.TextBox();
-            this.returntimebar = new System.Windows.Forms.TrackBar();
-            this.groupBox11 = new System.Windows.Forms.GroupBox();
             this.groupBox1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.MapBox)).BeginInit();
             this.groupBox2.SuspendLayout();
@@ -144,17 +131,18 @@
             this.groupBox5.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.SpeedChart)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.CarInfoPicture)).BeginInit();
+            this.groupBox9.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.THBar)).BeginInit();
             this.groupBox8.SuspendLayout();
             this.groupBox7.SuspendLayout();
-            this.groupBox6.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackP)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackI)).BeginInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackD)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.LeftSpeed)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.RightSpeed)).BeginInit();
-            this.groupBox9.SuspendLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.returntimebar)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackD)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackI)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackP)).BeginInit();
             this.groupBox11.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.returntimebar)).BeginInit();
+            this.groupBox6.SuspendLayout();
             this.SuspendLayout();
             // 
             // groupBox1
@@ -304,6 +292,7 @@
             // 
             // groupBox3
             // 
+            this.groupBox3.Controls.Add(this.CarGroup);
             this.groupBox3.Controls.Add(this.CarList);
             this.groupBox3.Controls.Add(this.SaveMapButton);
             this.groupBox3.Controls.Add(this.LoadMapButton);
@@ -314,15 +303,26 @@
             this.groupBox3.TabStop = false;
             this.groupBox3.Text = "列表";
             // 
+            // CarGroup
+            // 
+            this.CarGroup.Font = new System.Drawing.Font("宋体", 12F);
+            this.CarGroup.Location = new System.Drawing.Point(7, 21);
+            this.CarGroup.Name = "CarGroup";
+            this.CarGroup.ShowLines = false;
+            this.CarGroup.ShowPlusMinus = false;
+            this.CarGroup.Size = new System.Drawing.Size(195, 206);
+            this.CarGroup.TabIndex = 4;
+            this.CarGroup.AfterSelect += new System.Windows.Forms.TreeViewEventHandler(this.CarGroup_AfterSelect);
+            // 
             // CarList
             // 
             this.CarList.Font = new System.Drawing.Font("宋体", 12F);
             this.CarList.FormattingEnabled = true;
             this.CarList.HorizontalScrollbar = true;
             this.CarList.ItemHeight = 16;
-            this.CarList.Location = new System.Drawing.Point(6, 20);
+            this.CarList.Location = new System.Drawing.Point(7, 233);
             this.CarList.Name = "CarList";
-            this.CarList.Size = new System.Drawing.Size(196, 100);
+            this.CarList.Size = new System.Drawing.Size(196, 84);
             this.CarList.TabIndex = 3;
             this.CarList.SelectedIndexChanged += new System.EventHandler(this.CarList_SelectedIndexChanged);
             // 
@@ -348,6 +348,7 @@
             // 
             // groupBox4
             // 
+            this.groupBox4.Controls.Add(this.randomTest);
             this.groupBox4.Controls.Add(this.UDProgress);
             this.groupBox4.Controls.Add(this.rightkey);
             this.groupBox4.Controls.Add(this.PathFlagTree);
@@ -366,6 +367,17 @@
             this.groupBox4.TabStop = false;
             this.groupBox4.Text = "控制信息";
             // 
+            // randomTest
+            // 
+            this.randomTest.AutoSize = true;
+            this.randomTest.Location = new System.Drawing.Point(144, 59);
+            this.randomTest.Name = "randomTest";
+            this.randomTest.Size = new System.Drawing.Size(96, 16);
+            this.randomTest.TabIndex = 9;
+            this.randomTest.Text = "随机测试模式";
+            this.randomTest.UseVisualStyleBackColor = true;
+            this.randomTest.CheckedChanged += new System.EventHandler(this.randomTest_CheckedChanged);
+            // 
             // UDProgress
             // 
             this.UDProgress.Location = new System.Drawing.Point(143, 153);
@@ -376,7 +388,7 @@
             // rightkey
             // 
             this.rightkey.Font = new System.Drawing.Font("宋体", 12F);
-            this.rightkey.Location = new System.Drawing.Point(466, 73);
+            this.rightkey.Location = new System.Drawing.Point(429, 69);
             this.rightkey.Name = "rightkey";
             this.rightkey.Size = new System.Drawing.Size(47, 28);
             this.rightkey.TabIndex = 4;
@@ -399,7 +411,7 @@
             // leftkey
             // 
             this.leftkey.Font = new System.Drawing.Font("宋体", 12F);
-            this.leftkey.Location = new System.Drawing.Point(360, 72);
+            this.leftkey.Location = new System.Drawing.Point(323, 68);
             this.leftkey.Name = "leftkey";
             this.leftkey.Size = new System.Drawing.Size(47, 28);
             this.leftkey.TabIndex = 5;
@@ -432,7 +444,7 @@
             // downkey
             // 
             this.downkey.Font = new System.Drawing.Font("宋体", 12F);
-            this.downkey.Location = new System.Drawing.Point(413, 107);
+            this.downkey.Location = new System.Drawing.Point(376, 103);
             this.downkey.Name = "downkey";
             this.downkey.Size = new System.Drawing.Size(47, 28);
             this.downkey.TabIndex = 6;
@@ -454,7 +466,7 @@
             // StopButton
             // 
             this.StopButton.Font = new System.Drawing.Font("宋体", 10F);
-            this.StopButton.Location = new System.Drawing.Point(413, 73);
+            this.StopButton.Location = new System.Drawing.Point(376, 69);
             this.StopButton.Name = "StopButton";
             this.StopButton.Size = new System.Drawing.Size(47, 28);
             this.StopButton.TabIndex = 2;
@@ -476,7 +488,7 @@
             // upkey
             // 
             this.upkey.Font = new System.Drawing.Font("宋体", 12F);
-            this.upkey.Location = new System.Drawing.Point(413, 39);
+            this.upkey.Location = new System.Drawing.Point(376, 35);
             this.upkey.Name = "upkey";
             this.upkey.Size = new System.Drawing.Size(47, 28);
             this.upkey.TabIndex = 7;
@@ -570,6 +582,57 @@
             this.CarInfoPicture.TabIndex = 1;
             this.CarInfoPicture.TabStop = false;
             // 
+            // groupBox10
+            // 
+            this.groupBox10.Location = new System.Drawing.Point(3, 222);
+            this.groupBox10.Name = "groupBox10";
+            this.groupBox10.Size = new System.Drawing.Size(636, 319);
+            this.groupBox10.TabIndex = 0;
+            this.groupBox10.TabStop = false;
+            this.groupBox10.Text = "控制逻辑";
+            // 
+            // groupBox9
+            // 
+            this.groupBox9.Controls.Add(this.SensorSetZero);
+            this.groupBox9.Controls.Add(this.THValue);
+            this.groupBox9.Controls.Add(this.THBar);
+            this.groupBox9.Location = new System.Drawing.Point(645, 436);
+            this.groupBox9.Name = "groupBox9";
+            this.groupBox9.Size = new System.Drawing.Size(342, 105);
+            this.groupBox9.TabIndex = 0;
+            this.groupBox9.TabStop = false;
+            this.groupBox9.Text = "传感器权值";
+            // 
+            // SensorSetZero
+            // 
+            this.SensorSetZero.Location = new System.Drawing.Point(264, 10);
+            this.SensorSetZero.Name = "SensorSetZero";
+            this.SensorSetZero.Size = new System.Drawing.Size(75, 23);
+            this.SensorSetZero.TabIndex = 14;
+            this.SensorSetZero.Text = "传感器调零";
+            this.SensorSetZero.UseVisualStyleBackColor = true;
+            this.SensorSetZero.Click += new System.EventHandler(this.SensorSetZero_Click);
+            // 
+            // THValue
+            // 
+            this.THValue.Location = new System.Drawing.Point(303, 48);
+            this.THValue.Name = "THValue";
+            this.THValue.Size = new System.Drawing.Size(33, 21);
+            this.THValue.TabIndex = 13;
+            this.THValue.Text = "600";
+            // 
+            // THBar
+            // 
+            this.THBar.BackColor = System.Drawing.Color.White;
+            this.THBar.Location = new System.Drawing.Point(6, 36);
+            this.THBar.Maximum = 2300;
+            this.THBar.Name = "THBar";
+            this.THBar.Size = new System.Drawing.Size(303, 45);
+            this.THBar.TabIndex = 12;
+            this.THBar.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.THBar.Value = 600;
+            this.THBar.Scroll += new System.EventHandler(this.THBar_Scroll);
+            // 
             // groupBox8
             // 
             this.groupBox8.Controls.Add(this.label21);
@@ -597,6 +660,159 @@
             this.groupBox8.TabStop = false;
             this.groupBox8.Text = "磁传感器设置";
             // 
+            // label21
+            // 
+            this.label21.AutoSize = true;
+            this.label21.Location = new System.Drawing.Point(301, 39);
+            this.label21.Name = "label21";
+            this.label21.Size = new System.Drawing.Size(23, 12);
+            this.label21.TabIndex = 1;
+            this.label21.Text = "8位";
+            // 
+            // label20
+            // 
+            this.label20.AutoSize = true;
+            this.label20.Location = new System.Drawing.Point(266, 39);
+            this.label20.Name = "label20";
+            this.label20.Size = new System.Drawing.Size(23, 12);
+            this.label20.TabIndex = 1;
+            this.label20.Text = "7位";
+            // 
+            // label19
+            // 
+            this.label19.AutoSize = true;
+            this.label19.Location = new System.Drawing.Point(231, 39);
+            this.label19.Name = "label19";
+            this.label19.Size = new System.Drawing.Size(23, 12);
+            this.label19.TabIndex = 1;
+            this.label19.Text = "6位";
+            // 
+            // label18
+            // 
+            this.label18.AutoSize = true;
+            this.label18.Location = new System.Drawing.Point(196, 39);
+            this.label18.Name = "label18";
+            this.label18.Size = new System.Drawing.Size(23, 12);
+            this.label18.TabIndex = 1;
+            this.label18.Text = "5位";
+            // 
+            // label17
+            // 
+            this.label17.AutoSize = true;
+            this.label17.Location = new System.Drawing.Point(161, 39);
+            this.label17.Name = "label17";
+            this.label17.Size = new System.Drawing.Size(23, 12);
+            this.label17.TabIndex = 1;
+            this.label17.Text = "4位";
+            // 
+            // label16
+            // 
+            this.label16.AutoSize = true;
+            this.label16.Location = new System.Drawing.Point(126, 39);
+            this.label16.Name = "label16";
+            this.label16.Size = new System.Drawing.Size(23, 12);
+            this.label16.TabIndex = 1;
+            this.label16.Text = "3位";
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(91, 39);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(23, 12);
+            this.label15.TabIndex = 1;
+            this.label15.Text = "2位";
+            // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(56, 39);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(23, 12);
+            this.label14.TabIndex = 1;
+            this.label14.Text = "1位";
+            // 
+            // label13
+            // 
+            this.label13.AutoSize = true;
+            this.label13.Location = new System.Drawing.Point(21, 39);
+            this.label13.Name = "label13";
+            this.label13.Size = new System.Drawing.Size(23, 12);
+            this.label13.TabIndex = 1;
+            this.label13.Text = "0位";
+            // 
+            // THV8
+            // 
+            this.THV8.Location = new System.Drawing.Point(298, 54);
+            this.THV8.Name = "THV8";
+            this.THV8.Size = new System.Drawing.Size(29, 21);
+            this.THV8.TabIndex = 0;
+            this.THV8.Text = "2000";
+            // 
+            // THV6
+            // 
+            this.THV6.Location = new System.Drawing.Point(228, 54);
+            this.THV6.Name = "THV6";
+            this.THV6.Size = new System.Drawing.Size(29, 21);
+            this.THV6.TabIndex = 0;
+            this.THV6.Text = "2000";
+            // 
+            // THV7
+            // 
+            this.THV7.Location = new System.Drawing.Point(263, 54);
+            this.THV7.Name = "THV7";
+            this.THV7.Size = new System.Drawing.Size(29, 21);
+            this.THV7.TabIndex = 0;
+            this.THV7.Text = "2000";
+            // 
+            // THV5
+            // 
+            this.THV5.Location = new System.Drawing.Point(193, 54);
+            this.THV5.Name = "THV5";
+            this.THV5.Size = new System.Drawing.Size(29, 21);
+            this.THV5.TabIndex = 0;
+            this.THV5.Text = "2000";
+            // 
+            // THV4
+            // 
+            this.THV4.Location = new System.Drawing.Point(158, 54);
+            this.THV4.Name = "THV4";
+            this.THV4.Size = new System.Drawing.Size(29, 21);
+            this.THV4.TabIndex = 0;
+            this.THV4.Text = "2000";
+            // 
+            // THV3
+            // 
+            this.THV3.Location = new System.Drawing.Point(123, 54);
+            this.THV3.Name = "THV3";
+            this.THV3.Size = new System.Drawing.Size(29, 21);
+            this.THV3.TabIndex = 0;
+            this.THV3.Text = "2000";
+            // 
+            // THV2
+            // 
+            this.THV2.Location = new System.Drawing.Point(88, 54);
+            this.THV2.Name = "THV2";
+            this.THV2.Size = new System.Drawing.Size(29, 21);
+            this.THV2.TabIndex = 0;
+            this.THV2.Text = "2000";
+            // 
+            // THV1
+            // 
+            this.THV1.Location = new System.Drawing.Point(53, 54);
+            this.THV1.Name = "THV1";
+            this.THV1.Size = new System.Drawing.Size(29, 21);
+            this.THV1.TabIndex = 0;
+            this.THV1.Text = "2000";
+            // 
+            // THV0
+            // 
+            this.THV0.Location = new System.Drawing.Point(18, 54);
+            this.THV0.Name = "THV0";
+            this.THV0.Size = new System.Drawing.Size(29, 21);
+            this.THV0.TabIndex = 0;
+            this.THV0.Text = "2000";
+            // 
             // groupBox7
             // 
             this.groupBox7.Controls.Add(this.label12);
@@ -620,6 +836,187 @@
             this.groupBox7.TabIndex = 0;
             this.groupBox7.TabStop = false;
             this.groupBox7.Text = "加减速调节";
+            // 
+            // label12
+            // 
+            this.label12.AutoSize = true;
+            this.label12.Location = new System.Drawing.Point(286, 12);
+            this.label12.Name = "label12";
+            this.label12.Size = new System.Drawing.Size(41, 12);
+            this.label12.TabIndex = 14;
+            this.label12.Text = "Rspeed";
+            // 
+            // label11
+            // 
+            this.label11.AutoSize = true;
+            this.label11.Location = new System.Drawing.Point(242, 12);
+            this.label11.Name = "label11";
+            this.label11.Size = new System.Drawing.Size(41, 12);
+            this.label11.TabIndex = 9;
+            this.label11.Text = "Lspeed";
+            // 
+            // Rspeedtex
+            // 
+            this.Rspeedtex.Location = new System.Drawing.Point(291, 147);
+            this.Rspeedtex.Name = "Rspeedtex";
+            this.Rspeedtex.Size = new System.Drawing.Size(29, 21);
+            this.Rspeedtex.TabIndex = 13;
+            this.Rspeedtex.Text = "10";
+            // 
+            // Lspeedtex
+            // 
+            this.Lspeedtex.Location = new System.Drawing.Point(249, 147);
+            this.Lspeedtex.Name = "Lspeedtex";
+            this.Lspeedtex.Size = new System.Drawing.Size(29, 21);
+            this.Lspeedtex.TabIndex = 12;
+            this.Lspeedtex.Text = "10";
+            // 
+            // LeftSpeed
+            // 
+            this.LeftSpeed.BackColor = System.Drawing.Color.White;
+            this.LeftSpeed.Location = new System.Drawing.Point(240, 12);
+            this.LeftSpeed.Maximum = 100;
+            this.LeftSpeed.Name = "LeftSpeed";
+            this.LeftSpeed.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.LeftSpeed.Size = new System.Drawing.Size(45, 137);
+            this.LeftSpeed.TabIndex = 10;
+            this.LeftSpeed.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.LeftSpeed.Value = 10;
+            this.LeftSpeed.Scroll += new System.EventHandler(this.SpeedSet);
+            // 
+            // RightSpeed
+            // 
+            this.RightSpeed.BackColor = System.Drawing.Color.White;
+            this.RightSpeed.Location = new System.Drawing.Point(284, 12);
+            this.RightSpeed.Maximum = 100;
+            this.RightSpeed.Name = "RightSpeed";
+            this.RightSpeed.Orientation = System.Windows.Forms.Orientation.Vertical;
+            this.RightSpeed.Size = new System.Drawing.Size(45, 137);
+            this.RightSpeed.TabIndex = 11;
+            this.RightSpeed.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.RightSpeed.Value = 10;
+            this.RightSpeed.Scroll += new System.EventHandler(this.SpeedSet);
+            // 
+            // Dvalue
+            // 
+            this.Dvalue.Location = new System.Drawing.Point(192, 134);
+            this.Dvalue.Name = "Dvalue";
+            this.Dvalue.Size = new System.Drawing.Size(29, 21);
+            this.Dvalue.TabIndex = 6;
+            this.Dvalue.Text = "50";
+            // 
+            // Ivalue
+            // 
+            this.Ivalue.Location = new System.Drawing.Point(192, 84);
+            this.Ivalue.Name = "Ivalue";
+            this.Ivalue.Size = new System.Drawing.Size(29, 21);
+            this.Ivalue.TabIndex = 6;
+            this.Ivalue.Text = "80";
+            // 
+            // Pvalue
+            // 
+            this.Pvalue.Location = new System.Drawing.Point(192, 33);
+            this.Pvalue.Name = "Pvalue";
+            this.Pvalue.Size = new System.Drawing.Size(29, 21);
+            this.Pvalue.TabIndex = 6;
+            this.Pvalue.Text = "100";
+            // 
+            // label10
+            // 
+            this.label10.AutoSize = true;
+            this.label10.Font = new System.Drawing.Font("宋体", 10F);
+            this.label10.Location = new System.Drawing.Point(11, 136);
+            this.label10.Name = "label10";
+            this.label10.Size = new System.Drawing.Size(14, 14);
+            this.label10.TabIndex = 5;
+            this.label10.Text = "D";
+            // 
+            // label9
+            // 
+            this.label9.AutoSize = true;
+            this.label9.Font = new System.Drawing.Font("宋体", 10F);
+            this.label9.Location = new System.Drawing.Point(11, 86);
+            this.label9.Name = "label9";
+            this.label9.Size = new System.Drawing.Size(14, 14);
+            this.label9.TabIndex = 5;
+            this.label9.Text = "I";
+            // 
+            // label8
+            // 
+            this.label8.AutoSize = true;
+            this.label8.Font = new System.Drawing.Font("宋体", 10F);
+            this.label8.Location = new System.Drawing.Point(11, 35);
+            this.label8.Name = "label8";
+            this.label8.Size = new System.Drawing.Size(14, 14);
+            this.label8.TabIndex = 5;
+            this.label8.Text = "P";
+            // 
+            // trackD
+            // 
+            this.trackD.BackColor = System.Drawing.Color.White;
+            this.trackD.Location = new System.Drawing.Point(27, 121);
+            this.trackD.Maximum = 100;
+            this.trackD.Name = "trackD";
+            this.trackD.Size = new System.Drawing.Size(163, 45);
+            this.trackD.TabIndex = 4;
+            this.trackD.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackD.Value = 50;
+            this.trackD.Scroll += new System.EventHandler(this.PIDUpdate);
+            // 
+            // trackI
+            // 
+            this.trackI.BackColor = System.Drawing.Color.White;
+            this.trackI.Location = new System.Drawing.Point(27, 71);
+            this.trackI.Maximum = 100;
+            this.trackI.Name = "trackI";
+            this.trackI.Size = new System.Drawing.Size(163, 45);
+            this.trackI.TabIndex = 4;
+            this.trackI.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackI.Value = 80;
+            this.trackI.Scroll += new System.EventHandler(this.PIDUpdate);
+            // 
+            // trackP
+            // 
+            this.trackP.BackColor = System.Drawing.Color.White;
+            this.trackP.Location = new System.Drawing.Point(27, 20);
+            this.trackP.Maximum = 100;
+            this.trackP.Name = "trackP";
+            this.trackP.Size = new System.Drawing.Size(163, 45);
+            this.trackP.TabIndex = 4;
+            this.trackP.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.trackP.Value = 100;
+            this.trackP.Scroll += new System.EventHandler(this.PIDUpdate);
+            // 
+            // groupBox11
+            // 
+            this.groupBox11.Controls.Add(this.returntimetext);
+            this.groupBox11.Controls.Add(this.returntimebar);
+            this.groupBox11.Location = new System.Drawing.Point(791, 35);
+            this.groupBox11.Name = "groupBox11";
+            this.groupBox11.Size = new System.Drawing.Size(196, 106);
+            this.groupBox11.TabIndex = 0;
+            this.groupBox11.TabStop = false;
+            this.groupBox11.Text = "路口导正时间";
+            // 
+            // returntimetext
+            // 
+            this.returntimetext.Location = new System.Drawing.Point(172, 46);
+            this.returntimetext.Name = "returntimetext";
+            this.returntimetext.Size = new System.Drawing.Size(21, 21);
+            this.returntimetext.TabIndex = 13;
+            this.returntimetext.Text = "30";
+            // 
+            // returntimebar
+            // 
+            this.returntimebar.BackColor = System.Drawing.Color.White;
+            this.returntimebar.Location = new System.Drawing.Point(5, 34);
+            this.returntimebar.Maximum = 200;
+            this.returntimebar.Name = "returntimebar";
+            this.returntimebar.Size = new System.Drawing.Size(169, 45);
+            this.returntimebar.TabIndex = 12;
+            this.returntimebar.TickStyle = System.Windows.Forms.TickStyle.Both;
+            this.returntimebar.Value = 30;
+            this.returntimebar.Scroll += new System.EventHandler(this.returntimebar_Scroll);
             // 
             // groupBox6
             // 
@@ -699,529 +1096,6 @@
             this.label5.TabIndex = 6;
             this.label5.Text = "左:";
             // 
-            // Pvalue
-            // 
-            this.Pvalue.Location = new System.Drawing.Point(192, 33);
-            this.Pvalue.Name = "Pvalue";
-            this.Pvalue.Size = new System.Drawing.Size(29, 21);
-            this.Pvalue.TabIndex = 6;
-            this.Pvalue.Text = "100";
-            // 
-            // label8
-            // 
-            this.label8.AutoSize = true;
-            this.label8.Font = new System.Drawing.Font("宋体", 10F);
-            this.label8.Location = new System.Drawing.Point(11, 35);
-            this.label8.Name = "label8";
-            this.label8.Size = new System.Drawing.Size(14, 14);
-            this.label8.TabIndex = 5;
-            this.label8.Text = "P";
-            // 
-            // trackP
-            // 
-            this.trackP.BackColor = System.Drawing.Color.White;
-            this.trackP.Location = new System.Drawing.Point(27, 20);
-            this.trackP.Maximum = 100;
-            this.trackP.Name = "trackP";
-            this.trackP.Size = new System.Drawing.Size(163, 45);
-            this.trackP.TabIndex = 4;
-            this.trackP.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackP.Value = 100;
-            this.trackP.Scroll += new System.EventHandler(this.PIDUpdate);
-            // 
-            // trackI
-            // 
-            this.trackI.BackColor = System.Drawing.Color.White;
-            this.trackI.Location = new System.Drawing.Point(27, 71);
-            this.trackI.Maximum = 100;
-            this.trackI.Name = "trackI";
-            this.trackI.Size = new System.Drawing.Size(163, 45);
-            this.trackI.TabIndex = 4;
-            this.trackI.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackI.Value = 80;
-            this.trackI.Scroll += new System.EventHandler(this.PIDUpdate);
-            // 
-            // label9
-            // 
-            this.label9.AutoSize = true;
-            this.label9.Font = new System.Drawing.Font("宋体", 10F);
-            this.label9.Location = new System.Drawing.Point(11, 86);
-            this.label9.Name = "label9";
-            this.label9.Size = new System.Drawing.Size(14, 14);
-            this.label9.TabIndex = 5;
-            this.label9.Text = "I";
-            // 
-            // Ivalue
-            // 
-            this.Ivalue.Location = new System.Drawing.Point(192, 84);
-            this.Ivalue.Name = "Ivalue";
-            this.Ivalue.Size = new System.Drawing.Size(29, 21);
-            this.Ivalue.TabIndex = 6;
-            this.Ivalue.Text = "80";
-            // 
-            // trackD
-            // 
-            this.trackD.BackColor = System.Drawing.Color.White;
-            this.trackD.Location = new System.Drawing.Point(27, 121);
-            this.trackD.Maximum = 100;
-            this.trackD.Name = "trackD";
-            this.trackD.Size = new System.Drawing.Size(163, 45);
-            this.trackD.TabIndex = 4;
-            this.trackD.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.trackD.Value = 50;
-            this.trackD.Scroll += new System.EventHandler(this.PIDUpdate);
-            // 
-            // label10
-            // 
-            this.label10.AutoSize = true;
-            this.label10.Font = new System.Drawing.Font("宋体", 10F);
-            this.label10.Location = new System.Drawing.Point(11, 136);
-            this.label10.Name = "label10";
-            this.label10.Size = new System.Drawing.Size(14, 14);
-            this.label10.TabIndex = 5;
-            this.label10.Text = "D";
-            // 
-            // Dvalue
-            // 
-            this.Dvalue.Location = new System.Drawing.Point(192, 134);
-            this.Dvalue.Name = "Dvalue";
-            this.Dvalue.Size = new System.Drawing.Size(29, 21);
-            this.Dvalue.TabIndex = 6;
-            this.Dvalue.Text = "50";
-            // 
-            // Rspeedtex
-            // 
-            this.Rspeedtex.Location = new System.Drawing.Point(291, 147);
-            this.Rspeedtex.Name = "Rspeedtex";
-            this.Rspeedtex.Size = new System.Drawing.Size(29, 21);
-            this.Rspeedtex.TabIndex = 13;
-            this.Rspeedtex.Text = "10";
-            // 
-            // Lspeedtex
-            // 
-            this.Lspeedtex.Location = new System.Drawing.Point(249, 147);
-            this.Lspeedtex.Name = "Lspeedtex";
-            this.Lspeedtex.Size = new System.Drawing.Size(29, 21);
-            this.Lspeedtex.TabIndex = 12;
-            this.Lspeedtex.Text = "10";
-            // 
-            // LeftSpeed
-            // 
-            this.LeftSpeed.BackColor = System.Drawing.Color.White;
-            this.LeftSpeed.Location = new System.Drawing.Point(240, 12);
-            this.LeftSpeed.Maximum = 100;
-            this.LeftSpeed.Name = "LeftSpeed";
-            this.LeftSpeed.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.LeftSpeed.Size = new System.Drawing.Size(45, 137);
-            this.LeftSpeed.TabIndex = 10;
-            this.LeftSpeed.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.LeftSpeed.Value = 10;
-            this.LeftSpeed.Scroll += new System.EventHandler(this.SpeedSet);
-            // 
-            // RightSpeed
-            // 
-            this.RightSpeed.BackColor = System.Drawing.Color.White;
-            this.RightSpeed.Location = new System.Drawing.Point(284, 12);
-            this.RightSpeed.Maximum = 100;
-            this.RightSpeed.Name = "RightSpeed";
-            this.RightSpeed.Orientation = System.Windows.Forms.Orientation.Vertical;
-            this.RightSpeed.Size = new System.Drawing.Size(45, 137);
-            this.RightSpeed.TabIndex = 11;
-            this.RightSpeed.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.RightSpeed.Value = 10;
-            this.RightSpeed.Scroll += new System.EventHandler(this.SpeedSet);
-            // 
-            // label11
-            // 
-            this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(242, 12);
-            this.label11.Name = "label11";
-            this.label11.Size = new System.Drawing.Size(41, 12);
-            this.label11.TabIndex = 9;
-            this.label11.Text = "Lspeed";
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(286, 12);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(41, 12);
-            this.label12.TabIndex = 14;
-            this.label12.Text = "Rspeed";
-            // 
-            // groupBox10
-            // 
-            this.groupBox10.Location = new System.Drawing.Point(3, 222);
-            this.groupBox10.Name = "groupBox10";
-            this.groupBox10.Size = new System.Drawing.Size(636, 319);
-            this.groupBox10.TabIndex = 0;
-            this.groupBox10.TabStop = false;
-            this.groupBox10.Text = "控制逻辑";
-            // 
-            // THV0
-            // 
-            this.THV0.Location = new System.Drawing.Point(18, 54);
-            this.THV0.Name = "THV0";
-            this.THV0.Size = new System.Drawing.Size(29, 21);
-            this.THV0.TabIndex = 0;
-            this.THV0.Text = "2000";
-            // 
-            // THV1
-            // 
-            this.THV1.Location = new System.Drawing.Point(53, 54);
-            this.THV1.Name = "THV1";
-            this.THV1.Size = new System.Drawing.Size(29, 21);
-            this.THV1.TabIndex = 0;
-            this.THV1.Text = "2000";
-            // 
-            // THV2
-            // 
-            this.THV2.Location = new System.Drawing.Point(88, 54);
-            this.THV2.Name = "THV2";
-            this.THV2.Size = new System.Drawing.Size(29, 21);
-            this.THV2.TabIndex = 0;
-            this.THV2.Text = "2000";
-            // 
-            // THV3
-            // 
-            this.THV3.Location = new System.Drawing.Point(123, 54);
-            this.THV3.Name = "THV3";
-            this.THV3.Size = new System.Drawing.Size(29, 21);
-            this.THV3.TabIndex = 0;
-            this.THV3.Text = "2000";
-            // 
-            // THV4
-            // 
-            this.THV4.Location = new System.Drawing.Point(158, 54);
-            this.THV4.Name = "THV4";
-            this.THV4.Size = new System.Drawing.Size(29, 21);
-            this.THV4.TabIndex = 0;
-            this.THV4.Text = "2000";
-            // 
-            // THV5
-            // 
-            this.THV5.Location = new System.Drawing.Point(193, 54);
-            this.THV5.Name = "THV5";
-            this.THV5.Size = new System.Drawing.Size(29, 21);
-            this.THV5.TabIndex = 0;
-            this.THV5.Text = "2000";
-            // 
-            // THV6
-            // 
-            this.THV6.Location = new System.Drawing.Point(228, 54);
-            this.THV6.Name = "THV6";
-            this.THV6.Size = new System.Drawing.Size(29, 21);
-            this.THV6.TabIndex = 0;
-            this.THV6.Text = "2000";
-            // 
-            // THV7
-            // 
-            this.THV7.Location = new System.Drawing.Point(263, 54);
-            this.THV7.Name = "THV7";
-            this.THV7.Size = new System.Drawing.Size(29, 21);
-            this.THV7.TabIndex = 0;
-            this.THV7.Text = "2000";
-            // 
-            // THV8
-            // 
-            this.THV8.Location = new System.Drawing.Point(298, 54);
-            this.THV8.Name = "THV8";
-            this.THV8.Size = new System.Drawing.Size(29, 21);
-            this.THV8.TabIndex = 0;
-            this.THV8.Text = "2000";
-            // 
-            // label13
-            // 
-            this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(21, 39);
-            this.label13.Name = "label13";
-            this.label13.Size = new System.Drawing.Size(23, 12);
-            this.label13.TabIndex = 1;
-            this.label13.Text = "0位";
-            // 
-            // label14
-            // 
-            this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(56, 39);
-            this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(23, 12);
-            this.label14.TabIndex = 1;
-            this.label14.Text = "1位";
-            // 
-            // label15
-            // 
-            this.label15.AutoSize = true;
-            this.label15.Location = new System.Drawing.Point(91, 39);
-            this.label15.Name = "label15";
-            this.label15.Size = new System.Drawing.Size(23, 12);
-            this.label15.TabIndex = 1;
-            this.label15.Text = "2位";
-            // 
-            // label16
-            // 
-            this.label16.AutoSize = true;
-            this.label16.Location = new System.Drawing.Point(126, 39);
-            this.label16.Name = "label16";
-            this.label16.Size = new System.Drawing.Size(23, 12);
-            this.label16.TabIndex = 1;
-            this.label16.Text = "3位";
-            // 
-            // label17
-            // 
-            this.label17.AutoSize = true;
-            this.label17.Location = new System.Drawing.Point(161, 39);
-            this.label17.Name = "label17";
-            this.label17.Size = new System.Drawing.Size(23, 12);
-            this.label17.TabIndex = 1;
-            this.label17.Text = "4位";
-            // 
-            // label18
-            // 
-            this.label18.AutoSize = true;
-            this.label18.Location = new System.Drawing.Point(196, 39);
-            this.label18.Name = "label18";
-            this.label18.Size = new System.Drawing.Size(23, 12);
-            this.label18.TabIndex = 1;
-            this.label18.Text = "5位";
-            // 
-            // label19
-            // 
-            this.label19.AutoSize = true;
-            this.label19.Location = new System.Drawing.Point(231, 39);
-            this.label19.Name = "label19";
-            this.label19.Size = new System.Drawing.Size(23, 12);
-            this.label19.TabIndex = 1;
-            this.label19.Text = "6位";
-            // 
-            // label20
-            // 
-            this.label20.AutoSize = true;
-            this.label20.Location = new System.Drawing.Point(266, 39);
-            this.label20.Name = "label20";
-            this.label20.Size = new System.Drawing.Size(23, 12);
-            this.label20.TabIndex = 1;
-            this.label20.Text = "7位";
-            // 
-            // label21
-            // 
-            this.label21.AutoSize = true;
-            this.label21.Location = new System.Drawing.Point(301, 39);
-            this.label21.Name = "label21";
-            this.label21.Size = new System.Drawing.Size(23, 12);
-            this.label21.TabIndex = 1;
-            this.label21.Text = "8位";
-            // 
-            // groupBox9
-            // 
-            this.groupBox9.Controls.Add(this.label22);
-            this.groupBox9.Controls.Add(this.label23);
-            this.groupBox9.Controls.Add(this.label24);
-            this.groupBox9.Controls.Add(this.label25);
-            this.groupBox9.Controls.Add(this.label26);
-            this.groupBox9.Controls.Add(this.label27);
-            this.groupBox9.Controls.Add(this.label28);
-            this.groupBox9.Controls.Add(this.label29);
-            this.groupBox9.Controls.Add(this.label30);
-            this.groupBox9.Controls.Add(this.textBox1);
-            this.groupBox9.Controls.Add(this.textBox2);
-            this.groupBox9.Controls.Add(this.textBox3);
-            this.groupBox9.Controls.Add(this.textBox4);
-            this.groupBox9.Controls.Add(this.textBox5);
-            this.groupBox9.Controls.Add(this.textBox6);
-            this.groupBox9.Controls.Add(this.textBox7);
-            this.groupBox9.Controls.Add(this.textBox8);
-            this.groupBox9.Controls.Add(this.textBox9);
-            this.groupBox9.Location = new System.Drawing.Point(645, 436);
-            this.groupBox9.Name = "groupBox9";
-            this.groupBox9.Size = new System.Drawing.Size(342, 105);
-            this.groupBox9.TabIndex = 0;
-            this.groupBox9.TabStop = false;
-            this.groupBox9.Text = "传感器权值";
-            // 
-            // label22
-            // 
-            this.label22.AutoSize = true;
-            this.label22.Location = new System.Drawing.Point(301, 30);
-            this.label22.Name = "label22";
-            this.label22.Size = new System.Drawing.Size(23, 12);
-            this.label22.TabIndex = 1;
-            this.label22.Text = "8位";
-            // 
-            // label23
-            // 
-            this.label23.AutoSize = true;
-            this.label23.Location = new System.Drawing.Point(266, 30);
-            this.label23.Name = "label23";
-            this.label23.Size = new System.Drawing.Size(23, 12);
-            this.label23.TabIndex = 1;
-            this.label23.Text = "7位";
-            // 
-            // label24
-            // 
-            this.label24.AutoSize = true;
-            this.label24.Location = new System.Drawing.Point(231, 30);
-            this.label24.Name = "label24";
-            this.label24.Size = new System.Drawing.Size(23, 12);
-            this.label24.TabIndex = 1;
-            this.label24.Text = "6位";
-            // 
-            // label25
-            // 
-            this.label25.AutoSize = true;
-            this.label25.Location = new System.Drawing.Point(196, 30);
-            this.label25.Name = "label25";
-            this.label25.Size = new System.Drawing.Size(23, 12);
-            this.label25.TabIndex = 1;
-            this.label25.Text = "5位";
-            // 
-            // label26
-            // 
-            this.label26.AutoSize = true;
-            this.label26.Location = new System.Drawing.Point(161, 30);
-            this.label26.Name = "label26";
-            this.label26.Size = new System.Drawing.Size(23, 12);
-            this.label26.TabIndex = 1;
-            this.label26.Text = "4位";
-            // 
-            // label27
-            // 
-            this.label27.AutoSize = true;
-            this.label27.Location = new System.Drawing.Point(126, 30);
-            this.label27.Name = "label27";
-            this.label27.Size = new System.Drawing.Size(23, 12);
-            this.label27.TabIndex = 1;
-            this.label27.Text = "3位";
-            // 
-            // label28
-            // 
-            this.label28.AutoSize = true;
-            this.label28.Location = new System.Drawing.Point(91, 30);
-            this.label28.Name = "label28";
-            this.label28.Size = new System.Drawing.Size(23, 12);
-            this.label28.TabIndex = 1;
-            this.label28.Text = "2位";
-            // 
-            // label29
-            // 
-            this.label29.AutoSize = true;
-            this.label29.Location = new System.Drawing.Point(56, 30);
-            this.label29.Name = "label29";
-            this.label29.Size = new System.Drawing.Size(23, 12);
-            this.label29.TabIndex = 1;
-            this.label29.Text = "1位";
-            // 
-            // label30
-            // 
-            this.label30.AutoSize = true;
-            this.label30.Location = new System.Drawing.Point(21, 30);
-            this.label30.Name = "label30";
-            this.label30.Size = new System.Drawing.Size(23, 12);
-            this.label30.TabIndex = 1;
-            this.label30.Text = "0位";
-            // 
-            // textBox1
-            // 
-            this.textBox1.Location = new System.Drawing.Point(298, 45);
-            this.textBox1.Name = "textBox1";
-            this.textBox1.Size = new System.Drawing.Size(29, 21);
-            this.textBox1.TabIndex = 0;
-            this.textBox1.Text = "2000";
-            // 
-            // textBox2
-            // 
-            this.textBox2.Location = new System.Drawing.Point(228, 45);
-            this.textBox2.Name = "textBox2";
-            this.textBox2.Size = new System.Drawing.Size(29, 21);
-            this.textBox2.TabIndex = 0;
-            this.textBox2.Text = "2000";
-            // 
-            // textBox3
-            // 
-            this.textBox3.Location = new System.Drawing.Point(263, 45);
-            this.textBox3.Name = "textBox3";
-            this.textBox3.Size = new System.Drawing.Size(29, 21);
-            this.textBox3.TabIndex = 0;
-            this.textBox3.Text = "2000";
-            // 
-            // textBox4
-            // 
-            this.textBox4.Location = new System.Drawing.Point(193, 45);
-            this.textBox4.Name = "textBox4";
-            this.textBox4.Size = new System.Drawing.Size(29, 21);
-            this.textBox4.TabIndex = 0;
-            this.textBox4.Text = "2000";
-            // 
-            // textBox5
-            // 
-            this.textBox5.Location = new System.Drawing.Point(158, 45);
-            this.textBox5.Name = "textBox5";
-            this.textBox5.Size = new System.Drawing.Size(29, 21);
-            this.textBox5.TabIndex = 0;
-            this.textBox5.Text = "2000";
-            // 
-            // textBox6
-            // 
-            this.textBox6.Location = new System.Drawing.Point(123, 45);
-            this.textBox6.Name = "textBox6";
-            this.textBox6.Size = new System.Drawing.Size(29, 21);
-            this.textBox6.TabIndex = 0;
-            this.textBox6.Text = "2000";
-            // 
-            // textBox7
-            // 
-            this.textBox7.Location = new System.Drawing.Point(88, 45);
-            this.textBox7.Name = "textBox7";
-            this.textBox7.Size = new System.Drawing.Size(29, 21);
-            this.textBox7.TabIndex = 0;
-            this.textBox7.Text = "2000";
-            // 
-            // textBox8
-            // 
-            this.textBox8.Location = new System.Drawing.Point(53, 45);
-            this.textBox8.Name = "textBox8";
-            this.textBox8.Size = new System.Drawing.Size(29, 21);
-            this.textBox8.TabIndex = 0;
-            this.textBox8.Text = "2000";
-            // 
-            // textBox9
-            // 
-            this.textBox9.Location = new System.Drawing.Point(18, 45);
-            this.textBox9.Name = "textBox9";
-            this.textBox9.Size = new System.Drawing.Size(29, 21);
-            this.textBox9.TabIndex = 0;
-            this.textBox9.Text = "2000";
-            // 
-            // returntimetext
-            // 
-            this.returntimetext.Location = new System.Drawing.Point(172, 46);
-            this.returntimetext.Name = "returntimetext";
-            this.returntimetext.Size = new System.Drawing.Size(21, 21);
-            this.returntimetext.TabIndex = 13;
-            this.returntimetext.Text = "30";
-            // 
-            // returntimebar
-            // 
-            this.returntimebar.BackColor = System.Drawing.Color.White;
-            this.returntimebar.Location = new System.Drawing.Point(5, 34);
-            this.returntimebar.Maximum = 200;
-            this.returntimebar.Name = "returntimebar";
-            this.returntimebar.Size = new System.Drawing.Size(169, 45);
-            this.returntimebar.TabIndex = 12;
-            this.returntimebar.TickStyle = System.Windows.Forms.TickStyle.Both;
-            this.returntimebar.Value = 30;
-            this.returntimebar.Scroll += new System.EventHandler(this.returntimebar_Scroll);
-            // 
-            // groupBox11
-            // 
-            this.groupBox11.Controls.Add(this.returntimetext);
-            this.groupBox11.Controls.Add(this.returntimebar);
-            this.groupBox11.Location = new System.Drawing.Point(791, 35);
-            this.groupBox11.Name = "groupBox11";
-            this.groupBox11.Size = new System.Drawing.Size(196, 106);
-            this.groupBox11.TabIndex = 0;
-            this.groupBox11.TabStop = false;
-            this.groupBox11.Text = "路口导正时间";
-            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 12F);
@@ -1243,28 +1117,30 @@
             ((System.ComponentModel.ISupportInitialize)(this.CarPicture)).EndInit();
             this.groupBox3.ResumeLayout(false);
             this.groupBox4.ResumeLayout(false);
+            this.groupBox4.PerformLayout();
             this.tabControl1.ResumeLayout(false);
             this.MainPage.ResumeLayout(false);
             this.CarInfo.ResumeLayout(false);
             this.groupBox5.ResumeLayout(false);
             ((System.ComponentModel.ISupportInitialize)(this.SpeedChart)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.CarInfoPicture)).EndInit();
+            this.groupBox9.ResumeLayout(false);
+            this.groupBox9.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.THBar)).EndInit();
             this.groupBox8.ResumeLayout(false);
             this.groupBox8.PerformLayout();
             this.groupBox7.ResumeLayout(false);
             this.groupBox7.PerformLayout();
-            this.groupBox6.ResumeLayout(false);
-            this.groupBox6.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.trackP)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackI)).EndInit();
-            ((System.ComponentModel.ISupportInitialize)(this.trackD)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.LeftSpeed)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.RightSpeed)).EndInit();
-            this.groupBox9.ResumeLayout(false);
-            this.groupBox9.PerformLayout();
-            ((System.ComponentModel.ISupportInitialize)(this.returntimebar)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackD)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackI)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.trackP)).EndInit();
             this.groupBox11.ResumeLayout(false);
             this.groupBox11.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.returntimebar)).EndInit();
+            this.groupBox6.ResumeLayout(false);
+            this.groupBox6.PerformLayout();
             this.ResumeLayout(false);
 
         }
@@ -1333,24 +1209,6 @@
         private System.Windows.Forms.TrackBar trackI;
         private System.Windows.Forms.TrackBar trackP;
         private System.Windows.Forms.GroupBox groupBox9;
-        private System.Windows.Forms.Label label22;
-        private System.Windows.Forms.Label label23;
-        private System.Windows.Forms.Label label24;
-        private System.Windows.Forms.Label label25;
-        private System.Windows.Forms.Label label26;
-        private System.Windows.Forms.Label label27;
-        private System.Windows.Forms.Label label28;
-        private System.Windows.Forms.Label label29;
-        private System.Windows.Forms.Label label30;
-        private System.Windows.Forms.TextBox textBox1;
-        private System.Windows.Forms.TextBox textBox2;
-        private System.Windows.Forms.TextBox textBox3;
-        private System.Windows.Forms.TextBox textBox4;
-        private System.Windows.Forms.TextBox textBox5;
-        private System.Windows.Forms.TextBox textBox6;
-        private System.Windows.Forms.TextBox textBox7;
-        private System.Windows.Forms.TextBox textBox8;
-        private System.Windows.Forms.TextBox textBox9;
         private System.Windows.Forms.Label label21;
         private System.Windows.Forms.Label label20;
         private System.Windows.Forms.Label label19;
@@ -1372,6 +1230,11 @@
         private System.Windows.Forms.GroupBox groupBox11;
         private System.Windows.Forms.TextBox returntimetext;
         private System.Windows.Forms.TrackBar returntimebar;
+        private System.Windows.Forms.TextBox THValue;
+        private System.Windows.Forms.TrackBar THBar;
+        private System.Windows.Forms.CheckBox randomTest;
+        private System.Windows.Forms.TreeView CarGroup;
+        private System.Windows.Forms.Button SensorSetZero;
     }
 }
 

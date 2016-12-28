@@ -19,10 +19,10 @@ namespace LogisticManage
 
     class FlagNode
     {
-        public uint id;
+        public int id;
         public int nodeid;
 
-        public FlagNode(uint id,int nodeid)
+        public FlagNode(int id,int nodeid)
         {
             this.id = id;
             this.nodeid = nodeid;
@@ -153,7 +153,7 @@ namespace LogisticManage
                     if (nodes.Contains(this.paths[i])) continue;
                     nodes.Add(this);
                     this.paths[i].getEndNode(nodes, point);
-                    nodes.Remove(this);
+                    //nodes.Remove(this);
                 }
             }
             return point;
@@ -283,6 +283,17 @@ namespace LogisticManage
 
     }
 
+    class CarInfo
+    {
+        public int WayStatus;
+        public int StartNodeID;
+        public int TargetNodeID;
+        public int lastNodeID;
+        public int nowNodeID;
+        public int lastLenght;
+        public int pross;
+    }
+
     class MapDraw
     {
         Bitmap map;
@@ -293,11 +304,14 @@ namespace LogisticManage
         Pen newpen = new Pen(Color.SkyBlue, 3);
         Brush targetBrush = Brushes.Red;
         Pen PathPen = new Pen(Color.GreenYellow, 1);
+        Pen OtherPathPen = new Pen(Color.SkyBlue, 1);
         Brush CarBrush = Brushes.Orange;
+        Brush OtherCarBrush= Brushes.SkyBlue;
 
         List<PathNode> TargetPath = new List<PathNode>();
         List<PathType> TargetDirList = new List<PathType>();
         List<PathNode> NodeList=new List<PathNode>();
+        public List<CarInfo> CarList=new List<CarInfo>();
         List<PathNode> EndPathList;
         PathDir findDir=new PathDir();
         Font strFont = new Font("宋体", 9);    
@@ -347,15 +361,16 @@ namespace LogisticManage
 
         public PathNode this[int index]
         {
-            get { return allPath[index]; }
+            get { if (index < allPath.Count)  return allPath[index]; return null; }
         }
 
         public bool WayLenght { get; set; }
 
         Stack<PathNode> searchStack = new Stack<PathNode>();
         private int lastlenght;
-        private List<FlagNode> FlagNodeList = new List<FlagNode>();
+        public List<FlagNode> FlagNodeList = new List<FlagNode>();
         private Rectangle MapSize;
+        public CarInfo SelectCar;
 
         public MapDraw(int w,int h)
         {
@@ -489,6 +504,8 @@ namespace LogisticManage
 
         public List<PathNode> getEndPoint()
         {
+            //if (EndPathList == null)
+                UpdateEndPoint();
             return EndPathList;
         }
 
@@ -498,7 +515,11 @@ namespace LogisticManage
             NodeList.Clear();
             DrawPathList(xpos, ypos, nodes);
             DrawTargetPath();
-            updateCar((int)(lastlenght*Scale));
+            foreach(CarInfo info in CarList)
+            {
+                updateCar(info);
+            }
+            //updateCar((int)(lastlenght*Scale));
             //DrawPath(xpos,ypos,nodes);
             //findDir.Rotate(PathType.Back);
             //DrawPath(nodes[PathType.Forward].x, nodes[PathType.Forward].y, nodes[PathType.Forward],PathType.Back);
@@ -530,6 +551,7 @@ namespace LogisticManage
 
         public bool setTargetPoint(PathNode node,PathNode lastnode=null)
         {
+            if (node == null) return false;
             if (lastnode == null) lastnode = lastNode;
             TargetDirList.Clear();
             if (lastNode == null) return false;
@@ -553,6 +575,29 @@ namespace LogisticManage
                 nt = n;
             }
             return true;
+        }
+
+        public void clearTargetPathList()
+        {
+            TargetDirList.Clear();
+        }
+
+        public byte[] getTargetPointList(PathNode TargetNode, PathNode StartNode)
+        {
+            if (StartNode == null) return null;
+            if (TargetNode.isNew || !TargetNode.isDead) return null;
+            byte[] array = new byte[allPath.Count];
+            if (StartNode == TargetNode)
+            {
+                array[StartNode.pathID]++;
+                return array;
+            }
+            List<PathNode> nodes = StartNode.gotoNode(TargetNode);
+            if (nodes == null) return null;
+            
+            foreach (PathNode node in nodes)
+                array[node.pathID]++;
+            return array;
         }
 
         public List<PathType> getTargetPath()
@@ -608,11 +653,17 @@ namespace LogisticManage
             LastDir.Rotate(pt);
         }
 
-        void updateCar(int w)
-        {
+        void updateCar(CarInfo info,Pen drawpen=null)
+        {            
             int angle=0;
             int ax = 0, ay = 0;
-            switch (LastDir.Forward)
+            int w = (int)(info.lastLenght * Scale * info.pross / 100);
+            if (drawpen == null) drawpen = OtherPathPen;
+            PathDir pdir = new PathDir();
+            if (info.lastNodeID >= allPath.Count || info.nowNodeID >= allPath.Count) return;
+            PathNode node = allPath[info.lastNodeID];
+            pdir.Rotate(node[allPath[info.nowNodeID]]);
+            switch (pdir.Forward)
             {
                 case PathType.Forward:
                     ax = 0;
@@ -635,12 +686,12 @@ namespace LogisticManage
                     angle = 180;
                     break;
             }
-            drawCar(TargetNode.x+ax, TargetNode.y+ay, angle);
+            drawCar(node.x+ax, node.y+ay, angle,(info==SelectCar?CarBrush:OtherCarBrush));
         }
 
-        void drawCar(int x,int y,int angle)
+        void drawCar(int x,int y,int angle,Brush b)
         {
-            Draw.FillEllipse(CarBrush, new Rectangle(x - 8, y - 8, 16, 16));
+            Draw.FillEllipse(b, new Rectangle(x - 8, y - 8, 16, 16));
             Point[] ps = new Point[4];
             double dy = Math.Sin((angle - 180) * Math.PI / 180) * 8 + y;
             double dx = Math.Cos((angle - 180) * Math.PI / 180) * 8 + x;
@@ -657,7 +708,7 @@ namespace LogisticManage
 
             ps[3].X = x;
             ps[3].Y = y;
-            Draw.FillPolygon(CarBrush, ps);
+            Draw.FillPolygon(b, ps);
             Draw.FillEllipse(Brushes.White, new Rectangle(x - 3, y - 3, 6, 6));
         }
 
@@ -960,7 +1011,7 @@ namespace LogisticManage
             for(int i = 0; i < flaglen; i++)
             {
                 index = s.ReadByte();
-                uint id = (byte)s.ReadByte(); id <<= 8;
+                int id = (byte)s.ReadByte(); id <<= 8;
                 id |= (byte)s.ReadByte(); id <<= 8;
                 id |= (byte)s.ReadByte(); id <<= 8;
                 id |= (byte)s.ReadByte();
